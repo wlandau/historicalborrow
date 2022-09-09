@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "locale": "C",
+  "platform": "4.2.1",
+  "metadata": {
+    "appmode": "static",
+    "primary_rmd": null,
+    "primary_html": "index.html",
+    "content_category": "site",
+    "has_parameters": false
+  },
+  "packages": null,
+  "files": {
+    "404.html": {
+      "checksum": "f5cb34f34888e01a752d77251b3fff0b"
+    },
+    "articles/index.html": {
+      "checksum": "68ed6949ab025c0a9677092bcfbce673"
+    },
+    "articles/methods_files/accessible-code-block-0.0.1/empty-anchor.js": {
+      "checksum": "53c42ac72d71beb8e6dbffe86ab543d6"
+    },
+    "articles/methods.html": {
+      "checksum": "3b52ad1c78432dd6fd67a70f454a7fbb"
+    },
+    "articles/usage_files/accessible-code-block-0.0.1/empty-anchor.js": {
+      "checksum": "53c42ac72d71beb8e6dbffe86ab543d6"
+    },
+    "articles/usage_files/figure-html/unnamed-chunk-14-1.png": {
+      "checksum": "a4d6a91ff18a62092f5ad562da110fd1"
+    },
+    "articles/usage_files/figure-html/unnamed-chunk-15-1.png": {
+      "checksum": "21655bfd3cd7d0f534e352f86f646e13"
+    },
+    "articles/usage_files/figure-html/unnamed-chunk-16-1.png": {
+      "checksum": "6f2369ad13afa748437a18dad0cdb072"
+    },
+    "articles/usage_files/figure-html/unnamed-chunk-17-1.png": {
+      "checksum": "e0be32310ddead5d787bbc9e1edb1db0"
+    },
+    "articles/usage.html": {
+      "checksum": "b0694abd05f1f10fa6c9f44f9e126e80"
+    },
+    "authors.html": {
+      "checksum": "5cc4d4810b77ea44557aac2b27ac4bcf"
+    },
+    "bootstrap-toc.css": {
+      "checksum": "5eec6702c35b15a8c2c123301987735d"
+    },
+    "bootstrap-toc.js": {
+      "checksum": "aaa610b29d895e1128447e76b9bc0076"
+    },
+    "CODE_OF_CONDUCT.html": {
+      "checksum": "1f59bbd78ca2008bd7c336dd6ed81f26"
+    },
+    "docsearch.css": {
+      "checksum": "828dbea96017a994efccb7c30c041577"
+    },
+    "docsearch.js": {
+      "checksum": "2f3c1f7995c9f4f966323f008e3984ad"
+    },
+    "index.html": {
+      "checksum": "4a59f1d183c42004483090d52205e9c3"
+    },
+    "LICENSE-text.html": {
+      "checksum": "f30732e5ca34c5712b75237f21f95cb4"
+    },
+    "LICENSE.html": {
+      "checksum": "77de32e044435ac970b3fef9ddd535eb"
+    },
+    "link.svg": {
+      "checksum": "4759f31f8a585e9af173fc579d730265"
+    },
+    "news/index.html": {
+      "checksum": "b74b9b9db7c154a88422f65ec77122d4"
+    },
+    "pkgdown.css": {
+      "checksum": "9cd7da30627ce8d0e18fd1cf1f48c83f"
+    },
+    "pkgdown.js": {
+      "checksum": "916db342671c073ca830f33df8c36adc"
+    },
+    "pkgdown.yml": {
+      "checksum": "03330f0ed28e78f8c457442b0fae8b81"
+    },
+    "reference/hb_convergence.html": {
+      "checksum": "2b09a45c8657b448a88053f7532dbac3"
+    },
+    "reference/hb_data.html": {
+      "checksum": "6caf1dee238d071df2c83f2dcd739948"
+    },
+    "reference/hb_mcmc_hierarchical.html": {
+      "checksum": "7b1c864135f34f000a7287f26f998f51"
+    },
+    "reference/hb_mcmc_independent.html": {
+      "checksum": "17c12839e95c115428ad1f7dc0ccde42"
+    },
+    "reference/hb_mcmc_mixture_hyperparameters.html": {
+      "checksum": "372f179d47b277af21f6dff814b4e6d6"
+    },
+    "reference/hb_mcmc_mixture.html": {
+      "checksum": "c27d5292f4856891d06b6bbe36afd973"
+    },
+    "reference/hb_mcmc_pool.html": {
+      "checksum": "c35d7b2d45f9332f491c4f840d5f13a9"
+    },
+    "reference/hb_metrics.html": {
+      "checksum": "6f1b477524a111ab35b22c447826a66f"
+    },
+    "reference/hb_plot_borrow-1.png": {
+      "checksum": "0dba27872a238dcb1821aff2184d695b"
+    },
+    "reference/hb_plot_borrow.html": {
+      "checksum": "e762911fb7c8ae9dfec8715dcc69aed9"
+    },
+    "reference/hb_plot_group-1.png": {
+      "checksum": "f80bd7d7b8955fe520e9932ca57fe15d"
+    },
+    "reference/hb_plot_group.html": {
+      "checksum": "019a791d22e35ab3bbdcd8719a0c4a69"
+    },
+    "reference/hb_plot_tau-1.png": {
+      "checksum": "48fb9f2de9e3121da651ccedcc013da5"
+    },
+    "reference/hb_plot_tau.html": {
+      "checksum": "43772eae2f8b67fc3f68364cdd1fbe10"
+    },
+    "reference/hb_s_tau.html": {
+      "checksum": "c5e30a7a6922ee4aff3bb396f3df7bae"
+    },
+    "reference/hb_sim_hierarchical.html": {
+      "checksum": "412f1a43415dc59e81f210a90e46b3ee"
+    },
+    "reference/hb_sim_independent.html": {
+      "checksum": "aa73ef1ba0547f393992b3a9528c1087"
+    },
+    "reference/hb_sim_mixture.html": {
+      "checksum": "ddbf4a62b7c83c68f1937d7613e973dc"
+    },
+    "reference/hb_sim_pool.html": {
+      "checksum": "74e2d75e1101f0970997b64b503677b8"
+    },
+    "reference/hb_summary.html": {
+      "checksum": "ca096b95d7e9600506eef9bca8d06ce7"
+    },
+    "reference/historicalborrow-package.html": {
+      "checksum": "d388c3713f0dc2369d86138d80e4a2be"
+    },
+    "reference/index.html": {
+      "checksum": "a04d7287ae690f972137451a4b31afaf"
+    },
+    "reference/Rplot001.png": {
+      "checksum": "9b7a75eb2a0170ac2c15ab46a66f862b"
+    },
+    "sitemap.xml": {
+      "checksum": "747ccf7e8cb72ac0aed61df20aac4a81"
+    }
+  },
+  "users": null
+}
