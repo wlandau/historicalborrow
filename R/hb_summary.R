@@ -110,6 +110,7 @@
 #'   Prob(treatment effect < EOI). All elements of `direction`
 #'   must be either `">"` or `"<"`.
 #' @examples
+#' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_pool(n_continuous = 2)$data
 #' data$group <- sprintf("group%s", data$group)
 #' mcmc <- hb_mcmc_pool(
@@ -120,6 +121,7 @@
 #'   n_iterations = 50
 #' )
 #' hb_summary(mcmc, data)
+#' }
 hb_summary <- function(
   mcmc,
   data,

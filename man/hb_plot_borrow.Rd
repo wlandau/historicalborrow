@@ -29,6 +29,7 @@ borrowing model (hierarchical or mixture)
 against the independent and pooled benchmark models.
 }
 \examples{
+if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 data <- hb_sim_independent(n_continuous = 2)$data
 mcmc_borrow <- hb_mcmc_hierarchical(
   data,
@@ -59,6 +60,7 @@ hb_plot_borrow(
   pool = pool,
   independent = independent
 )
+}
 }
 \seealso{
 Other plot: 

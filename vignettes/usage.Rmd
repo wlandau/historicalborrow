@@ -138,7 +138,7 @@ mcmc_independent <- hb_mcmc_independent(
 ```
 
 
-The hierarchical model works best if the number of historical studies is large. For a small number of historical studies, it may be necessary to choose a value of `s_tau` to approximate the prior amount of borrowing given a desired precision ratio and supposed residual variance. See the function `hb_s_tau()` for how to do this. It is not recommended to entirely rely on `hb_s_tau()`, but it does give a benchmark to aid in the thinking.
+The hierarchical model works best if the number of historical studies is large. For a small number of historical studies, it may be necessary to choose a value of `s_tau` to approximate the prior amount of borrowing given a desired precision ratio and supposed residual variance. See the function `hb_s_tau()` for an initial value to explore. It is not recommended to entirely rely on `hb_s_tau()`, but it does give a benchmark to aid in the thinking.
 
 ```{r}
 mcmc_hierarchical <- hb_mcmc_hierarchical(
@@ -151,9 +151,6 @@ mcmc_hierarchical <- hb_mcmc_hierarchical(
   patient = "subject",
   # Can be continuous, categorical, or binary columns:
   covariates = c("factor1", "factor2"),
-  # Choice of s_tau to approximate a given prior amount of borrowing.
-  # Optional to use hb_s_tau() but not recommended in practice:
-  s_tau = hb_s_tau(precision_ratio = 0.5, sigma = 1, n = 100),
   # Raise these arguments for serious analyses:
   n_chains = 4,
   n_adapt = 2e3,

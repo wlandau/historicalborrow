@@ -110,6 +110,7 @@ and \code{.draw} have the meanings documented in the
 Run the hierarchical model with MCMC.
 }
 \examples{
+if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 data <- hb_sim_hierarchical(n_continuous = 2)$data
 hb_mcmc_hierarchical(
   data,
@@ -118,6 +119,7 @@ hb_mcmc_hierarchical(
   n_warmup = 50,
   n_iterations = 50
 )
+}
 }
 \seealso{
 Other mcmc: 

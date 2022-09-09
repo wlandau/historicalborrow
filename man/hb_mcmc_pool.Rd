@@ -104,6 +104,7 @@ and \code{.draw} have the meanings documented in the
 Run the non-longitudinal pooled model with MCMC.
 }
 \examples{
+if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 data <- hb_sim_pool(n_continuous = 2)$data
 hb_mcmc_pool(
   data,
@@ -112,6 +113,7 @@ hb_mcmc_pool(
   n_warmup = 50,
   n_iterations = 50
 )
+}
 }
 \seealso{
 Other mcmc: 

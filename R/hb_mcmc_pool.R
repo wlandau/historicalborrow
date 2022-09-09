@@ -24,6 +24,7 @@
 #' @param n_iterations Number of saved MCMC iterations per chain to run.
 #' @param quiet Logical of length 1, `TRUE` to suppress R console output.
 #' @examples
+#' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_pool(n_continuous = 2)$data
 #' hb_mcmc_pool(
 #'   data,
@@ -32,6 +33,7 @@
 #'   n_warmup = 50,
 #'   n_iterations = 50
 #' )
+#' }
 hb_mcmc_pool <- function(
   data,
   response = "response",

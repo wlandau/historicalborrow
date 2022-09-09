@@ -9,6 +9,7 @@
 #' @inheritParams hb_sim_independent
 #' @inheritParams hb_mcmc_pool
 #' @examples
+#' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_independent(n_continuous = 2)$data
 #' hb_mcmc_independent(
 #'   data,
@@ -17,6 +18,7 @@
 #'   n_warmup = 50,
 #'   n_iterations = 50
 #' )
+#' }
 hb_mcmc_independent <- function(
   data,
   response = "response",

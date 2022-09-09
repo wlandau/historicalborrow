@@ -15,6 +15,7 @@
 #'   hyperparameter: uniform  prior upper bound of the
 #'   standard deviation `tau` of the study-level control means `alpha`.
 #' @examples
+#' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_hierarchical(n_continuous = 2)$data
 #' hb_mcmc_hierarchical(
 #'   data,
@@ -23,6 +24,7 @@
 #'   n_warmup = 50,
 #'   n_iterations = 50
 #' )
+#' }
 hb_mcmc_hierarchical <- function(
   data,
   response = "response",

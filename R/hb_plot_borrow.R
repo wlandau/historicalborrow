@@ -9,6 +9,7 @@
 #' @param outcome Character of length 1, either `"response"`
 #'   or `"diff"`, the quantity to plot on the vertical axis.
 #' @examples
+#' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_independent(n_continuous = 2)$data
 #' mcmc_borrow <- hb_mcmc_hierarchical(
 #'   data,
@@ -39,6 +40,7 @@
 #'   pool = pool,
 #'   independent = independent
 #' )
+#' }
 hb_plot_borrow <- function(
   borrow,
   pool,

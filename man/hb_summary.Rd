@@ -185,6 +185,7 @@ unconditional and conditional estimation should produce similar
 estimates of placebo and treatment effects.
 }
 \examples{
+if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 data <- hb_sim_pool(n_continuous = 2)$data
 data$group <- sprintf("group\%s", data$group)
 mcmc <- hb_mcmc_pool(
@@ -195,6 +196,7 @@ mcmc <- hb_mcmc_pool(
   n_iterations = 50
 )
 hb_summary(mcmc, data)
+}
 }
 \seealso{
 Other summary: 
