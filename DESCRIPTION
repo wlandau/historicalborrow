@@ -6,7 +6,7 @@ Description: Historical borrowing in clinical trials can improve
   control data from other studies to better characterize the
   control response of the current study. It also quantifies
   the amount of borrowing through benchmark models (independent
-  and pooled). Some of the methods are borrowed from
+  and pooled). Some of the methods are discussed by
   Viele et al. (2013, <doi:10.1002/pst.1589>).
 Version: 1.0.2.9001
 License: MIT + file LICENSE
