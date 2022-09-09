@@ -214,7 +214,7 @@ The precision ratio comes from the conditional distribution of $\alpha_k$ in the
 
 ## Adjusting hierarchical borrowing strength using the prior
 
-In the case where there are few studies to precisely estimate a variance among placebo means in the hierarchical model, the function `hb_s_tau()` suggests a value of $s_\tau$ that assigns a desired prior precision ratio. if $P$ is the desired prior precision ratio, then:
+It is almost always best to set a diffuse prior on $\tau$ so that hierarchical borrowing is fully dynamic. However, in extreme cases (e.g. few historical studies, combined with other issues), there may not be enough information to precisely estimate a variance among placebo means in the hierarchical model, the function `hb_s_tau()` suggests a value of $s_\tau$ that assigns a desired prior precision ratio. if $P$ is the desired prior precision ratio, then:
 
 $$
 \begin{aligned}

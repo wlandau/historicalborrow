@@ -3,6 +3,7 @@
 #' @family data
 #' @description Suggest a value of the `s_tau` hyperparameter
 #'   to achieve a given amount of borrowing in the hierarchical model.
+#'   Only use if a diffuse prior on `tau` is not feasible.
 #' @details See the hierarchical model section of the
 #'   methods vignette for details.
 #' @return Numeric of length equal to `length(precision_ratio)` and

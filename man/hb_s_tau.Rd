@@ -22,6 +22,7 @@ Numeric of length equal to \code{length(precision_ratio)} and
 \description{
 Suggest a value of the \code{s_tau} hyperparameter
 to achieve a given amount of borrowing in the hierarchical model.
+Only use if a diffuse prior on \code{tau} is not feasible.
 }
 \details{
 See the hierarchical model section of the
