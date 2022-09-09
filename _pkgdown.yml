@@ -1,0 +1,32 @@
+destination: docs/
+reference:
+- title: Help
+  contents:
+  - '`historicalborrow-package`'
+- title: Data
+  contents:
+  - '`hb_data`'
+  - '`hb_s_tau`'
+- title: Simulate
+  contents:
+  - '`hb_sim_hierarchical`'
+  - '`hb_sim_mixture`'
+  - '`hb_sim_pool`'
+  - '`hb_sim_independent`'
+- title: MCMC
+  contents:
+  - '`hb_convergence`'
+  - '`hb_mcmc_hierarchical`'
+  - '`hb_mcmc_mixture`'
+  - '`hb_mcmc_mixture_hyperparameters`'
+  - '`hb_mcmc_pool`'
+  - '`hb_mcmc_independent`'
+- title: Summary
+  contents:
+  - '`hb_summary`'
+  - '`hb_metrics`'
+- title: Plot
+  contents:
+  - '`hb_plot_borrow`'
+  - '`hb_plot_group`'
+  - '`hb_plot_tau`'

@@ -1,0 +1,19 @@
+model {
+  for (i in 1:n_data) {
+    mu[i] <- inprod(x_alpha[i,], alpha) +
+      inprod(x_delta[i,], delta)
+    y[i] ~ dnorm(mu[i], 1 / (sigma * sigma))
+  }
+  for (i in 1:n_study) {
+    omega[i] ~ dnorm(m_omega[i], 1 / (s_omega[i] * s_omega[i]))
+  }
+  alpha = omega[pi]
+  pi ~ dcat(p_omega[])
+  for (i in 1:n_delta) {
+    delta[i] ~ dnorm(0, 1 / (s_delta * s_delta))
+  }
+  sigma ~ dunif(0, s_sigma)
+  for (i in 1:n_study) {
+    post_p[i] <- ifelse(pi == i, 1, 0)
+  }
+}

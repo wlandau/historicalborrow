@@ -1,0 +1,19 @@
+model {
+  for (i in 1:n_data) {
+    means[i] <- inprod(x_alpha[i,], alpha) +
+      inprod(x_delta[i,], delta)
+    y[i] ~ dnorm(means[i], 1 / (sigma[study[i]] * sigma[study[i]]))
+  }
+  for (i in 1:n_alpha) {
+    alpha[i] ~ dnorm(mu, 1 / (tau * tau))
+  }
+  for (i in 1:n_delta) {
+    delta[i] ~ dnorm(0, 1 / (s_delta * s_delta))
+  }
+  mu ~ dnorm(0, 1 / (s_mu * s_mu))
+  for (i in 1:n_study) {
+    sigma[i] ~ dunif(0, s_sigma)
+  }
+  tau ~ dunif(0, s_tau)
+  precision_ratio <- (1 / (tau * tau)) / ((1 / (tau * tau)) + (1 / (sigma[n_study] * sigma[n_study] / n_study_current)))
+}

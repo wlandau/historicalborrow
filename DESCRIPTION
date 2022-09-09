@@ -1,0 +1,58 @@
+Package: historicalborrow
+Title: Non-Longitudinal Bayesian Historical Borrowing Models
+Description: Historical borrowing in clinical trials can improve
+  precision and operating characteristics. This package supports
+  a hierarchical model and a mixture model to borrow historical
+  control data from other studies to better characterize the
+  control response of the current study. It also quantifies
+  the amount of borrowing through benchmark models (independent
+  and pooled). Some of the methods are borrowed from
+  Viele et al. (2013, <doi:10.1002/pst.1589>).
+Version: 1.0.2.9000
+License: MIT + file LICENSE
+URL: https://wlandau.github.io/historicalborrow/,
+  https://github.com/wlandau/historicalborrow
+BugReports: https://github.com/wlandau/historicalborrow/issues
+Authors@R: c(
+  person(
+    given = c("William", "Michael"),
+    family = "Landau",
+    role = c("aut", "cre"),
+    email = "will.landau@gmail.com",
+    comment = c(ORCID = "0000-0003-1878-3253")
+  ),
+  person(
+    given = "Albert",
+    family = "Man",
+    role = "rev",
+    email = "man_albert@lilly.com"
+  ),
+  person(
+    family = "Eli Lilly and Company",
+    role = "cph"
+  ))
+Depends:
+  R (>= 3.5.0)
+Imports:
+  dplyr,
+  ggplot2,
+  Matrix,
+  posterior,
+  rjags,
+  rlang,
+  stats,
+  tibble,
+  tidyr,
+  tidyselect,
+  utils
+Suggests:
+  knitr,
+  markdown,
+  rmarkdown,
+  testthat (>= 3.0.0)
+Encoding: UTF-8
+Language: en-US
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1

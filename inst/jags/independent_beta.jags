@@ -1,0 +1,20 @@
+model {
+  for (i in 1:n_data) {
+    means[i] <- inprod(x_alpha[i,], alpha) +
+      inprod(x_delta[i,], delta) +
+      inprod(x_beta[i,], beta)
+    y[i] ~ dnorm(means[i], 1 / (sigma[study[i]] * sigma[study[i]]))
+  }
+  for (i in 1:n_alpha) {
+    alpha[i] ~ dnorm(0, 1 / (s_alpha * s_alpha))
+  }
+  for (i in 1:n_delta) {
+    delta[i] ~ dnorm(0, 1 / (s_delta * s_delta))
+  }
+  for (i in 1:n_beta) {
+    beta[i] ~ dnorm(0, 1 / (s_beta * s_beta))
+  }
+  for (i in 1:n_study) {
+    sigma[i] ~ dunif(0, s_sigma)
+  }
+}

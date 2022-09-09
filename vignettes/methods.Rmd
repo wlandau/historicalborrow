@@ -1,0 +1,245 @@
+---
+title: "Methods"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(historicalborrow)
+```
+
+This vignette defines the models and historical borrowing metrics supported in the `historicalborrow` package.
+
+# Models
+
+## Common notation
+
+* $y$: vector of patient-specific clinical responses to a continuous outcome variable. Ideally, the outcome variable should be some form of change from baseline, not the response itself. If the outcome is the raw response, then the treatment effect will not be meaningful.
+* $y_{ij}$: the element of $y$ corresponding to study $i$ patient $j$.
+* $(X)_{ij}$: the row of matrix $X$ corresponding to study $i$ patient $j$.
+* $\alpha$: Vector of control group mean parameters, one for each study. The first elements are for the historical studies, and the last one is for the current study.
+* $\delta$: Vector of study-specific treatment mean parameters. There is one for each combination of study and non-control treatment group.
+* $d$: integer index for the elements of $\delta$.
+* $b$: integer index for the elements of $\beta$.
+* $\beta$: Vector of study-specific baseline covariate parameters.
+* $X_\alpha$: matrix for the control group mean parameters $\alpha$. It has indicator columns to select the appropriate element of $\alpha$ for each element of $y$.
+* $X_\delta$: matrix for the treatment mean parameters $\delta$. It has indicator columns to select the appropriate element of $\delta$ for each element of $y$.
+* $X_\beta$: matrix for the baseline covariate fixed effect parameters $\beta$. It has indicator columns to select the appropriate element of $\beta$ for each element of $y$.
+* $\sigma$: Vector of study-specific residual standard deviations.
+* $I(\cdot)$: indicator function.
+
+## Model matrices
+
+Each primary model is parameterized thus:
+
+$$
+\begin{aligned}
+E(y) = X_\alpha \alpha + X_\delta \delta + X_\beta \beta
+\end{aligned}
+$$
+
+Above, $X_\alpha$, $X_\delta$, and $X_\beta$ are fixed matrices. $X_\beta$ is a conventional model matrix for the baseline covariates $\beta$, and the details are explained in the "Baseline covariates" section below. $X_\alpha$ is a matrix of zeroes and ones. It is constructed such that each scalar component of $\alpha$ is the mean response of the control group in a particular study. Likewise, $X_\delta$ is a matrix of zeroes and ones such that each scalar component of $\delta$ is the mean response of a non-control treatment group in a particular study.
+
+To illustrate, let $y_{ijk}$ be patient $i$ in treatment group $j$ (where $j = 1$ is the control group) of study $k$, and let $\left ( X_\beta \beta \right )_{ijk}$ be the corresponding scalar element of the vector $X_\beta \beta$. Then,
+
+$$
+\begin{aligned}
+E(y_{ijk}) = I (j = 1) \alpha_{k} + I (j > 1) \delta_{jk} + \left ( X_\beta \beta \right )_{ijk}
+\end{aligned}
+$$
+
+This parameterization is represented in the more compact expression $X_\alpha \alpha + X_\delta \delta + X_\beta \beta$ in the model definitions in this vignette.
+
+## Baseline covariates
+
+The baseline covariates model matrix $X_\beta$ adjusts for baseline covariates. It may contain a continuous column for baseline and binary indicator columns for the levels of user-defined covariates. All these columns are included if possible, but the method automatically drops baseline covariate columns to ensure that the combined model matrix $X_i^* = \left [ {X_\alpha}^* \quad {X_\delta}^* \quad {X_\beta}^* \right ]_i$ is full rank. (Here, $X_i^*$ denotes the rows of matrix $X$ corresponding to study $i$, with additional rows dropped if the corresponding elements of $y$ are missing. The additional row-dropping based on the missingness of $y$ ensures identifiability even when the user supplies complicated many-leveled factors as covariates.) The choice of columns to drop from ${X_\beta}_i$ is determined by the rank and pivoting strategy of the QR decomposition of $X_i$ using the Householder algorithm with pivoting (`base::qr()`, LINPACK routine DQRDC).
+
+Separately within each study, each column of $X_\beta$ is centered to have mean 0, and if possible, scaled to have variance 1. Scaling ensures that the priors on parameters $\beta$ remain relatively diffuse relative to the input data. Study-level centering ensures that the $\alpha$ parameters truly act as *unconditional* study-specific control group means (as opposed to conditional on the subset of patients at the reference level of $X_\beta$), and it ensures that borrowing across $\alpha$ components fully presents as control group borrowing.
+
+## Post-processing
+
+The `hb_summary()` function post-processes the results from the model. It accepts MCMC samples of parameters and returns interpretable group-level posterior summaries such as change from baseline response and treatment effect. To arrive at these summaries, `hb_summary()` computes marginal posteriors of transformed parameters. The transformations derive patient-level fitted values from model parameters, then derive group-level responses as averages of fitted values. We refer to this style of estimation as "unconditional estimation", as opposed to "conditional estimation", which takes each group mean to be the appropriate linear combination of the relevant $\alpha$ and $\delta$ parameters, without using $\beta$ components or going through fitted values. If the baseline covariates are balanced across studies, unconditional and conditional estimation should produce similar estimates of control and treatment effects. This approach to post-processing is explained in section III.C of the [FDA draft guidance on adjusting for covariates](https://www.fda.gov/media/148910/download).
+
+## Mixture model
+
+Functions:
+
+* `hb_sim_mixture()`
+* `hb_mcmc_mixture()`
+
+The mixture model analyzes only the data from the current study, so we use $X_\alpha^{\text{mixture}}$ instead of $X_\alpha$. $X_\alpha^{\text{mixture}}$ is a one-column matrix to indicate which elements of $y$ are part of the control group of the current study.
+
+The historical studies contribute to the model through hyperparameters $({m_\omega})_i$ and $(s_\omega)_i$. If study $i$ is a historical study, $({m_\omega})_i$ and $(s_\omega)_i$ are the posterior mean and posterior standard deviation, respectively, of the mean control group response estimated from the simple model described later. If study $i$ is the current study, $({m_\omega})_i$ and $(s_\omega)_i$ are chosen so the mixture component Normal($({m_\omega})_i$, $(s_\omega)_i$) of study $i$ is diffuse and non-informative. Variable $\omega_i$ of study $i$ is the latent variable of mixture component $i$, and the index variable $\pi$ chooses which $\omega_i$ to use for the current study control group mean $\alpha$. Hyperparameter $p_\omega$ is a constant vector of prior mixture proportions of each study. The posterior histogram of $\pi$ gives the posterior mixture proportions.
+
+$$
+\begin{aligned}
+& y_{ij}  \stackrel{\text{ind}}{\sim} \text{N} \left ( \left (X_\alpha^{\text{mixture}} \alpha + X_\delta \delta + X_\beta \beta \right )_{ij}, \ \sigma^2 \right) \\
+& \qquad \alpha = \omega_{\pi} \\
+& \qquad \qquad \omega_i \stackrel{\text{ind}}{\sim} \text{Normal}(({m_\omega})_i, (s_\omega)_i^2) \\
+& \qquad \qquad \pi \sim \text{Categorical}(p_\omega) \\
+& \qquad \delta_d \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\delta^2) \\
+& \qquad \beta_b \sim \text{Normal} (0, s_\beta^2) \\
+& \qquad \sigma \sim \text{Uniform}(0, s_\sigma)
+\end{aligned} 
+$$
+
+## Hierarchical model
+
+Functions:
+
+* `hb_sim_hierarchical()`
+* `hb_mcmc_hierarchical()`
+* `hb_s_tau()`
+
+The hierarchical model analyzes the data from all studies and shrinks the control group means $\alpha_i$ towards a common normal distribution with mean $\mu$ and variance $\tau^2$. 
+
+$$
+\begin{aligned}
+& y_{ij} \sim \text{N} \left( \left (X_\alpha \alpha + X_\delta \delta + X_\beta \beta \right )_{ij} , \ \sigma_i^2 \right )\\
+& \qquad \alpha_i \stackrel{\text{ind}}{\sim} \text{Normal}(\mu, \tau^2) \\
+& \qquad \qquad \mu \sim \text{Normal}(0, s_\mu^2) \\
+& \qquad \qquad \tau \sim \text{Uniform}(0, s_\tau) \\
+& \qquad \delta_d \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\delta^2) \\
+& \qquad \beta_b \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\beta^2) \\
+& \qquad \sigma_i \stackrel{\text{ind}}{\sim} \text{Uniform}(0, s_\sigma)
+\end{aligned} 
+$$
+
+## Independent model
+
+Functions:
+
+* `hb_sim_independent()`
+* `hb_mcmc_independent()`
+
+The independent model is the same as the hierarchical model, but with independent control group parameters $\alpha$. We use it as a no-borrowing benchmark to quantify the borrowing strength of the hierarchical model and the mixture model.
+
+$$
+\begin{aligned}
+& y_{ij} \sim \text{N} \left( \left (X_\alpha \alpha + X_\delta \delta + X_\beta \beta \right )_{ij} , \ \sigma_i^2 \right )\\
+& \qquad \alpha_i \stackrel{\text{ind}}{\sim} \text{Normal}(0, s_\alpha^2) \\
+& \qquad \delta_d \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\delta^2) \\
+& \qquad \beta_b \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\beta^2) \\
+& \qquad \sigma_i \stackrel{\text{ind}}{\sim} \text{Uniform}(0, s_\sigma)
+\end{aligned} 
+$$
+
+
+
+## Pooled model
+
+Functions:
+
+* `hb_sim_pool()`
+* `hb_mcmc_pool()`
+
+Like the independent model, the pooled model is a benchmark to quantify the borrowing strength of the hierarchical model and the mixture model. But instead of the no-borrowing independent model, the pooled model represents maximum borrowing. Instead of $X_\alpha$, below, we use $X_\alpha^{\text{pool}}$, which has only one column to indicate which observations belong to any control group. In other words, the $\alpha$ parameters are pooled, and $\alpha$ itself is a scalar.
+
+$$
+\begin{aligned}
+& y_{ij} \sim \text{N} \left( \left ( X_\alpha^{\text{pool}} \alpha + X_\delta \delta + X_\beta \beta \right )_{ij} , \ \sigma_i^2 \right )\\
+& \qquad \alpha \sim \text{Normal}(0, s_\alpha^2) \\
+& \qquad \delta_d \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\delta^2) \\
+& \qquad \beta_b \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\beta^2) \\
+& \qquad \sigma_i \stackrel{\text{ind}}{\sim} \text{Uniform}(0, s_\sigma)
+\end{aligned} 
+$$
+
+## Simple model
+
+Functions:
+
+* `hb_mcmc_mixture_hyperparameters()`
+
+The mixture model hyperparameters $(m_\omega)_i$ and $(s_\omega)_i$ of study $i$ are obtained by analyzing the control group data of study $i$ with the simple model below. $(m_\omega)_i$ and $(s_\omega)_i$ are taken to be the estimated posterior mean and posterior standard deviation, respectively, of $\mu$ from this model.
+
+$$
+\begin{aligned}
+&y \sim \text{Normal}(\mu, \sigma^2) \\
+& \qquad \mu \sim \text{Normal}(0, s_\mu^2) \\
+& \qquad \sigma \sim \text{Uniform}(0, s_\sigma)
+\end{aligned}
+$$
+
+# Borrowing metrics
+
+## Mean shift ratio
+
+Let $\theta_m$ be the posterior mean control group response estimated by model $m$. The mean shift ratio is:
+
+$$
+\begin{aligned}
+\frac{\theta_{m*} - \theta_{\text{independent}}}{\theta_{\text{pool}} - \theta_{\text{independent}}}
+\end{aligned}
+$$
+
+where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
+
+## Variance shift ratio
+
+Let $V_m$ be the estimated posterior variance of $\alpha_I$ (current study control group response mean) estimated by model $m$. The variance shift ratio is:
+
+$$
+\begin{aligned}
+\frac{V_{m*} - V_{\text{independent}}}{V_{\text{pool}} - V_{\text{independent}}}
+\end{aligned}
+$$
+
+where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
+
+## Precision ratio (hierarchical model only)
+
+The precision ratio compares the prior precision of a control mean response (an $\alpha$ component, numerator) to the analogous precision of the full conditional distribution (denominator). The former is $\frac{1}{\tau^2}$, and the latter is $\frac{1}{\tau^2} + \frac{n}{\sigma^2}$. Here, $n$ is the number of non-missing patients in the current study, $\sigma^2$ is the residual variance, and $\tau^2$ is the variance of study-specific control means (components of $\alpha$). The full precision ratio is:
+
+$$
+\begin{aligned}
+\frac{\frac{1}{\tau^2}}{\frac{1}{\tau^2} + \frac{n}{\sigma^2}}
+\end{aligned}
+$$
+
+The precision ratio comes from the conditional distribution of $\alpha_k$ in the hierarchical model given the other parameters and the data. More precisely, in this conditional distribution, the mean is a weighted average between the prior mean and data mean, and the precision ratio is the weight on the prior mean. This can be seen in a simpler case with a Bayesian model with a normal data model, a normal prior on the mean, and known constant variance. For details, see Chapter 2 of [Bayesian Data Analysis](http://www.stat.columbia.edu/~gelman/book/) 3rd Ed. by Gelman et al.
+
+## Adjusting hierarchical borrowing strength using the prior
+
+In the case where there are few studies to precisely estimate a variance among placebo means in the hierarchical model, the function `hb_s_tau()` suggests a value of $s_\tau$ that assigns a desired prior precision ratio. if $P$ is the desired prior precision ratio, then:
+
+$$
+\begin{aligned}
+P = \frac{\frac{1}{\tau^2}}{\frac{1}{\tau^2} + \frac{n}{\sigma^2}}
+\end{aligned}
+$$
+
+Solving for $\tau$:
+
+$$
+\begin{aligned}
+\tau = \sigma \sqrt{\frac{1}{n} \left (\frac{1}{P} - 1 \right )}
+\end{aligned}
+$$
+
+If we expect the mean of $\tau$ to be as above, then our uniform upper bound is double:
+
+$$
+\begin{aligned}
+s_\tau = 2 \sigma \sqrt{\frac{1}{n} \left (\frac{1}{P} - 1 \right )}
+\end{aligned}
+$$
+
+
+## Posterior mixture proportions (mixture model only)
+
+The posterior mixture proportion of study $i$ is $P(\pi = i)$, and it is obtained by averaging posterior samples of $\pi$.
+

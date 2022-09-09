@@ -1,0 +1,7 @@
+model {
+  for (i in 1:n) {
+    y[i] ~ dnorm(mu, 1 / (sigma * sigma))
+  }
+  mu ~ dnorm(m_mu, 1 / (s_mu * s_mu))
+  sigma ~ dunif(0, s_sigma)
+}
