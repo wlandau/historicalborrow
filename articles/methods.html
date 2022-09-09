@@ -296,7 +296,7 @@ E(y_{ijk}) = I (j = 1) \alpha_{k} + I (j &gt; 1) \delta_{jk} + \left ( X_\beta \
 <div class="section level3">
 <h3 id="adjusting-hierarchical-borrowing-strength-using-the-prior">Adjusting hierarchical borrowing strength using the prior<a class="anchor" aria-label="anchor" href="#adjusting-hierarchical-borrowing-strength-using-the-prior"></a>
 </h3>
-<p>In the case where there are few studies to precisely estimate a variance among placebo means in the hierarchical model, the function <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code> suggests a value of <span class="math inline">\(s_\tau\)</span> that assigns a desired prior precision ratio. if <span class="math inline">\(P\)</span> is the desired prior precision ratio, then:</p>
+<p>It is almost always best to set a diffuse prior on <span class="math inline">\(\tau\)</span> so that hierarchical borrowing is fully dynamic. However, in extreme cases (e.g. few historical studies, combined with other issues), there may not be enough information to precisely estimate a variance among placebo means in the hierarchical model, the function <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code> suggests a value of <span class="math inline">\(s_\tau\)</span> that assigns a desired prior precision ratio. if <span class="math inline">\(P\)</span> is the desired prior precision ratio, then:</p>
 <p><span class="math display">\[
 \begin{aligned}
 P = \frac{\frac{1}{\tau^2}}{\frac{1}{\tau^2} + \frac{n}{\sigma^2}}
