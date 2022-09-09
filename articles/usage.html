@@ -243,7 +243,7 @@
 <span>  n_warmup <span class="op">=</span> <span class="fl">2e3</span>,</span>
 <span>  n_iterations <span class="op">=</span> <span class="fl">4e3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The hierarchical model works best if the number of historical studies is large. For a small number of historical studies, it may be necessary to choose a value of <code>s_tau</code> to approximate the prior amount of borrowing given a desired precision ratio and supposed residual variance. See the function <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code> for how to do this. It is not recommended to entirely rely on <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code>, but it does give a benchmark to aid in the thinking.</p>
+<p>The hierarchical model works best if the number of historical studies is large. For a small number of historical studies, it may be necessary to choose a value of <code>s_tau</code> to approximate the prior amount of borrowing given a desired precision ratio and supposed residual variance. See the function <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code> for an initial value to explore. It is not recommended to entirely rely on <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code>, but it does give a benchmark to aid in the thinking.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mcmc_hierarchical</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_mcmc_hierarchical.html">hb_mcmc_hierarchical</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
@@ -255,9 +255,6 @@
 <span>  patient <span class="op">=</span> <span class="st">"subject"</span>,</span>
 <span>  <span class="co"># Can be continuous, categorical, or binary columns:</span></span>
 <span>  covariates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"factor1"</span>, <span class="st">"factor2"</span><span class="op">)</span>,</span>
-<span>  <span class="co"># Choice of s_tau to approximate a given prior amount of borrowing.</span></span>
-<span>  <span class="co"># Optional to use hb_s_tau() but not recommended in practice:</span></span>
-<span>  s_tau <span class="op">=</span> <span class="fu"><a href="../reference/hb_s_tau.html">hb_s_tau</a></span><span class="op">(</span>precision_ratio <span class="op">=</span> <span class="fl">0.5</span>, sigma <span class="op">=</span> <span class="fl">1</span>, n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  <span class="co"># Raise these arguments for serious analyses:</span></span>
 <span>  n_chains <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  n_adapt <span class="op">=</span> <span class="fl">2e3</span>,</span>
@@ -315,7 +312,7 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
 <span><span class="co">#&gt;   max_rhat min_ess_bulk min_ess_tail</span></span>
 <span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1.00         814.         923.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1.02         312.         172.</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
@@ -453,7 +450,7 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">#&gt;   mean_shift_ratio variance_shift_ratio</span></span>
 <span><span class="co">#&gt;              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>            0.737                0.741</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>            0.495                0.411</span></span></code></pre></div>
 <p>Usage with the mixture model is the same.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary_mixture</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_summary.html">hb_summary</a></span><span class="op">(</span></span>

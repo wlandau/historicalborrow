@@ -278,7 +278,8 @@ estimates of placebo and treatment effects.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="hb_sim_pool.html">hb_sim_pool</a></span><span class="op">(</span>n_continuous <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">data</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"HB_TEST"</span>, unset <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="hb_sim_pool.html">hb_sim_pool</a></span><span class="op">(</span>n_continuous <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">data</span></span></span>
 <span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"group%s"</span>, <span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mcmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="hb_mcmc_pool.html">hb_mcmc_pool</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">data</span>,</span></span>
@@ -288,20 +289,7 @@ estimates of placebo and treatment effects.</p>
 <span class="r-in"><span>  n_iterations <span class="op">=</span> <span class="fl">50</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">hb_summary</span><span class="op">(</span><span class="va">mcmc</span>, <span class="va">data</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The ESS has been capped to avoid unstable estimates.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 40</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group group_la…¹ data_n data_N data_…² data_…³ data_…⁴ data_…⁵ data_…⁶ data_…⁷</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 group1        500    500     100     100     100     100     100     100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 group2        100    100       0       0       0       0     100       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 group3        100    100       0       0       0       0     100       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 30 more variables: data_N_study_2 &lt;int&gt;, data_N_study_3 &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   data_N_study_4 &lt;int&gt;, data_N_study_5 &lt;int&gt;, data_mean &lt;dbl&gt;, data_sd &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   data_lower &lt;dbl&gt;, data_upper &lt;dbl&gt;, response_mean &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   response_variance &lt;dbl&gt;, response_sd &lt;dbl&gt;, response_lower &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   response_upper &lt;dbl&gt;, response_mean_mcse &lt;dbl&gt;, response_sd_mcse &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   response_lower_mcse &lt;dbl&gt;, response_upper_mcse &lt;dbl&gt;, diff_mean &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   diff_lower &lt;dbl&gt;, diff_upper &lt;dbl&gt;, diff_mean_mcse &lt;dbl&gt;, …</span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

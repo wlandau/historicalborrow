@@ -114,7 +114,8 @@ or <code>"diff"</code>, the quantity to plot on the vertical axis.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="hb_sim_independent.html">hb_sim_independent</a></span><span class="op">(</span>n_continuous <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">data</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"HB_TEST"</span>, unset <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="hb_sim_independent.html">hb_sim_independent</a></span><span class="op">(</span>n_continuous <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="va">data</span></span></span>
 <span class="r-in"><span><span class="va">mcmc_borrow</span> <span class="op">&lt;-</span> <span class="fu"><a href="hb_mcmc_hierarchical.html">hb_mcmc_hierarchical</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">data</span>,</span></span>
 <span class="r-in"><span>  n_chains <span class="op">=</span> <span class="fl">1</span>,</span></span>
@@ -144,7 +145,7 @@ or <code>"diff"</code>, the quantity to plot on the vertical axis.</p></dd>
 <span class="r-in"><span>  pool <span class="op">=</span> <span class="va">pool</span>,</span></span>
 <span class="r-in"><span>  independent <span class="op">=</span> <span class="va">independent</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="hb_plot_group-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
