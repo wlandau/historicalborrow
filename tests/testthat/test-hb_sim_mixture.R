@@ -68,6 +68,8 @@ test_that("sim mixture matrices", {
   expect_equal(out$x_alpha, matrix(rep(c(1L, 0L, 0L), each = 5), nrow = 15))
   x_delta <- replicate(3, matrix(1, nrow = 5), simplify = FALSE)
   x_delta <- as.matrix(Matrix::bdiag(x_delta))[, c(2, 3)]
+  dimnames(out$x_delta) <- NULL
+  dimnames(x_delta) <- NULL
   expect_equal(out$x_delta, x_delta)
   out <- tibble::as_tibble(out$x_beta)
   cols <- c(
