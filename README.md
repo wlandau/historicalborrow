@@ -13,7 +13,7 @@ to better characterize the response of the control arm of the current
 study. It also quantifies the amount of borrowing through benchmark
 models (independent and pooled). Some of the methods are borrowed from
 [Viele et
-al. (2013)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3951812/).
+al. (2013)](https://onlinelibrary.wiley.com/doi/10.1002/pst.1589).
 
 ## Installation
 
