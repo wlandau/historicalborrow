@@ -1,6 +1,6 @@
-# historicalborrow 1.0.3.9000
+# historicalborrow 1.0.4
 
-
+* Fix DOI formatting in the `DESCRIPTION` file.
 
 # historicalborrow 1.0.3
 
