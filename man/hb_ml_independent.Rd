@@ -79,14 +79,18 @@ of the residual standard deviations.}
 \item{quiet}{Logical of length 1, \code{TRUE} to suppress R console output.}
 }
 \value{
-An object of class \code{"bridge"} from the \code{bridgesampling}
-package. The \code{logml} element has the actual
-estimated marginal log likelihood.
+A numeric of length 1 with the marignal likelihood from bridge
+sampling, with an object of class \code{"bridge"}
+from the \code{bridgesampling}
+package assigned as an attribute called \code{"bridge"}.
 }
 \description{
 Estimate the marginal likelihood of the
 non-longitudinal independent model using bridge sampling
 (\code{bridgesampling} R package).
+}
+\details{
+Bridge sampling is described by Gronau et al. (2020).
 }
 \examples{
 if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
@@ -100,6 +104,13 @@ mcmc <- hb_mcmc_independent(
 )
 suppressWarnings(hb_ml_independent(mcmc = mcmc, data = data))
 }
+}
+\references{
+Gronau QF, Singmann H, Wagenmakers E (2020). “bridgesampling:
+An R Package for Estimating Normalizing Constants.” \emph{Journal of
+Statistical Software}, \emph{92}(10), 1-29.
+doi:10.18637/jss.v092.i10
+\url{https://doi.org/10.18637/jss.v092.i10}.
 }
 \seealso{
 Other marginal-likelihood: 

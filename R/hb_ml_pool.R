@@ -3,10 +3,17 @@
 #' @family marginal-likelihood
 #' @description Estimate the marginal likelihood of the
 #'   non-longitudinal pooled model using bridge sampling
-#'   (`bridgesampling` R package).
-#' @return An object of class `"bridge"` from the `bridgesampling`
-#'   package. The `logml` element has the actual
-#'   estimated marginal log likelihood.
+#'   (via the `bridgesampling` R package).
+#' @details Bridge sampling is described by Gronau et al. (2020).
+#' @references Gronau QF, Singmann H, Wagenmakers E (2020). “bridgesampling:
+#'   An R Package for Estimating Normalizing Constants.” _Journal of
+#'   Statistical Software_, *92*(10), 1-29.
+#'   doi:10.18637/jss.v092.i10
+#'   <https://doi.org/10.18637/jss.v092.i10>.
+#' @return A numeric of length 1 with the marignal likelihood from bridge
+#'   sampling, with an object of class `"bridge"`
+#'   from the `bridgesampling`
+#'   package assigned as an attribute called `"bridge"`.
 #' @inheritParams hb_data
 #' @inheritParams hb_sim_pool
 #' @inheritParams hb_mcmc_pool

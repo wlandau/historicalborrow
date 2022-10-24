@@ -10,7 +10,7 @@ hb_ml <- function(mcmc, data_list, quiet) {
       upper_bounds[[name]] <- Inf
     }
   }
-  bridgesampling::bridge_sampler(
+  out <- bridgesampling::bridge_sampler(
     samples = as.matrix(mcmc),
     log_posterior = hb_lp_benchmark,
     data = data_list,
@@ -19,6 +19,7 @@ hb_ml <- function(mcmc, data_list, quiet) {
     silent = quiet,
     verbose = !quiet
   )
+  structure(exp(out$logml), bridge = out)
 }
 
 hb_lp_benchmark <- function(sample, data) {

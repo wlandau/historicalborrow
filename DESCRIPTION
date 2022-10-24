@@ -6,8 +6,13 @@ Description: Historical borrowing in clinical trials can improve
   control data from other studies to better characterize the
   control response of the current study. It also quantifies
   the amount of borrowing through benchmark models (independent
-  and pooled). Some of the methods are discussed by
-  Viele et al. (2013) <doi:10.1002/pst.1589>.
+  and pooled). Some of these methods are discussed by
+  Viele et al. (2013) <doi:10.1002/pst.1589>. In addition,
+  the package supports a Bayesian model averaging (BMA) analysis
+  together with a tipping point analysis to quantify
+  placebo borrowing, a technique based on the BMA work by
+  Best et al. (2019) <doi:10.1002/pst.2093> and
+  bridge sampling by Gronau et al. (2020) <doi:10.18637/jss.v092.i10>.
 Version: 1.0.4.9000
 License: MIT + file LICENSE
 URL: https://wlandau.github.io/historicalborrow/,

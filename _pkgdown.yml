@@ -22,8 +22,12 @@ reference:
   - '`hb_mcmc_pool`'
   - '`hb_mcmc_independent`'
 - title: Marginal likelihood
+  contents:
   - '`hb_ml_pool`'
   - '`hb_ml_independent`'
+- title: Bayesian model averaging
+  contents:
+  - '`hb_bma_weight`'
 - title: Summary
   contents:
   - '`hb_summary`'
