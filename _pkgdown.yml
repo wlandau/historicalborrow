@@ -21,6 +21,9 @@ reference:
   - '`hb_mcmc_mixture_hyperparameters`'
   - '`hb_mcmc_pool`'
   - '`hb_mcmc_independent`'
+- title: Marginal likelihood
+  - '`hb_ml_pool`'
+  - '`hb_ml_independent`'
 - title: Summary
   contents:
   - '`hb_summary`'
