@@ -25,9 +25,9 @@ reference:
   contents:
   - '`hb_ml_pool`'
   - '`hb_ml_independent`'
-- title: Bayesian model averaging
+- title: Model weights
   contents:
-  - '`hb_bma_weight`'
+  - '`hb_weight_bma`'
 - title: Summary
   contents:
   - '`hb_summary`'

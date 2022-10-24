@@ -39,6 +39,7 @@ Authors@R: c(
 Depends:
   R (>= 3.5.0)
 Imports:
+  bridgesampling,
   dplyr,
   ggplot2,
   Matrix,

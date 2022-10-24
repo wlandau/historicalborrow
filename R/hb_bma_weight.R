@@ -1,8 +1,10 @@
 #' @title Bayesian model averaging weight for the pooled model
+#'   using the method by Best et al. (2019).
 #' @export
-#' @family bma-utils
-#' @description Calculate the Bayesian model averaging weight
-#'   of the pooled model.
+#' @family weights
+#' @description Calculate the weight on the pooled model
+#'   using the Bayesian model averaging technique by
+#'   Best et al (2019).
 #' @details This calcualtion is part of a Bayesian model averaging
 #'   placebo borrowing method which averages the posteriors
 #'   of the pooled and independnet models.
@@ -40,17 +42,15 @@
 #'   n_iterations = 8000
 #' )
 #' suppressWarnings({
-#'   ml_pool <- exp(hb_ml_pool(mcmc = mcmc_pool, data = data)logml)
-#'   ml_independent <- exp(
-#'     hb_ml_independent(mcmc = mcmc_independent, data = data)$logml
-#'   )
+#'   ml_pool <- hb_ml_pool(mcmc = mcmc_pool, data = data)
+#'   ml_independent <- hb_ml_independent(mcmc = mcmc_independent, data = data)
 #' })
-#' hb_bma_weight(
+#' hb_weight_bma(
 #'   ml_pool = ml_pool,
 #'   ml_independent = ml_independent
 #' )
 #' }
-hb_bma_weight <- function(
+hb_weight_bma <- function(
   ml_pool,
   ml_independent,
   prior_weight = 0.5
@@ -60,5 +60,5 @@ hb_bma_weight <- function(
   true(prior_weight, length(.) == 1L, is.numeric(.), !anyNA(.), . >= 0, . <= 1)
   pool <- ml_pool * prior_weight
   independent <- ml_independent * (1 - prior_weight)
-  pool / (pool + independent)
+  as.numeric(pool / (pool + independent))
 }

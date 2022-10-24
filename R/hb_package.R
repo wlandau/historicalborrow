@@ -3,6 +3,7 @@
 #' @description Bayesian historical borrowing models for clinical studies.
 #' @name historicalborrow-package
 #' @family help
+#' @importFrom bridgesampling bridge_sampler
 #' @importFrom dplyr across arrange bind_cols bind_rows distinct filter group_by
 #'   left_join mutate n rename select summarize ungroup
 #' @importFrom ggplot2 aes aes_string geom_errorbar geom_point ggplot
