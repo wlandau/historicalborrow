@@ -323,6 +323,30 @@ call on one of the other models.
   Call `dplyr::distinct(hb_data(your_data), study, study_label)`
   to see which study labels correspond to these integer indexes.
 
+There is also an `hb_summary_weighted()` function that summarizes a mixture between the posteriors of the independent and pooled models (see the methods vignette for the specific model averaging techniques). The output is the same as the `hb_summary()` function except there is a new `weights` column which accepts a vector of weights on the pooled model, and there is an entire row group for every scalar element of `weights`.
+
+```{r}
+summary_weighted <- hb_summary_weighted(
+  mcmc_pool = mcmc_pool,
+  mcmc_independent = mcmc_independent,
+  weights = c(0, 0.25, 0.5, 0.75, 1),
+  data = data,
+  response = "outcome",
+  study = "trial",
+  study_reference = "trial3",
+  group = "arm",
+  group_reference = "arm1",
+  patient = "subject",
+  covariates = c("factor1", "factor2"),
+  eoi = c(0, 1),
+  direction = c(">", "<")
+)
+
+summary_weighted
+```
+
+You may choose to compute one or more of the weights with the `hb_weight_bma()` function, which in turn requires marginal likelihoods given by `hb_mll_pool()` and `hb_mll_independent()`. If you do, please be sure to supply a sufficient number of posterior samples to the marginal log likelihood functions to ensure convergence.
+
 ## Borrowing metrics
 
 The `hb_metrics()` function shows borrowing metrics like the mean shift ratio and variance shift ratio which require input from benchmark models. The mean shift ratio and variance shift ratio are defined in the methods vignette. Below, we compute these metrics on the hierarchical model.
@@ -415,4 +439,22 @@ For the hierarchical model, we can plot the marginal posterior of the `tau` para
 
 ```{r}
 hb_plot_tau(mcmc_hierarchical)
+```
+
+To explore weighted averages among the independent and pooled models, e.g. in a tipping point analysis, use the `hb_plot_weighted()` function. You may choose to highlight one or more results for a given set of weights using the `highlight_weights` argument.
+
+```{r}
+hb_plot_weighted(
+  summary = summary_weighted,
+  outcome = "response",
+  highlight_weights = 0.5
+)
+```
+
+```{r}
+hb_plot_weighted(
+  summary = summary_weighted,
+  outcome = "diff",
+  highlight_weights = c(0.25, 0.5)
+)
 ```
