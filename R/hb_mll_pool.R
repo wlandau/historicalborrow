@@ -19,6 +19,7 @@
 #' @inheritParams hb_mcmc_pool
 #' @param mcmc A wide data frame of posterior samples returned by
 #'   [hb_mcmc_pool()].
+#' @param ... Named extra arguments to `bridgesampling::bridge_sampler()`.
 #' @examples
 #' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_pool(n_continuous = 2)$data
@@ -45,13 +46,12 @@ hb_mll_pool <- function(
   s_delta = 30,
   s_beta = 30,
   s_sigma = 30,
-  quiet = TRUE
+  ...
 ) {
   true(s_alpha, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_delta, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_beta, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_sigma, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
-  true(quiet, length(.) == 1, !anyNA(.), is.logical(.))
   data <- hb_data(
     data = data,
     response = response,
@@ -92,5 +92,6 @@ hb_mll_pool <- function(
     data_list$s_beta <- NULL
     data_list$x_beta <- NULL
   }
-  hb_mll(mcmc = mcmc, data_list = data_list, quiet = quiet)
+  args <- list(...)
+  hb_mll(mcmc = mcmc, data_list = data_list, args = args)
 }

@@ -19,7 +19,7 @@ hb_mll_independent(
   s_delta = 30,
   s_beta = 30,
   s_sigma = 30,
-  quiet = TRUE
+  ...
 )
 }
 \arguments{
@@ -76,7 +76,7 @@ of the fixed effects \code{beta}.}
 \item{s_sigma}{Numeric of length 1, prior upper bound
 of the residual standard deviations.}
 
-\item{quiet}{Logical of length 1, \code{TRUE} to suppress R console output.}
+\item{...}{Named extra arguments to \code{bridgesampling::bridge_sampler()}.}
 }
 \value{
 A numeric of length 1 with the marignal log likelihood from bridge

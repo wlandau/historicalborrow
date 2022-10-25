@@ -20,6 +20,7 @@
 #' @inheritParams hb_mcmc_independent
 #' @param mcmc A wide data frame of posterior samples returned by
 #'   [hb_mcmc_independent()].
+#' @param ... Named extra arguments to `bridgesampling::bridge_sampler()`.
 #' @examples
 #' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_independent(n_continuous = 2)$data
@@ -33,26 +34,25 @@
 #' suppressWarnings(hb_mll_independent(mcmc = mcmc, data = data))
 #' }
 hb_mll_independent <- function(
-    mcmc,
-    data,
-    response = "response",
-    study = "study",
-    study_reference = max(data[[study]]),
-    group = "group",
-    group_reference = min(data[[group]]),
-    patient = "patient",
-    covariates = grep("^covariate", colnames(data), value = TRUE),
-    s_alpha = 30,
-    s_delta = 30,
-    s_beta = 30,
-    s_sigma = 30,
-    quiet = TRUE
+  mcmc,
+  data,
+  response = "response",
+  study = "study",
+  study_reference = max(data[[study]]),
+  group = "group",
+  group_reference = min(data[[group]]),
+  patient = "patient",
+  covariates = grep("^covariate", colnames(data), value = TRUE),
+  s_alpha = 30,
+  s_delta = 30,
+  s_beta = 30,
+  s_sigma = 30,
+  ...
 ) {
   true(s_alpha, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_delta, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_beta, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_sigma, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
-  true(quiet, length(.) == 1, !anyNA(.), is.logical(.))
   data <- hb_data(
     data = data,
     response = response,
@@ -93,5 +93,6 @@ hb_mll_independent <- function(
     data_list$s_beta <- NULL
     data_list$x_beta <- NULL
   }
-  hb_mll(mcmc = mcmc, data_list = data_list, quiet = quiet)
+  args <- list(...)
+  hb_mll(mcmc = mcmc, data_list = data_list, args = args)
 }

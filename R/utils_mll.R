@@ -1,4 +1,4 @@
-hb_mll <- function(mcmc, data_list, quiet) {
+hb_mll <- function(mcmc, data_list, args) {
   lower_bounds <- list()
   upper_bounds <- list()
   for (name in colnames(mcmc)) {
@@ -10,15 +10,14 @@ hb_mll <- function(mcmc, data_list, quiet) {
       upper_bounds[[name]] <- Inf
     }
   }
-  out <- bridgesampling::bridge_sampler(
-    samples = as.matrix(mcmc),
-    log_posterior = hb_lp_benchmark,
-    data = data_list,
-    lb = lower_bounds,
-    ub = upper_bounds,
-    silent = quiet,
-    verbose = !quiet
-  )
+  args$samples <- as.matrix(mcmc)
+  args$log_posterior <- hb_lp_benchmark
+  args$data <- data_list
+  args$lb <- lower_bounds
+  args$ub <- upper_bounds
+  args$silent <- args$silent %|||% TRUE
+  args$verbose <- args$verbose %|||% FALSE
+  out <- do.call(what = bridgesampling::bridge_sampler, args = args)
   structure(out$logml, bridge = out)
 }
 
