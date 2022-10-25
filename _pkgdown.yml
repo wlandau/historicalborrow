@@ -31,6 +31,7 @@ reference:
 - title: Summary
   contents:
   - '`hb_summary`'
+  - '`hb_summary_weighted`'
   - '`hb_metrics`'
 - title: Plot
   contents:

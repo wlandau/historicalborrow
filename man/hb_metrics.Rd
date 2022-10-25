@@ -61,6 +61,7 @@ hb_metrics(
 }
 \seealso{
 Other summary: 
+\code{\link{hb_summary_weighted}()},
 \code{\link{hb_summary}()}
 }
 \concept{summary}
