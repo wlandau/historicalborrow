@@ -193,7 +193,7 @@ mcmc_independent <- hb_mcmc_independent(
 )
 hb_summary_weighted(
   mcmc_pool = mcmc_pool,
-  mcmc_independent = mcmc_independent, 
+  mcmc_independent = mcmc_independent,
   data = data,
   weights = c(0.5, 0.75)
 )

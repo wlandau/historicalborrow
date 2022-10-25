@@ -7,7 +7,8 @@
 #' @importFrom dplyr across arrange bind_cols bind_rows distinct filter group_by
 #'   left_join mutate n rename select summarize ungroup
 #' @importFrom ggplot2 aes aes_string geom_errorbar geom_point ggplot
-#'   position_dodge theme_gray xlab ylab
+#'   position_dodge scale_color_identity scale_size_identity
+#'   scale_x_continuous theme theme_gray xlab ylab
 #' @importFrom Matrix bdiag
 #' @importFrom posterior as_draws_df mcse_mean mcse_sd mcse_quantile
 #' @importFrom rjags coda.samples jags.model

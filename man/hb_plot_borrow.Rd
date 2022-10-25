@@ -65,6 +65,7 @@ hb_plot_borrow(
 \seealso{
 Other plot: 
 \code{\link{hb_plot_group}()},
-\code{\link{hb_plot_tau}()}
+\code{\link{hb_plot_tau}()},
+\code{\link{hb_plot_weighted}()}
 }
 \concept{plot}

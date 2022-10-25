@@ -57,7 +57,14 @@ hb_weight_bma <- function(
 ) {
   true(mll_pool, length(.) == 1L, is.numeric(.), is.finite(.))
   true(mll_independent, length(.) == 1L, is.numeric(.), is.finite(.))
-  true(prior_weight, length(.) == 1L, is.numeric(.), is.finite(.), . >= 0, . <= 1)
+  true(
+    prior_weight,
+    length(.) == 1L,
+    is.numeric(.),
+    is.finite(.),
+    . >= 0,
+    . <= 1
+  )
   log_pool <- mll_pool + log(prior_weight)
   log_independent <- mll_independent + log(1 - prior_weight)
   log_denominator <- log(exp(log_pool) + exp(log_independent))

@@ -30,6 +30,7 @@ hb_plot_tau(mcmc = mcmc)
 \seealso{
 Other plot: 
 \code{\link{hb_plot_borrow}()},
-\code{\link{hb_plot_group}()}
+\code{\link{hb_plot_group}()},
+\code{\link{hb_plot_weighted}()}
 }
 \concept{plot}
