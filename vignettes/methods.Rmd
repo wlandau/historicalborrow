@@ -1,5 +1,6 @@
 ---
 title: "Methods"
+bibliography: bibliography.bib
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -243,3 +244,70 @@ $$
 
 The posterior mixture proportion of study $i$ is $P(\pi = i)$, and it is obtained by averaging posterior samples of $\pi$.
 
+# Ensembles of models
+
+For this next class of methods, we consider strategic ensembles of the models above.
+
+## Weighted averages of models
+
+Consider the following transformed parameters. Each represents the expected value of the data $y$ under a given model, and the superscripts indicate the respective models. ($X_\delta$ and $X_\beta$ are the same for both.)
+
+$$
+\begin{aligned}
+\mu^\text{pool} &= X_\alpha^\text{pool} \alpha^\text{pool} + X_\delta \delta^\text{pool} + X_\beta \beta^\text{pool} \\
+\mu^\text{independent} &= X_\alpha^\text{independent} \alpha^\text{independent} + X_\delta \delta^\text{independent} + X_\beta \beta^\text{independent} \\
+\end{aligned}
+$$
+
+We wish to model the expected response as a weighted average:
+
+$$
+\begin{aligned}
+E(y) &= \mu \\
+&= w \cdot \mu^\text{pool} + (1 - w) \cdot \mu^\text{independent} 
+\end{aligned}
+$$
+
+where $w$ is a constant between 0 and 1 that quantifies the contribution of the pooled model (i.e. strength of borrowing). We obtain posterior samples of $\mu$ using weighted averages of posterior samples of $\mu^\text{pool}$ and $\mu^\text{independent}$, and we obtain posterior samples of $\mu^\text{pool}$ and $\mu^\text{independent}$ by fitting each of the respective models to the data using MCMC.
+
+## Bayesian model averaging
+
+To compute $w$, we use the Bayesian model averaging technique proposed by @best2021. Define:
+
+* $f(y \mid M_\text{pool})$: marginal likelihood of the pooled model. @best2021 use a frequentist regression model to estimate this, but we use bridge sampling via the `bridgesampling` R package (@gronau2020).
+* $f(y \mid M_\text{independent})$: marginal likelihood of the independent model. Likewise, we use bridge sampling to estimate this marginal likelihood.
+* $p(M_\text{pool})$: prior belief in the pooled model (between 0 and 1).
+* $p(M_\text{independent})$: prior belief in the independent model (between 0 and 1). Equal to $1 - p(M_\text{pool})$.
+* $p(M_\text{pool} | y)$: posterior belief in the pooled model (between 0 and 1).
+* $p(\mu | M_\text{pool}, y)$: posterior distribution of the response conditional on the pooled model. Same as $p(\mu^\text{pool} | y)$, estimated by running MCMC on the pooled model.
+* $p(\mu | M_\text{independent}, y)$: posterior distribution of the response conditional on the independent model. Same as $p(\mu^\text{independent} | y)$, estimated by running MCMC on the independent model.
+* $p(\mu | y)$: posterior distribution of the expected response.
+
+From Bayes rule, we get Equation (1) from @best2021:
+
+$$
+\begin{aligned}
+p(M_\text{pool} | y) &= \frac{f(y \mid M_\text{pool}) \cdot p(M_\text{pool})}{f(y \mid M_\text{pool}) \cdot p(M_\text{pool}) + f(y \mid M_\text{independent}) \cdot \left ( 1 - p(M_\text{pool}) \right )}
+\end{aligned}
+$$
+We express the desired posterior $p(\mu | Y)$ as a mixture of the pooled and independent posteriors.
+
+$$
+\begin{aligned}
+p(\mu | y) &= p(M_\text{pool} | y) \cdot p(\mu \mid M_\text{pool}, y) + \left (1 - p(M_\text{pool} | y) \right ) \cdot p(\mu \mid M_\text{independent}, y)
+\end{aligned}
+$$
+Our $w$ from before is thus $p(M_\text{pool} | y)$.
+
+## Tipping point analysis
+
+There are many possible mixtures that could serve as candidates for the density of $\mu$. For a given $w$, we define:
+
+$$
+\begin{aligned}
+p(\mu | y, w) &= w \cdot p(\mu \mid M_\text{pool}, y) + \left (1 - w \right ) \cdot p(\mu \mid M_\text{independent}, y)
+\end{aligned}
+$$
+An exploration of $p(\mu | y, w)$ over a range of values of $w$ guides intuition. In other words, how large (or small) would $w$ have to be in order to trigger a probabilistic decision rule (say, $P(\mu > x | y, w)$)?
+
+# References

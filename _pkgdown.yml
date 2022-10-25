@@ -25,7 +25,7 @@ reference:
   contents:
   - '`hb_mll_pool`'
   - '`hb_mll_independent`'
-- title: Model weights
+- title: Weighted averages
   contents:
   - '`hb_weight_bma`'
 - title: Summary

@@ -1,14 +1,14 @@
 #' @title Bayesian model averaging weight for the pooled model
-#'   using the method by Best et al. (2019).
+#'   using the method by Best et al. (2021).
 #' @export
-#' @family weights
+#' @family weighted-averages
 #' @description Calculate the weight on the pooled model
 #'   using the Bayesian model averaging technique by
-#'   Best et al (2019).
+#'   Best et al (2021).
 #' @details This calcualtion is part of a Bayesian model averaging
 #'   placebo borrowing method which averages the posteriors
 #'   of the pooled and independnet models.
-#'   Uses the method by Best et al. (2019). See the vignettes
+#'   Uses the method by Best et al. (2021). See the vignettes
 #'   for details.
 #' @references Best N, Price RG, Pouliquen IJ, Keene ON.
 #'   Assessing efficacy in important subgroups in confirmatory trials:

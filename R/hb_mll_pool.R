@@ -5,8 +5,8 @@
 #'   non-longitudinal pooled model using bridge sampling
 #'   (via the `bridgesampling` R package).
 #' @details Bridge sampling is described by Gronau et al. (2020).
-#' @references Gronau QF, Singmann H, Wagenmakers E (2020). “bridgesampling:
-#'   An R Package for Estimating Normalizing Constants.” _Journal of
+#' @references Gronau QF, Singmann H, Wagenmakers E (2020). "bridgesampling:
+#'   An R Package for Estimating Normalizing Constants." _Journal of
 #'   Statistical Software_, *92*(10), 1-29.
 #'   doi:10.18637/jss.v092.i10
 #'   <https://doi.org/10.18637/jss.v092.i10>.

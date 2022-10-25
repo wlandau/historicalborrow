@@ -11,7 +11,7 @@ Description: Historical borrowing in clinical trials can improve
   the package supports a Bayesian model averaging (BMA) analysis
   together with a tipping point analysis to quantify
   placebo borrowing, a technique based on the BMA work by
-  Best et al. (2019) <doi:10.1002/pst.2093> and
+  Best et al. (2021) <doi:10.1002/pst.2093> and
   bridge sampling by Gronau et al. (2020) <doi:10.18637/jss.v092.i10>.
 Version: 1.0.4.9000
 License: MIT + file LICENSE
