@@ -297,7 +297,7 @@ $$
 p(\mu | y) &= p(M_\text{pool} | y) \cdot p(\mu \mid M_\text{pool}, y) + \left (1 - p(M_\text{pool} | y) \right ) \cdot p(\mu \mid M_\text{independent}, y)
 \end{aligned}
 $$
-Our $w$ from before is thus $p(M_\text{pool} | y)$.
+Our $w$ from before is thus $p(M_\text{pool} | y)$. To sample from $p(\mu | y)$, we first sample a latent indicator variable to choose which model to draw from, and then we take one pre-computed posterior sample from either $p(\mu \mid M_\text{pool}, y)$ or $p(\mu \mid M_\text{independent}, y)$ accordingly. This is what the `hb_summary_weighted()` does.
 
 ## Tipping point analysis
 
@@ -308,6 +308,6 @@ $$
 p(\mu | y, w) &= w \cdot p(\mu \mid M_\text{pool}, y) + \left (1 - w \right ) \cdot p(\mu \mid M_\text{independent}, y)
 \end{aligned}
 $$
-An exploration of $p(\mu | y, w)$ over a range of values of $w$ guides intuition. In other words, how large (or small) would $w$ have to be in order to trigger a probabilistic decision rule (say, $P(\mu > x | y, w)$)?
+and we sample from $p(\mu | y, w)$ using the same mixture approach described previously. An exploration of $p(\mu | y, w)$ over a range of values of $w$ guides intuition. In other words, how large (or small) would $w$ have to be in order to trigger a probabilistic decision rule (say, $P(\mu > x | y, w)$)?
 
 # References

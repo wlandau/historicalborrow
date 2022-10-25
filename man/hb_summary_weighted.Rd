@@ -172,6 +172,9 @@ except the summarized posterior is a mixture between the independent
 and pooled model posteriors. The method is documented in the vignettes,
 and the technique is based on the work of Best et al. (2021)
 and Gronau et al. (2020).
+
+This function is stochastic because a mixture of samples is taken
+from each model. Set a seed in the R process for reproducibility.
 }
 \examples{
 if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {

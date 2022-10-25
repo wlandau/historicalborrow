@@ -8,6 +8,9 @@
 #'   and pooled model posteriors. The method is documented in the vignettes,
 #'   and the technique is based on the work of Best et al. (2021)
 #'   and Gronau et al. (2020).
+#'
+#'   This function is stochastic because a mixture of samples is taken
+#'   from each model. Set a seed in the R process for reproducibility.
 #' @references
 #'   * Best N, Price RG, Pouliquen IJ, Keene ON.
 #'     Assessing efficacy in important subgroups in confirmatory trials:
@@ -213,17 +216,27 @@ hb_summary_weighted <- function(
     by = "sample"
   )
   out_list <- list()
-  index <- 1L
+  iteration <- 1L
   for (weight in weights) {
+    index <- sample.int(
+      n = 2,
+      size = nrow(mcmc_pool),
+      prob = c(1 - weight, weight),
+      replace = TRUE
+    ) - 1L
     samples_response <- samples_response_proto
-    samples_response$value <- (weight * samples_response$value_pool) +
-      ((1 - weight) * samples_response$value_independent)
+    index_response <- index[
+      as.integer(gsub("^sample", "", samples_response$sample))
+    ]
+    samples_response$value <- (index_response * samples_response$value_pool) +
+      ((1 - index_response) * samples_response$value_independent)
     samples_response$value_pool <- NULL
     samples_response$value_independent <- NULL
     samples_diff <- get_samples_diff(samples_response)
     samples_sigma <- samples_sigma_proto
-    samples_sigma$value <- (weight * samples_sigma$value_pool) +
-      ((1 - weight) * samples_sigma$value_independent)
+    index_sigma <- index[as.integer(gsub("^sample", "", samples_sigma$sample))]
+    samples_sigma$value <- (index_sigma * samples_sigma$value_pool) +
+      ((1 - index_sigma) * samples_sigma$value_independent)
     samples_sigma$value_pool <- NULL
     samples_sigma$value_independent <- NULL
     samples_effect <- get_samples_effect(samples_diff, samples_sigma)
@@ -247,14 +260,14 @@ hb_summary_weighted <- function(
     groups <- dplyr::distinct(data, group, group_label)
     out <- dplyr::left_join(x = out, y = groups, by = "group")
     out$weight <- weight
-    out_list[[index]] <- dplyr::select(
+    out_list[[iteration]] <- dplyr::select(
       out,
       weight,
       group,
       group_label,
       tidyselect::everything()
     )
-    index <- index + 1L
+    iteration <- iteration + 1L
   }
   dplyr::bind_rows(out_list)
 }

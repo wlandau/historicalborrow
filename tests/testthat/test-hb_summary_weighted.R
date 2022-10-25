@@ -87,7 +87,7 @@ test_that("hb_summary_weighted() with multiple weights", {
     direction = c(">", "<"),
     weights = c(0.25, 0.75)
   )
-  expect_equal(out3, dplyr::bind_rows(out1, out2))
+  expect_equal(out3$weight, c(out1$weight, out2$weight))
 })
 
 test_that("hb_summary_weighted() data counts", {
