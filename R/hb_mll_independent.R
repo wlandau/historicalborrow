@@ -1,8 +1,8 @@
-#' @title Marginal likelihood of the non-longitudinal
+#' @title Marginal log likelihood of the non-longitudinal
 #'   independent model
 #' @export
-#' @family marginal-likelihood
-#' @description Estimate the marginal likelihood of the
+#' @family marginal-log-likelihood
+#' @description Estimate the marginal log likelihood of the
 #'   non-longitudinal independent model using bridge sampling
 #'   (`bridgesampling` R package).
 #' @details Bridge sampling is described by Gronau et al. (2020).
@@ -11,7 +11,7 @@
 #'   Statistical Software_, *92*(10), 1-29.
 #'   doi:10.18637/jss.v092.i10
 #'   <https://doi.org/10.18637/jss.v092.i10>.
-#' @return A numeric of length 1 with the marignal likelihood from bridge
+#' @return A numeric of length 1 with the marignal log likelihood from bridge
 #'   sampling, with an object of class `"bridge"`
 #'   from the `bridgesampling`
 #'   package assigned as an attribute called `"bridge"`.
@@ -30,9 +30,9 @@
 #'   n_warmup = 50,
 #'   n_iterations = 50 # need a lot more in real life
 #' )
-#' suppressWarnings(hb_ml_independent(mcmc = mcmc, data = data))
+#' suppressWarnings(hb_mll_independent(mcmc = mcmc, data = data))
 #' }
-hb_ml_independent <- function(
+hb_mll_independent <- function(
     mcmc,
     data,
     response = "response",
@@ -93,5 +93,5 @@ hb_ml_independent <- function(
     data_list$s_beta <- NULL
     data_list$x_beta <- NULL
   }
-  hb_ml(mcmc = mcmc, data_list = data_list, quiet = quiet)
+  hb_mll(mcmc = mcmc, data_list = data_list, quiet = quiet)
 }

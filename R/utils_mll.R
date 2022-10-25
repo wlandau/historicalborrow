@@ -1,4 +1,4 @@
-hb_ml <- function(mcmc, data_list, quiet) {
+hb_mll <- function(mcmc, data_list, quiet) {
   lower_bounds <- list()
   upper_bounds <- list()
   for (name in colnames(mcmc)) {
@@ -19,7 +19,7 @@ hb_ml <- function(mcmc, data_list, quiet) {
     silent = quiet,
     verbose = !quiet
   )
-  structure(exp(out$logml), bridge = out)
+  structure(out$logml, bridge = out)
 }
 
 hb_lp_benchmark <- function(sample, data) {

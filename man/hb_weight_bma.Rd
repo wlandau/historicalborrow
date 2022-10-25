@@ -5,16 +5,16 @@
 \title{Bayesian model averaging weight for the pooled model
 using the method by Best et al. (2019).}
 \usage{
-hb_weight_bma(ml_pool, ml_independent, prior_weight = 0.5)
+hb_weight_bma(mll_pool, mll_independent, prior_weight = 0.5)
 }
 \arguments{
-\item{ml_pool}{Positive numeric of length 1,
-marginal likelihood of the pooled model.
-Compute with \code{\link[=hb_ml_pool]{hb_ml_pool()}}.}
+\item{mll_pool}{Finite numeric of length 1,
+marginal log likelihood of the pooled model.
+Compute with \code{\link[=hb_mll_pool]{hb_mll_pool()}}.}
 
-\item{ml_independent}{Positive numeric of length 1,
-marginal likelihood of the pooled model.
-Compute with \code{\link[=hb_ml_independent]{hb_ml_independent()}}.}
+\item{mll_independent}{Finite numeric of length 1,
+marginal log likelihood of the pooled model.
+Compute with \code{\link[=hb_mll_independent]{hb_mll_independent()}}.}
 
 \item{prior_weight}{Numeric of length 1 between 0 and 1,
 prior weight on the pooled model.}
@@ -49,12 +49,12 @@ mcmc_independent <- hb_mcmc_independent(
   n_iterations = 8000
 )
 suppressWarnings({
-  ml_pool <- hb_ml_pool(mcmc = mcmc_pool, data = data)
-  ml_independent <- hb_ml_independent(mcmc = mcmc_independent, data = data)
+  mll_pool <- hb_mll_pool(mcmc = mcmc_pool, data = data)
+  mll_independent <- hb_mll_independent(mcmc = mcmc_independent, data = data)
 })
 hb_weight_bma(
-  ml_pool = ml_pool,
-  ml_independent = ml_independent
+  mll_pool = mll_pool,
+  mll_independent = mll_independent
 )
 }
 }

@@ -16,12 +16,12 @@
 #'   Pharm Stat. 2021 May;20(3):551-562. doi: 10.1002/pst.2093.
 #'   Epub 2021 Jan 21. PMID: 33475231; PMCID: PMC8247867.
 #'   <https://onlinelibrary.wiley.com/doi/10.1002/pst.2093>.
-#' @param ml_pool Positive numeric of length 1,
-#'   marginal likelihood of the pooled model.
-#'   Compute with [hb_ml_pool()].
-#' @param ml_independent Positive numeric of length 1,
-#'   marginal likelihood of the pooled model.
-#'   Compute with [hb_ml_independent()].
+#' @param mll_pool Finite numeric of length 1,
+#'   marginal log likelihood of the pooled model.
+#'   Compute with [hb_mll_pool()].
+#' @param mll_independent Finite numeric of length 1,
+#'   marginal log likelihood of the pooled model.
+#'   Compute with [hb_mll_independent()].
 #' @param prior_weight Numeric of length 1 between 0 and 1,
 #'   prior weight on the pooled model.
 #' @examples
@@ -42,23 +42,25 @@
 #'   n_iterations = 8000
 #' )
 #' suppressWarnings({
-#'   ml_pool <- hb_ml_pool(mcmc = mcmc_pool, data = data)
-#'   ml_independent <- hb_ml_independent(mcmc = mcmc_independent, data = data)
+#'   mll_pool <- hb_mll_pool(mcmc = mcmc_pool, data = data)
+#'   mll_independent <- hb_mll_independent(mcmc = mcmc_independent, data = data)
 #' })
 #' hb_weight_bma(
-#'   ml_pool = ml_pool,
-#'   ml_independent = ml_independent
+#'   mll_pool = mll_pool,
+#'   mll_independent = mll_independent
 #' )
 #' }
 hb_weight_bma <- function(
-  ml_pool,
-  ml_independent,
+  mll_pool,
+  mll_independent,
   prior_weight = 0.5
 ) {
-  true(ml_pool, length(.) == 1L, is.numeric(.), !anyNA(.), . > 0)
-  true(ml_independent, length(.) == 1L, is.numeric(.), !anyNA(.), . > 0)
-  true(prior_weight, length(.) == 1L, is.numeric(.), !anyNA(.), . >= 0, . <= 1)
-  pool <- ml_pool * prior_weight
-  independent <- ml_independent * (1 - prior_weight)
-  as.numeric(pool / (pool + independent))
+  true(mll_pool, length(.) == 1L, is.numeric(.), is.finite(.))
+  true(mll_independent, length(.) == 1L, is.numeric(.), is.finite(.))
+  true(prior_weight, length(.) == 1L, is.numeric(.), is.finite(.), . >= 0, . <= 1)
+  log_pool <- mll_pool + log(prior_weight)
+  log_independent <- mll_independent + log(1 - prior_weight)
+  log_denominator <- log(exp(log_pool) + exp(log_independent))
+  log_weight <- log_pool - log_denominator
+  exp(log_weight)
 }

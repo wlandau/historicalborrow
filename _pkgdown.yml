@@ -21,10 +21,10 @@ reference:
   - '`hb_mcmc_mixture_hyperparameters`'
   - '`hb_mcmc_pool`'
   - '`hb_mcmc_independent`'
-- title: Marginal likelihood
+- title: Marginal log likelihood
   contents:
-  - '`hb_ml_pool`'
-  - '`hb_ml_independent`'
+  - '`hb_mll_pool`'
+  - '`hb_mll_independent`'
 - title: Model weights
   contents:
   - '`hb_weight_bma`'
