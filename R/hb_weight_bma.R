@@ -1,7 +1,7 @@
 #' @title Bayesian model averaging weight for the pooled model
 #'   using the method by Best et al. (2021).
 #' @export
-#' @family weighted-averages
+#' @family model-weights
 #' @description Calculate the weight on the pooled model
 #'   using the Bayesian model averaging technique by
 #'   Best et al (2021).

@@ -105,8 +105,8 @@ suppressWarnings(hb_mll_pool(mcmc = mcmc, data = data))
 }
 }
 \references{
-Gronau QF, Singmann H, Wagenmakers E (2020). “bridgesampling:
-An R Package for Estimating Normalizing Constants.” \emph{Journal of
+Gronau QF, Singmann H, Wagenmakers E (2020). "bridgesampling:
+An R Package for Estimating Normalizing Constants." \emph{Journal of
 Statistical Software}, \emph{92}(10), 1-29.
 doi:10.18637/jss.v092.i10
 \url{https://doi.org/10.18637/jss.v092.i10}.

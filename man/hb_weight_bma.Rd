@@ -3,7 +3,7 @@
 \name{hb_weight_bma}
 \alias{hb_weight_bma}
 \title{Bayesian model averaging weight for the pooled model
-using the method by Best et al. (2019).}
+using the method by Best et al. (2021).}
 \usage{
 hb_weight_bma(mll_pool, mll_independent, prior_weight = 0.5)
 }
@@ -22,13 +22,13 @@ prior weight on the pooled model.}
 \description{
 Calculate the weight on the pooled model
 using the Bayesian model averaging technique by
-Best et al (2019).
+Best et al (2021).
 }
 \details{
 This calcualtion is part of a Bayesian model averaging
 placebo borrowing method which averages the posteriors
 of the pooled and independnet models.
-Uses the method by Best et al. (2019). See the vignettes
+Uses the method by Best et al. (2021). See the vignettes
 for details.
 }
 \examples{
@@ -66,4 +66,4 @@ Pharm Stat. 2021 May;20(3):551-562. doi: 10.1002/pst.2093.
 Epub 2021 Jan 21. PMID: 33475231; PMCID: PMC8247867.
 \url{https://onlinelibrary.wiley.com/doi/10.1002/pst.2093}.
 }
-\concept{weights}
+\concept{model-weights}
