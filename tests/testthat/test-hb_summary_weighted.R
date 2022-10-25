@@ -21,7 +21,8 @@ test_that("hb_summary_weighted() structure", {
     mcmc_independent = mcmc_independent,
     data = data,
     eoi = c(0, 1),
-    direction = c(">", "<")
+    direction = c(">", "<"),
+    weights = 0.5
   )
   expect_equal(out$group_label, c("group1", "group2", "group3"))
   expect_equal(out$group, seq_len(3))
@@ -42,6 +43,51 @@ test_that("hb_summary_weighted() structure", {
     "effect_upper_mcse", "weight"
   )
   expect_equal(sort(cols), sort(colnames(out)))
+})
+
+test_that("hb_summary_weighted() with multiple weights", {
+  set.seed(0)
+  data <- hb_sim_pool(n_continuous = 2)$data
+  data$group <- sprintf("group%s", data$group)
+  mcmc_pool <- hb_mcmc_pool(
+    data,
+    n_chains = 1,
+    n_adapt = 100,
+    n_warmup = 100,
+    n_iterations = 200
+  )
+  mcmc_independent <- hb_mcmc_independent(
+    data,
+    n_chains = 1,
+    n_adapt = 100,
+    n_warmup = 100,
+    n_iterations = 200
+  )
+  out1 <- hb_summary_weighted(
+    mcmc_pool = mcmc_pool,
+    mcmc_independent = mcmc_independent,
+    data = data,
+    eoi = c(0, 1),
+    direction = c(">", "<"),
+    weights = 0.25
+  )
+  out2 <- hb_summary_weighted(
+    mcmc_pool = mcmc_pool,
+    mcmc_independent = mcmc_independent,
+    data = data,
+    eoi = c(0, 1),
+    direction = c(">", "<"),
+    weights = 0.75
+  )
+  out3 <- hb_summary_weighted(
+    mcmc_pool = mcmc_pool,
+    mcmc_independent = mcmc_independent,
+    data = data,
+    eoi = c(0, 1),
+    direction = c(">", "<"),
+    weights = c(0.25, 0.75)
+  )
+  expect_equal(out3, dplyr::bind_rows(out1, out2))
 })
 
 test_that("hb_summary_weighted() data counts", {
@@ -189,7 +235,7 @@ test_that("hb_summary_weighted() pool mock mcmc", {
     data = data,
     eoi = c(0, 1),
     direction = c(">", "<"),
-    weight = 1
+    weights = 1
   )
   expect_equal(out$group, seq_len(2))
   data_current <- dplyr::filter(data, study == 2)

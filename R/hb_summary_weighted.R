@@ -20,7 +20,7 @@
 #'     Statistical Software_, *92*(10), 1-29.
 #'     doi:10.18637/jss.v092.i10
 #'     <https://doi.org/10.18637/jss.v092.i10>.
-#' @return A tidy data frame with one row per group (e.g. treatment arm)
+#' @return A tidy data frame with one row per group per weight
 #'   and the columns in the following list. Unless otherwise specified,
 #'   the quantities are calculated at the group level.
 #'   Some are calculated for the current (non-historical) study only,
@@ -89,22 +89,16 @@
 #'   * `effect_upper`: Upper bound of a 95% posterior interval of effect size
 #'     from the model. Specific to the current study.
 #'   * `weight`: weight on the pooled model used in the weighted average.
-#' @inheritParams hb_mcmc_pool
+#' @inheritParams hb_summary
 #' @param mcmc_pool A wide data frame of posterior samples returned by
 #'   [hb_mcmc_pool()].
 #'   Must have the same number of rows as `mcmc_independent`.
 #' @param mcmc_independent A wide data frame of posterior samples returned by
 #'   [hb_mcmc_independent()].
 #'   Must have the same number of rows as `mcmc_pool`.
-#' @param weight Numeric of length 1 between 0 and 1,
-#'   mixture weight on the pooled model.
-#' @param eoi Numeric of length at least 1,
-#'   vector of effects of interest (EOIs) for critical success factors (CSFs).
-#' @param direction Character of length `length(eoi)` indicating how
-#'   to compare the treatment effect to each EOI. `">"` means
-#'   Prob(treatment effect > EOI), and `"<"` means
-#'   Prob(treatment effect < EOI). All elements of `direction`
-#'   must be either `">"` or `"<"`.
+#' @param weights Numeric vector of weights 1 between 0 and 1.
+#'   Each is a model averaging mixture weight on the pooled model.
+#'   The function returns one row group for each weight in the vector.
 #' @examples
 #' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_independent(n_study = 2)$data
@@ -127,7 +121,7 @@
 #'   mcmc_pool = mcmc_pool,
 #'   mcmc_independent = mcmc_independent, 
 #'   data = data,
-#'   weight = 0.5
+#'   weights = c(0.5, 0.75)
 #' )
 #' }
 hb_summary_weighted <- function(
@@ -143,7 +137,7 @@ hb_summary_weighted <- function(
   covariates = grep("^covariate", colnames(data), value = TRUE),
   eoi = 0,
   direction = "<",
-  weight = 0.5
+  weights = 0.5
 ) {
   true(mcmc_pool, is.data.frame(.), !is.null(colnames(.)))
   true(mcmc_independent, is.data.frame(.), !is.null(colnames(.)))
@@ -152,7 +146,7 @@ hb_summary_weighted <- function(
   true(all(direction %in% c(">", "<")))
   true(length(eoi) == length(direction))
   true(length(eoi) > 0)
-  true(weight, length(.) == 1L, is.numeric(.), is.finite(.), . >= 0, . <= 1)
+  true(weights, is.numeric(.), is.finite(.), . >= 0, . <= 1)
   data <- hb_data(
     data = data,
     response = response,
@@ -198,16 +192,11 @@ hb_summary_weighted <- function(
     samples_response_independent,
     value_independent = value
   )
-  samples_response <- dplyr::left_join(
+  samples_response_proto <- dplyr::left_join(
     x = samples_response_pool,
     y = samples_response_independent,
     by = c("study", "group", "sample")
   )
-  samples_response$value <- (weight * samples_response$value_pool) +
-    ((1 - weight) * samples_response$value_independent)
-  samples_response$value_pool <- NULL
-  samples_response$value_independent <- NULL
-  samples_diff <- get_samples_diff(samples_response)
   samples_sigma_pool <- get_samples_sigma(mcmc_pool)
   samples_sigma_pool <- dplyr::rename(
     samples_sigma_pool,
@@ -218,35 +207,54 @@ hb_summary_weighted <- function(
     samples_sigma_independent,
     value_independent = value
   )
-  samples_sigma <- dplyr::left_join(
+  samples_sigma_proto <- dplyr::left_join(
     x = samples_sigma_pool,
     y = samples_sigma_independent,
     by = "sample"
   )
-  samples_sigma$value <- (weight * samples_sigma$value_pool) +
-    ((1 - weight) * samples_sigma$value_independent)
-  samples_sigma$value_pool <- NULL
-  samples_sigma$value_independent <- NULL
-  samples_effect <- get_samples_effect(samples_diff, samples_sigma)
-  table_data <- get_table_data(data)
-  table_data_n_study <- get_table_data_n_study(data)
-  table_data_N_study <- get_table_data_N_study(data)
-  table_data_current <- get_table_data_current(data)
-  table_response <- get_table_response(samples_response)
-  table_diff <- get_table_diff(samples_diff)
-  table_eoi <- get_table_eoi(samples_diff, eoi, direction)
-  table_effect <- get_table_effect(samples_effect)
-  out <- tibble::tibble(group = sort(unique(samples_response$group)))
-  out <- dplyr::left_join(out, y = table_data, by = "group")
-  out <- dplyr::left_join(out, y = table_data_n_study, by = "group")
-  out <- dplyr::left_join(out, y = table_data_N_study, by = "group")
-  out <- dplyr::left_join(out, y = table_data_current, by = "group")
-  out <- dplyr::left_join(out, y = table_response, by = "group")
-  out <- dplyr::left_join(out, y = table_diff, by = "group")
-  out <- dplyr::left_join(out, y = table_eoi, by = "group")
-  out <- dplyr::left_join(out, y = table_effect, by = "group")
-  groups <- dplyr::distinct(data, group, group_label)
-  out <- dplyr::left_join(x = out, y = groups, by = "group")
-  out$weight <- weight
-  dplyr::select(out, group, group_label, tidyselect::everything())
+  out_list <- list()
+  index <- 1L
+  for (weight in weights) {
+    samples_response <- samples_response_proto
+    samples_response$value <- (weight * samples_response$value_pool) +
+      ((1 - weight) * samples_response$value_independent)
+    samples_response$value_pool <- NULL
+    samples_response$value_independent <- NULL
+    samples_diff <- get_samples_diff(samples_response)
+    samples_sigma <- samples_sigma_proto
+    samples_sigma$value <- (weight * samples_sigma$value_pool) +
+      ((1 - weight) * samples_sigma$value_independent)
+    samples_sigma$value_pool <- NULL
+    samples_sigma$value_independent <- NULL
+    samples_effect <- get_samples_effect(samples_diff, samples_sigma)
+    table_data <- get_table_data(data)
+    table_data_n_study <- get_table_data_n_study(data)
+    table_data_N_study <- get_table_data_N_study(data)
+    table_data_current <- get_table_data_current(data)
+    table_response <- get_table_response(samples_response)
+    table_diff <- get_table_diff(samples_diff)
+    table_eoi <- get_table_eoi(samples_diff, eoi, direction)
+    table_effect <- get_table_effect(samples_effect)
+    out <- tibble::tibble(group = sort(unique(samples_response$group)))
+    out <- dplyr::left_join(out, y = table_data, by = "group")
+    out <- dplyr::left_join(out, y = table_data_n_study, by = "group")
+    out <- dplyr::left_join(out, y = table_data_N_study, by = "group")
+    out <- dplyr::left_join(out, y = table_data_current, by = "group")
+    out <- dplyr::left_join(out, y = table_response, by = "group")
+    out <- dplyr::left_join(out, y = table_diff, by = "group")
+    out <- dplyr::left_join(out, y = table_eoi, by = "group")
+    out <- dplyr::left_join(out, y = table_effect, by = "group")
+    groups <- dplyr::distinct(data, group, group_label)
+    out <- dplyr::left_join(x = out, y = groups, by = "group")
+    out$weight <- weight
+    out_list[[index]] <- dplyr::select(
+      out,
+      weight,
+      group,
+      group_label,
+      tidyselect::everything()
+    )
+    index <- index + 1L
+  }
+  dplyr::bind_rows(out_list)
 }

@@ -17,7 +17,7 @@ hb_summary_weighted(
   covariates = grep("^covariate", colnames(data), value = TRUE),
   eoi = 0,
   direction = "<",
-  weight = 0.5
+  weights = 0.5
 )
 }
 \arguments{
@@ -85,11 +85,12 @@ Prob(treatment effect > EOI), and \code{"<"} means
 Prob(treatment effect < EOI). All elements of \code{direction}
 must be either \code{">"} or \code{"<"}.}
 
-\item{weight}{Numeric of length 1 between 0 and 1,
-mixture weight on the pooled model.}
+\item{weights}{Numeric vector of weights 1 between 0 and 1.
+Each is a model averaging mixture weight on the pooled model.
+The function returns one row group for each weight in the vector.}
 }
 \value{
-A tidy data frame with one row per group (e.g. treatment arm)
+A tidy data frame with one row per group per weight
 and the columns in the following list. Unless otherwise specified,
 the quantities are calculated at the group level.
 Some are calculated for the current (non-historical) study only,
@@ -194,7 +195,7 @@ hb_summary_weighted(
   mcmc_pool = mcmc_pool,
   mcmc_independent = mcmc_independent, 
   data = data,
-  weight = 0.5
+  weights = c(0.5, 0.75)
 )
 }
 }
