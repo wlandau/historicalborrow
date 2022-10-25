@@ -40,6 +40,7 @@ utils::globalVariables(
     "study_label",
     "tau",
     "value",
-    "value_percent"
+    "value_percent",
+    "weight"
   )
 )
