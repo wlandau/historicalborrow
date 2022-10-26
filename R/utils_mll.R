@@ -43,6 +43,12 @@ hb_lp_benchmark <- function(sample, data) {
     sum(dnorm(x = beta, mean = 0, sd = data$s_beta, log = TRUE)),
     0
   )
-  lp_y <- sum(dnorm(x = data$y, mean = mean, sd = sd, log = TRUE))
+  missing <- is.na(data$y)
+  data$y[missing] <- stats::rnorm(
+    n = sum(missing),
+    mean = mean[missing],
+    sd = sd[missing]
+  )
+  lp_y <- sum(stats::dnorm(x = data$y, mean = mean, sd = sd, log = TRUE))
   lp_alpha + lp_delta + lp_beta + lp_y
 }
