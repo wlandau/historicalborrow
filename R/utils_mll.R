@@ -1,16 +1,14 @@
 hb_mll <- function(mcmc, data_list, args) {
   lower_bounds <- list()
   upper_bounds <- list()
-  for (name in colnames(mcmc)) {
-    if (any(grepl(pattern = "^sigma", x = name))) {
-      lower_bounds[[name]] <- 0
-      upper_bounds[[name]] <- data_list$s_sigma
-    } else {
-      lower_bounds[[name]] <- -Inf
-      upper_bounds[[name]] <- Inf
-    }
+  mcmc_alpha <- dplyr::select(mcmc, tidyselect::starts_with("alpha"))
+  mcmc_not_alpha <- dplyr::select(mcmc, -tidyselect::starts_with("alpha"))
+  data_list$post_means <- tibble::as_tibble(as.list(colMeans(mcmc_not_alpha)))
+  for (name in colnames(mcmc_alpha)) {
+    lower_bounds[[name]] <- -Inf
+    upper_bounds[[name]] <- Inf
   }
-  args$samples <- as.matrix(mcmc)
+  args$samples <- as.matrix(mcmc_alpha)
   args$log_posterior <- hb_lp_benchmark
   args$data <- data_list
   args$lb <- lower_bounds
@@ -22,6 +20,7 @@ hb_mll <- function(mcmc, data_list, args) {
 
 hb_lp_benchmark <- function(sample, data) {
   sample <- tibble::as_tibble(as.list(sample))
+  sample <- bind_cols(sample, data$post_means)
   alpha <- as.numeric(dplyr::select(sample, tidyselect::starts_with("alpha")))
   delta <- as.numeric(dplyr::select(sample, tidyselect::starts_with("delta")))
   beta <- as.numeric(dplyr::select(sample, tidyselect::starts_with("beta")))
