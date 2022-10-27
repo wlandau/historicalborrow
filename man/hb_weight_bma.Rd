@@ -10,11 +10,11 @@ hb_weight_bma(mll_pool, mll_independent, prior_weight = 0.5)
 \arguments{
 \item{mll_pool}{Finite numeric of length 1,
 marginal log likelihood of the pooled model.
-Compute with \code{\link[=hb_mll_pool]{hb_mll_pool()}}.}
+Use \code{hb_mll_pool()$logml}.}
 
 \item{mll_independent}{Finite numeric of length 1,
 marginal log likelihood of the pooled model.
-Compute with \code{\link[=hb_mll_independent]{hb_mll_independent()}}.}
+Use \code{hb_mll_independent()$logml}.}
 
 \item{prior_weight}{Numeric of length 1 between 0 and 1,
 prior weight on the pooled model.}
@@ -53,8 +53,8 @@ suppressWarnings({
   mll_independent <- hb_mll_independent(mcmc = mcmc_independent, data = data)
 })
 hb_weight_bma(
-  mll_pool = mll_pool,
-  mll_independent = mll_independent
+  mll_pool = mll_pool$logml,
+  mll_independent = mll_independent$logml
 )
 }
 }

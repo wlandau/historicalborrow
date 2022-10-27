@@ -11,10 +11,10 @@
 #'   Statistical Software_, *92*(10), 1-29.
 #'   doi:10.18637/jss.v092.i10
 #'   <https://doi.org/10.18637/jss.v092.i10>.
-#' @return A numeric of length 1 with the marignal log likelihood from bridge
-#'   sampling, with an object of class `"bridge"`
-#'   from the `bridgesampling`
-#'   package assigned as an attribute called `"bridge"`.
+#' @return A named list of class `"bridge"`
+#'   from the `bridgesampling` package.
+#'   The `logml` element of this list
+#'   has the marginal log likelihood.
 #' @inheritParams hb_data
 #' @inheritParams hb_sim_independent
 #' @inheritParams hb_mcmc_independent

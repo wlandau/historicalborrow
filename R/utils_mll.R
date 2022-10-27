@@ -17,8 +17,7 @@ hb_mll <- function(mcmc, data_list, args) {
   args$ub <- upper_bounds
   args$silent <- args$silent %|||% TRUE
   args$verbose <- args$verbose %|||% FALSE
-  out <- do.call(what = bridgesampling::bridge_sampler, args = args)
-  structure(out$logml, bridge = out)
+  do.call(what = bridgesampling::bridge_sampler, args = args)
 }
 
 hb_lp_benchmark <- function(sample, data) {
@@ -44,11 +43,13 @@ hb_lp_benchmark <- function(sample, data) {
     0
   )
   missing <- is.na(data$y)
-  data$y[missing] <- stats::rnorm(
-    n = sum(missing),
-    mean = mean[missing],
-    sd = sd[missing]
+  lp_y <- sum(
+    stats::dnorm(
+      x = data$y[!missing],
+      mean = mean[!missing],
+      sd = sd[!missing],
+      log = TRUE
+    )
   )
-  lp_y <- sum(stats::dnorm(x = data$y, mean = mean, sd = sd, log = TRUE))
   lp_alpha + lp_delta + lp_beta + lp_y
 }

@@ -17,6 +17,5 @@ test_that("hb_mll_independent()", {
   mcmc[["sigma[1]"]] <- runif(n = nrow(mcmc), min = 0, max = 1)
   mcmc[["sigma[2]"]] <- runif(n = nrow(mcmc), min = 0, max = 1)
   out <- suppressWarnings(hb_mll_independent(mcmc = mcmc, data = data))
-  expect_true(is.numeric(out))
-  expect_s3_class(attr(out, "bridge"), "bridge")
+  expect_s3_class(out, "bridge")
 })

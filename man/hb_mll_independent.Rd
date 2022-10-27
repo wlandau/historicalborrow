@@ -79,10 +79,10 @@ of the residual standard deviations.}
 \item{...}{Named extra arguments to \code{bridgesampling::bridge_sampler()}.}
 }
 \value{
-A numeric of length 1 with the marignal log likelihood from bridge
-sampling, with an object of class \code{"bridge"}
-from the \code{bridgesampling}
-package assigned as an attribute called \code{"bridge"}.
+A named list of class \code{"bridge"}
+from the \code{bridgesampling} package.
+The \code{logml} element of this list
+has the marginal log likelihood.
 }
 \description{
 Estimate the marginal log likelihood of the

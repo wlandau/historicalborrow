@@ -18,10 +18,10 @@
 #'   <https://onlinelibrary.wiley.com/doi/10.1002/pst.2093>.
 #' @param mll_pool Finite numeric of length 1,
 #'   marginal log likelihood of the pooled model.
-#'   Compute with [hb_mll_pool()].
+#'   Use `hb_mll_pool()$logml`.
 #' @param mll_independent Finite numeric of length 1,
 #'   marginal log likelihood of the pooled model.
-#'   Compute with [hb_mll_independent()].
+#'   Use `hb_mll_independent()$logml`.
 #' @param prior_weight Numeric of length 1 between 0 and 1,
 #'   prior weight on the pooled model.
 #' @examples
@@ -46,8 +46,8 @@
 #'   mll_independent <- hb_mll_independent(mcmc = mcmc_independent, data = data)
 #' })
 #' hb_weight_bma(
-#'   mll_pool = mll_pool,
-#'   mll_independent = mll_independent
+#'   mll_pool = mll_pool$logml,
+#'   mll_independent = mll_independent$logml
 #' )
 #' }
 hb_weight_bma <- function(
