@@ -75,7 +75,8 @@ in historical control groups.
 }
 \description{
 Quantify borrowing with effective sample size (ESS)
-as described in the methods vignette.
+as cited and explained in the methods vignette at
+\url{https://wlandau.github.io/historicalborrow/articles/methods.html}.
 }
 \examples{
   data <- hb_sim_independent(n_continuous = 2)$data

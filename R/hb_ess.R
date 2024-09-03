@@ -2,7 +2,8 @@
 #' @export
 #' @family summary
 #' @description Quantify borrowing with effective sample size (ESS)
-#'   as described in the methods vignette.
+#'   as cited and explained in the methods vignette at
+#'   <https://wlandau.github.io/historicalborrow/articles/methods.html>.
 #' @return A data frame with one row and the following columns:
 #'   * `v0`: predictive variance of the control group mean of the current
 #'     study from historical data given the pooled model.
