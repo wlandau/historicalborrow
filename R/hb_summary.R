@@ -161,8 +161,7 @@ hb_summary <- function(
     mcmc = mcmc,
     data = data,
     x_alpha = x_alpha,
-    x_delta = x_delta,
-    x_beta = x_beta
+    x_delta = x_delta
   )
   samples_diff <- get_samples_diff(samples_response)
   samples_sigma <- get_samples_sigma(mcmc)
@@ -197,19 +196,16 @@ hb_summary <- function(
   dplyr::select(out, group, group_label, tidyselect::everything())
 }
 
-get_samples_response <- function(mcmc, data, x_alpha, x_delta, x_beta) {
+get_samples_response <- function(mcmc, data, x_alpha, x_delta) {
   index_max <- data$study == max(data$study)
   data <- data[index_max,, drop = FALSE] # nolint
   x_alpha <- x_alpha[index_max,, drop = FALSE] # nolint
   x_delta <- x_delta[index_max,, drop = FALSE] # nolint
-  x_beta <- x_beta[index_max,, drop = FALSE] # nolint
   alpha <- t(as.matrix(mcmc[, grepl("^alpha", colnames(mcmc)), drop = FALSE]))
   delta <- t(as.matrix(mcmc[, grepl("^delta", colnames(mcmc)), drop = FALSE]))
-  beta <- t(as.matrix(mcmc[, grepl("^beta", colnames(mcmc)), drop = FALSE]))
   gc()
   x_alpha <- Matrix::Matrix(x_alpha, sparse = TRUE)
   x_delta <- Matrix::Matrix(x_delta, sparse = TRUE)
-  x_beta <- Matrix::Matrix(x_beta, sparse = TRUE)
   gc()
   fitted <- x_alpha %*% alpha
   rm(alpha)
@@ -218,10 +214,6 @@ get_samples_response <- function(mcmc, data, x_alpha, x_delta, x_beta) {
   fitted <- fitted + x_delta %*% delta
   rm(delta)
   rm(x_delta)
-  gc()
-  fitted <- fitted + x_beta %*% beta
-  rm(beta)
-  rm(x_beta)
   gc()
   groups <- tibble::tibble(
     study = data$study,

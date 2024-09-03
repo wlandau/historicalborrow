@@ -1,7 +1,8 @@
-# historicalborrow 1.0.4.9002
+# historicalborrow 1.0.4.9003
 
 * Avoid `aes_string()`.
 * Default to half-Student-t priors for hierarchical model MCMC and simulation (#6).
+* Use proportional averaging instead of cell-level averaging for estimating marginal means (#7).
 
 # historicalborrow 1.0.4
 
