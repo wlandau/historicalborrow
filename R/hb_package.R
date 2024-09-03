@@ -10,7 +10,7 @@
 #' @importFrom posterior as_draws_df mcse_mean mcse_sd mcse_quantile
 #' @importFrom rjags coda.samples jags.model
 #' @importFrom rlang abort
-#' @importFrom stats as.formula model.matrix qnorm quantile rnorm runif
+#' @importFrom stats as.formula model.matrix qnorm quantile rnorm rt runif
 #'   sd update var
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr expand_grid pivot_longer pivot_wider

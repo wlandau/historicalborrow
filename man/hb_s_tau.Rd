@@ -2,7 +2,7 @@
 % Please edit documentation in R/hb_s_tau.R
 \name{hb_s_tau}
 \alias{hb_s_tau}
-\title{Suggest s_tau}
+\title{Superseded suggest s_tau given a uniform prior on tau.}
 \usage{
 hb_s_tau(precision_ratio = 0.5, sigma = 1, n = 100)
 }
@@ -20,7 +20,8 @@ Numeric of length equal to \code{length(precision_ratio)} and
 \code{precision_ratio} and \code{sigma}.
 }
 \description{
-Suggest a value of the \code{s_tau} hyperparameter
+For the uniform prior on tau,
+suggest a value of the \code{s_tau} hyperparameter
 to achieve a given amount of borrowing in the hierarchical model.
 Only use if a diffuse prior on \code{tau} is not feasible.
 }
@@ -31,8 +32,4 @@ methods vignette for details.
 \examples{
 hb_s_tau(precision_ratio = 0.5, sigma = 1, n = 100)
 }
-\seealso{
-Other data: 
-\code{\link{hb_data}()}
-}
-\concept{data}
+\keyword{internal}

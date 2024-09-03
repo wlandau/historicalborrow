@@ -8,12 +8,6 @@
 #'   `posterior` package.
 #' @inheritParams hb_sim_hierarchical
 #' @inheritParams hb_mcmc_pool
-#' @param s_mu Positive numeric of length 1,
-#'   hyperparameter: prior standard deviation of the
-#'   mean `mu` of the study-level control means `alpha`.
-#' @param s_tau Positive numeric of length 1,
-#'   hyperparameter: uniform  prior upper bound of the
-#'   standard deviation `tau` of the study-level control means `alpha`.
 #' @examples
 #' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_hierarchical(n_continuous = 2)$data
@@ -39,6 +33,8 @@ hb_mcmc_hierarchical <- function(
   s_sigma = 30,
   s_mu = 30,
   s_tau = 30,
+  d_tau = 4,
+  prior_tau = "half_t",
   n_chains = 4,
   n_adapt = 2e3,
   n_warmup = 4e3,
@@ -50,6 +46,14 @@ hb_mcmc_hierarchical <- function(
   true(s_sigma, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_mu, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_tau, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
+  true(d_tau, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
+  true(
+    prior_tau,
+    is.character(.),
+    length(.) == 1L,
+    !anyNA(.),
+    as.character(.) %in% c("half_t", "uniform")
+  )
   true(n_chains, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(n_adapt, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(n_warmup, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
@@ -122,14 +126,36 @@ hb_mcmc_hierarchical <- function(
       "precision_ratio"
     )
   }
+  if (identical(as.character(prior_tau), "half_t")) {
+    data_list$d_tau <- d_tau
+    density_tau <- "dt(0, 1 / (s_tau * s_tau), d_tau) T(0,)"
+  } else if (identical(as.character(prior_tau), "uniform")) {
+    density_tau <- "dunif(0, s_tau)"
+  }
+  file_package <- system.file(
+    file.path("jags", file),
+    package = "historicalborrow",
+    mustWork = TRUE
+  )
+  lines <- readLines(file_package)
+  lines <- gsub(
+    pattern = "PRIOR_TAU",
+    replacement = density_tau,
+    x = lines,
+    fixed = TRUE
+  )
+  temp <- tempfile()
+  on.exit(unlink(temp, force = TRUE))
+  writeLines(lines, temp)
   jags_mcmc(
-    file = file,
+    file = temp,
     variables = variables,
     data_list = data_list,
     n_chains = n_chains,
     n_adapt = n_adapt,
     n_warmup = n_warmup,
     n_iterations = n_iterations,
-    quiet = quiet
+    quiet = quiet,
+    system_file = FALSE
   )
 }

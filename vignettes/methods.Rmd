@@ -71,7 +71,7 @@ Separately within each study, each column of $X_\beta$ is centered to have mean 
 
 ## Post-processing
 
-The `hb_summary()` function post-processes the results from the model. It accepts MCMC samples of parameters and returns interpretable group-level posterior summaries such as change from baseline response and treatment effect. To arrive at these summaries, `hb_summary()` computes marginal posteriors of transformed parameters. The transformations derive patient-level fitted values from model parameters, then derive group-level responses as averages of fitted values. We refer to this style of estimation as "unconditional estimation", as opposed to "conditional estimation", which takes each group mean to be the appropriate linear combination of the relevant $\alpha$ and $\delta$ parameters, without using $\beta$ components or going through fitted values. If the baseline covariates are balanced across studies, unconditional and conditional estimation should produce similar estimates of control and treatment effects. This approach to post-processing is explained in section III.C of the [FDA draft guidance on adjusting for covariates](https://www.fda.gov/media/148910/download).
+The `hb_summary()` function post-processes the results from the model. It accepts MCMC samples of parameters and returns interpretable group-level posterior summaries such as change from baseline response and treatment effect. To arrive at these summaries, `hb_summary()` computes marginal posteriors of transformed parameters. The transformations derive patient-level fitted values from model parameters, then derive group-level responses as averages of fitted values. We refer to this style of estimation as "unconditional estimation", as opposed to "conditional estimation", which takes each group mean to be the appropriate linear combination of the relevant $\alpha$ and $\delta$ parameters, without using $\beta$ components or going through fitted values. If the baseline covariates are balanced across studies, unconditional and conditional estimation should produce similar estimates of control and treatment effects. This approach to post-processing is explained in section III.C of the FDA guidance on adjusting for covariates: `https://www.fda.gov/media/148910/download`.
 
 ## Mixture model
 
@@ -111,12 +111,29 @@ $$
 & y_{ij} \sim \text{N} \left( \left (X_\alpha \alpha + X_\delta \delta + X_\beta \beta \right )_{ij} , \ \sigma_i^2 \right )\\
 & \qquad \alpha_i \stackrel{\text{ind}}{\sim} \text{Normal}(\mu, \tau^2) \\
 & \qquad \qquad \mu \sim \text{Normal}(0, s_\mu^2) \\
-& \qquad \qquad \tau \sim \text{Uniform}(0, s_\tau) \\
+& \qquad \qquad \tau \sim f_\tau \\
 & \qquad \delta_d \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\delta^2) \\
 & \qquad \beta_b \stackrel{\text{ind}}{\sim} \text{Normal} (0, s_\beta^2) \\
 & \qquad \sigma_i \stackrel{\text{ind}}{\sim} \text{Uniform}(0, s_\sigma)
 \end{aligned} 
 $$
+
+The prior $f_\tau$ on $\tau$ is critically important because:
+
+1. It controls the prior amount of borrowing, and
+2. The prior has a large influence if there are few historical studies in the data.
+
+$f_\tau$ can either be a flexible half-Student-t distribution with $d_\tau$ degrees of freedom and scale parameter $s_\tau$:
+
+$$
+f_\tau = \text{Student-t}(0, s_\tau, d_\tau)^+
+$$
+or a uniform distribution with lower bound 0 and upper bound $s_\tau$:
+
+$$
+f_\tau = \text{Uniform}(0, s_\tau)
+$$
+The uniform prior is not recommended in most cases. For the half-Student-t distribution, the role of the $s_\tau$ parameter is equivalent to the $\sigma$ parameter from the [Student-t parameterization in the Stan user manual](https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html#student-t-distribution).
 
 ## Independent model
 
@@ -176,29 +193,7 @@ $$
 
 # Borrowing metrics
 
-## Mean shift ratio
-
-Let $\theta_m$ be the posterior mean control group response estimated by model $m$. The mean shift ratio is:
-
-$$
-\begin{aligned}
-\frac{\theta_{m*} - \theta_{\text{independent}}}{\theta_{\text{pool}} - \theta_{\text{independent}}}
-\end{aligned}
-$$
-
-where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
-
-## Variance shift ratio
-
-Let $V_m$ be the estimated posterior variance of $\alpha_I$ (current study control group response mean) estimated by model $m$. The variance shift ratio is:
-
-$$
-\begin{aligned}
-\frac{V_{m*} - V_{\text{independent}}}{V_{\text{pool}} - V_{\text{independent}}}
-\end{aligned}
-$$
-
-where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
+The package supports the following metrics to quantify borrowing.
 
 ## Precision ratio (hierarchical model only)
 
@@ -212,32 +207,31 @@ $$
 
 The precision ratio comes from the conditional distribution of $\alpha_k$ in the hierarchical model given the other parameters and the data. More precisely, in this conditional distribution, the mean is a weighted average between the prior mean and data mean, and the precision ratio is the weight on the prior mean. This can be seen in a simpler case with a Bayesian model with a normal data model, a normal prior on the mean, and known constant variance. For details, see Chapter 2 of [Bayesian Data Analysis](http://www.stat.columbia.edu/~gelman/book/) 3rd Ed. by Gelman et al.
 
-## Adjusting hierarchical borrowing strength using the prior
+## Variance shift ratio
 
-It is almost always best to set a diffuse prior on $\tau$ so that hierarchical borrowing is fully dynamic. However, in extreme cases (e.g. few historical studies, combined with other issues), there may not be enough information to precisely estimate a variance among placebo means in the hierarchical model, the function `hb_s_tau()` suggests a value of $s_\tau$ that assigns a desired prior precision ratio. if $P$ is the desired prior precision ratio, then:
-
-$$
-\begin{aligned}
-P = \frac{\frac{1}{\tau^2}}{\frac{1}{\tau^2} + \frac{n}{\sigma^2}}
-\end{aligned}
-$$
-
-Solving for $\tau$:
+Let $V_m$ be the estimated posterior variance of $\alpha_I$ (current study control group response mean) estimated by model $m$. The variance shift ratio is:
 
 $$
 \begin{aligned}
-\tau = \sigma \sqrt{\frac{1}{n} \left (\frac{1}{P} - 1 \right )}
+\frac{V_{m*} - V_{\text{independent}}}{V_{\text{pool}} - V_{\text{independent}}}
 \end{aligned}
 $$
 
-If we expect the mean of $\tau$ to be as above, then our uniform upper bound is double:
+where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
+
+## Mean shift ratio
+
+The mean shift ratio is not recommended to measure the strength of borrowing. Rather, it is an informal ad hoc measure of the lack of commensurability between the current and historical data sources.
+
+To define the mean shift ratio, let $\theta_m$ be the posterior mean control group response estimated by model $m$. The mean shift ratio is:
 
 $$
 \begin{aligned}
-s_\tau = 2 \sigma \sqrt{\frac{1}{n} \left (\frac{1}{P} - 1 \right )}
+\frac{\theta_{m*} - \theta_{\text{independent}}}{\theta_{\text{pool}} - \theta_{\text{independent}}}
 \end{aligned}
 $$
 
+where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
 
 ## Posterior mixture proportions (mixture model only)
 

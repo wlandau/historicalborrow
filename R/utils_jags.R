@@ -6,7 +6,8 @@ jags_mcmc <- function(
   n_adapt,
   n_warmup,
   n_iterations,
-  quiet
+  quiet,
+  system_file = TRUE
 ) {
   inits <- replicate(
     n_chains,
@@ -16,8 +17,10 @@ jags_mcmc <- function(
     ),
     simplify = FALSE
   )
-  file <- file.path("jags", file)
-  file <- system.file(file, package = "historicalborrow", mustWork = TRUE)
+  if (system_file) {
+    file <- file.path("jags", file)
+    file <- system.file(file, package = "historicalborrow", mustWork = TRUE)
+  }
   wrap <- if_any(quiet, capture.output, identity)
   wrap({
     model <- rjags::jags.model(
