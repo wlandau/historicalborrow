@@ -6,7 +6,8 @@ test_that("sim hierarchical data", {
       n_group = 3,
       n_patient = 5,
       n_continuous = 2,
-      n_binary = 2
+      n_binary = 2,
+      prior_tau = prior_tau
     )$data
     expect_equal(dim(out), c(20, 12))
     expect_equal(out$study, rep(c(1, 2, 2, 2), each = 5))
