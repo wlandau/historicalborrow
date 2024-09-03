@@ -86,22 +86,24 @@ hb_plot_group <- function(
   )
   out$Group <- as.character(out$group_label)
   out <- out[!is.na(out[[paste0(outcome, "_mean")]]),, drop = FALSE] # nolint
+  args_point <- list(
+    x = quote(Model),
+    y = as.symbol(paste0(outcome, "_mean")),
+    color = quote(Group)
+  )
+  args_errorbar <- list(
+    x = quote(Model),
+    ymin = as.symbol(paste0(outcome, "_lower")),
+    ymax = as.symbol(paste0(outcome, "_upper")),
+    color = quote(Group)
+  )
   ggplot2::ggplot(out) +
     ggplot2::geom_point(
-      ggplot2::aes_string(
-        x = "Model",
-        y = paste0(outcome, "_mean"),
-        color = "Group"
-      ),
+      do.call(what = ggplot2::aes, args = args_point),
       position = ggplot2::position_dodge(width = 0.5)
     ) +
     ggplot2::geom_errorbar(
-      ggplot2::aes_string(
-        x = "Model",
-        ymin = paste0(outcome, "_lower"),
-        ymax = paste0(outcome, "_upper"),
-        color = "Group"
-      ),
+      do.call(what = ggplot2::aes, args = args_errorbar),
       position = ggplot2::position_dodge(width = 0.5)
     ) +
     ggplot2::ylab("Posterior response") +

@@ -218,12 +218,12 @@ test_that("hb_summary() data summaries", {
     c(
       mean(data$response[data$study == 2 & data$group == 1]) -
         stats::qnorm(0.975) *
-        sd(data$response[data$study == 2 & data$group == 1]) /
-        sqrt(length(data$response[data$study == 2 & data$group == 1])),
+          sd(data$response[data$study == 2 & data$group == 1]) /
+          sqrt(length(data$response[data$study == 2 & data$group == 1])),
       mean(data$response[data$study == 2 & data$group == 2]) -
         stats::qnorm(0.975) *
-        sd(data$response[data$study == 2 & data$group == 2]) /
-        sqrt(length(data$response[data$study == 2 & data$group == 2]))
+          sd(data$response[data$study == 2 & data$group == 2]) /
+          sqrt(length(data$response[data$study == 2 & data$group == 2]))
     )
   )
   expect_equal(
@@ -231,12 +231,12 @@ test_that("hb_summary() data summaries", {
     c(
       mean(data$response[data$study == 2 & data$group == 1]) +
         stats::qnorm(0.975) *
-        sd(data$response[data$study == 2 & data$group == 1]) /
-        sqrt(length(data$response[data$study == 2 & data$group == 1])),
+          sd(data$response[data$study == 2 & data$group == 1]) /
+          sqrt(length(data$response[data$study == 2 & data$group == 1])),
       mean(data$response[data$study == 2 & data$group == 2]) +
         stats::qnorm(0.975) *
-        sd(data$response[data$study == 2 & data$group == 2]) /
-        sqrt(length(data$response[data$study == 2 & data$group == 2]))
+          sd(data$response[data$study == 2 & data$group == 2]) /
+          sqrt(length(data$response[data$study == 2 & data$group == 2]))
     )
   )
 })
@@ -289,15 +289,15 @@ test_that("hb_summary() pool mock mcmc", {
       out$data_lower[i],
       mean(data$response[k]) -
         stats::qnorm(0.975) *
-        sd(data$response[k]) /
-        sqrt(length(data$response[k]))
+          sd(data$response[k]) /
+          sqrt(length(data$response[k]))
     )
     expect_equal(
       out$data_upper[i],
       mean(data$response[k]) +
         stats::qnorm(0.975) *
-        sd(data$response[k]) /
-        sqrt(length(data$response[k]))
+          sd(data$response[k]) /
+          sqrt(length(data$response[k]))
     )
     expect_equal(
       out$response_mean[i],

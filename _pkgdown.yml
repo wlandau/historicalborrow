@@ -1,3 +1,8 @@
+url: https://wlandau.github.io/historicalborrow/
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#152640"
 destination: docs/
 reference:
 - title: Help

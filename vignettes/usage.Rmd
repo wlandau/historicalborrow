@@ -385,7 +385,7 @@ hb_metrics(
 
 The `hb_plot_borrow()` function visualizes the results from a borrowing model (either hierarchical or mixture) against the benchmark models (independent and pooled) to gain intuition about the overall effect of borrowing on estimation.
 
-```{r}
+```{r borrow1}
 hb_plot_borrow(
   borrow = summary_hierarchical,
   pool = summary_pool,
@@ -393,7 +393,7 @@ hb_plot_borrow(
 )
 ```
 
-```{r}
+```{r borrow2}
 hb_plot_borrow(
   borrow = summary_mixture,
   pool = summary_pool,
@@ -403,7 +403,7 @@ hb_plot_borrow(
 
 `hb_plot_group()` shows the same information but grouped by the group designations in the data (e.g. treatment arm).
 
-```{r}
+```{r group}
 hb_plot_group(
   borrow = summary_mixture,
   pool = summary_pool,
@@ -413,6 +413,6 @@ hb_plot_group(
 
 For the hierarchical model, we can plot the marginal posterior of the `tau` parameter to see the influence of the uniform prior upper bound. If the probability mass of $\tau$ builds up against the uniform upper bound, then the estimated hierarchical variance may be larger than assumed, and should indicate that the algorithm wants to borrow less. If the probability mass of $\tau$ is concentrated on the left, towards 0, then this may indicate that the data suggests borrowing and the uniform prior upper bound has little effect on the model estimates.
 
-```{r}
+```{r tau}
 hb_plot_tau(mcmc_hierarchical)
 ```

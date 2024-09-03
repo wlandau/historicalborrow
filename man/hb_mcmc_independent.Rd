@@ -119,8 +119,8 @@ hb_mcmc_independent(
 Other mcmc: 
 \code{\link{hb_convergence}()},
 \code{\link{hb_mcmc_hierarchical}()},
-\code{\link{hb_mcmc_mixture_hyperparameters}()},
 \code{\link{hb_mcmc_mixture}()},
+\code{\link{hb_mcmc_mixture_hyperparameters}()},
 \code{\link{hb_mcmc_pool}()}
 }
 \concept{mcmc}
