@@ -411,7 +411,7 @@ hb_plot_group(
 )
 ```
 
-For the hierarchical model, we can plot the marginal posterior of the `tau` parameter to see the influence of the uniform prior upper bound. If the probability mass of $\tau$ builds up against the uniform upper bound, then the estimated hierarchical variance may be larger than assumed, and should indicate that the algorithm wants to borrow less. If the probability mass of $\tau$ is concentrated on the left, towards 0, then this may indicate that the data suggests borrowing and the uniform prior upper bound has little effect on the model estimates.
+For the hierarchical model, we can plot the marginal posterior of the `tau` parameter. This should be compared with the prior in practice to understand the influence of prior and data on the posterior.
 
 ```{r tau}
 hb_plot_tau(mcmc_hierarchical)

@@ -14,6 +14,6 @@ model {
   for (i in 1:n_study) {
     sigma[i] ~ dunif(0, s_sigma)
   }
-  tau ~ dunif(0, s_tau)
+  tau ~ PRIOR_TAU
   precision_ratio <- (1 / (tau * tau)) / ((1 / (tau * tau)) + (1 / (sigma[n_study] * sigma[n_study] / n_study_current)))
 }

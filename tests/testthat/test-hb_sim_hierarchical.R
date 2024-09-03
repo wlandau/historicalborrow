@@ -1,6 +1,6 @@
 test_that("sim hierarchical data", {
   set.seed(0)
-  for (prior_tau in c("half-t", "uniform")) {
+  for (prior_tau in c("half_t", "uniform")) {
     out <- hb_sim_hierarchical(
       n_study = 2,
       n_group = 3,

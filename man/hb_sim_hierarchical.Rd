@@ -10,13 +10,13 @@ hb_sim_hierarchical(
   n_patient = 100,
   n_continuous = 0,
   n_binary = 0,
-  prior_tau = "half-t",
   s_delta = 1,
   s_beta = 1,
   s_sigma = 1,
   s_mu = 1,
   s_tau = 1,
   d_tau = 4,
+  prior_tau = "half_t",
   alpha = NULL,
   delta = stats::rnorm(n = n_group - 1, mean = 0, sd = s_delta),
   beta = stats::rnorm(n = n_study * (n_continuous + n_binary), mean = 0, sd = s_delta),
@@ -38,16 +38,6 @@ hb_sim_hierarchical(
 \item{n_binary}{Number of binary covariates to simulate
 (all from independent Bernoulli distributions with p = 0.5).}
 
-\item{prior_tau}{Character string, name of the prior of \code{tau}.
-If \code{prior_tau} equals \code{"uniform"}, then the prior on \code{tau} is
-a uniform prior with lower bound 0 and upper bound \code{s_tau}.
-If \code{prior_tau} equals \code{"half-t"}, then the prior on \code{tau} is a
-half Student-t prior with center 0, lower bound 0, scale parameter
-\code{s_tau}, and degrees of freedom \code{d_tau}. The scale parameter \code{s_tau}
-is analogous to the \code{sigma} parameter of
-the Student-t parameterization given at
-\url{https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html}. # nolint}
-
 \item{s_delta}{Numeric of length 1, prior standard deviation
 of the study-by-group effect parameters \code{delta}.}
 
@@ -61,7 +51,7 @@ of the residual standard deviations.}
 prior standard deviation of \code{mu}.}
 
 \item{s_tau}{Non-negative numeric of length 1.
-If \code{prior_tau} is \code{"half-t"}, then \code{s_tau} is the scale parameter of
+If \code{prior_tau} is \code{"half_t"}, then \code{s_tau} is the scale parameter of
 the Student t prior of \code{tau} and analogous to the \code{sigma} parameter of
 the Student-t parameterization given at
 \url{https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html}. # nolint
@@ -69,7 +59,17 @@ If \code{prior_tau} is \code{"uniform"}, then \code{s_tau} is the upper bound of
 Upper bound on \code{tau} if \code{prior_tau} is \code{"uniform"}.}
 
 \item{d_tau}{Positive numeric of length 1. Degrees of freedom of the
-Student t prior of \code{tau} if \code{prior_tau} is \code{"half-t"}.}
+Student t prior of \code{tau} if \code{prior_tau} is \code{"half_t"}.}
+
+\item{prior_tau}{Character string, name of the prior of \code{tau}.
+If \code{prior_tau} equals \code{"uniform"}, then the prior on \code{tau} is
+a uniform prior with lower bound 0 and upper bound \code{s_tau}.
+If \code{prior_tau} equals \code{"half_t"}, then the prior on \code{tau} is a
+half Student-t prior with center 0, lower bound 0, scale parameter
+\code{s_tau}, and degrees of freedom \code{d_tau}. The scale parameter \code{s_tau}
+is analogous to the \code{sigma} parameter of
+the Student-t parameterization given at
+\url{https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html}. # nolint}
 
 \item{alpha}{Numeric vector of length 1 for the pooled
 and mixture models and length \code{n_study} for the

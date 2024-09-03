@@ -20,7 +20,7 @@
 #' @param prior_tau Character string, name of the prior of `tau`.
 #'   If `prior_tau` equals `"uniform"`, then the prior on `tau` is
 #'   a uniform prior with lower bound 0 and upper bound `s_tau`.
-#'   If `prior_tau` equals `"half-t"`, then the prior on `tau` is a
+#'   If `prior_tau` equals `"half_t"`, then the prior on `tau` is a
 #'   half Student-t prior with center 0, lower bound 0, scale parameter
 #'   `s_tau`, and degrees of freedom `d_tau`. The scale parameter `s_tau`
 #'   is analogous to the `sigma` parameter of
@@ -29,9 +29,9 @@
 #' @param s_mu Numeric of length 1,
 #'   prior standard deviation of `mu`.
 #' @param d_tau Positive numeric of length 1. Degrees of freedom of the
-#'   Student t prior of `tau` if `prior_tau` is `"half-t"`.
+#'   Student t prior of `tau` if `prior_tau` is `"half_t"`.
 #' @param s_tau Non-negative numeric of length 1.
-#'   If `prior_tau` is `"half-t"`, then `s_tau` is the scale parameter of
+#'   If `prior_tau` is `"half_t"`, then `s_tau` is the scale parameter of
 #'   the Student t prior of `tau` and analogous to the `sigma` parameter of
 #'   the Student-t parameterization given at
 #'   <https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html>. # nolint
@@ -49,13 +49,13 @@ hb_sim_hierarchical <- function(
   n_patient = 100,
   n_continuous = 0,
   n_binary = 0,
-  prior_tau = "half-t",
   s_delta = 1,
   s_beta = 1,
   s_sigma = 1,
   s_mu = 1,
   s_tau = 1,
   d_tau = 4,
+  prior_tau = "half_t",
   alpha = NULL,
   delta = stats::rnorm(n = n_group - 1, mean = 0, sd = s_delta),
   beta = stats::rnorm(
@@ -72,13 +72,6 @@ hb_sim_hierarchical <- function(
   true(n_patient, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(n_continuous, length(.) == 1, is.finite(.), is.numeric(.), . >= 0)
   true(n_binary, length(.) == 1, is.finite(.), is.numeric(.), . >= 0)
-  true(
-    prior_tau,
-    is.character(.),
-    length(.) == 1L,
-    !anyNA(.),
-    as.character(.) %in% c("half-t", "uniform")
-  )
   true(n_study, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_delta, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(s_beta, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
@@ -86,13 +79,20 @@ hb_sim_hierarchical <- function(
   true(s_mu, length(.) == 1, is.finite(.), is.numeric(.))
   true(s_tau, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
   true(d_tau, length(.) == 1, is.finite(.), is.numeric(.), . > 0)
+  true(
+    prior_tau,
+    is.character(.),
+    length(.) == 1L,
+    !anyNA(.),
+    as.character(.) %in% c("half_t", "uniform")
+  )
   true(delta, is.finite(.), is.numeric(.), length(.) == n_group - 1)
   true(beta, (all(is.finite(.)) || !length(beta)), is.numeric(.))
   true(length(beta) == n_study * (n_continuous + n_binary))
   true(sigma, all(is.finite(.)), is.numeric(.), length(.) == n_study)
   true(mu, is.numeric(.), is.finite(.), length(.) == 1)
   if (is.null(tau)) {
-    if (identical(as.character(prior_tau), "half-t")) {
+    if (identical(as.character(prior_tau), "half_t")) {
       tau <- abs(stats::rt(n = 1, df = d_tau)) * s_tau
     } else if (identical(as.character(prior_tau), "uniform")) {
       tau <- stats::runif(n = 1, min = 0, max = s_tau)
