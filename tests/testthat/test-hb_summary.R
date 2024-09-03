@@ -266,12 +266,10 @@ test_that("hb_summary() pool mock mcmc", {
   data_current <- dplyr::filter(data, study == 2)
   x_alpha <- get_x_alpha_pool_or_mixture(data)
   x_delta <- get_x_delta(data)
-  x_beta <- get_x_beta(data = data, x_alpha = x_alpha, x_delta = x_delta)
   response_samples <- lapply(
     seq_len(6),
     function(x) {
-      out <- x_beta[-seq_len(3), 2, drop = TRUE] *
-        mcmc[["beta[2]"]][x] + rep(c(0, mcmc$delta[x]), each = 3) +
+      out <- rep(c(0, mcmc$delta[x]), each = 3) +
         rep(c(mcmc$alpha[x], 0), each = 3)
       as.data.frame(cbind(group = data_current$group, value = out, sample = x))
     }
