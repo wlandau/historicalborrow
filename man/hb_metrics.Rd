@@ -2,14 +2,13 @@
 % Please edit documentation in R/hb_metrics.R
 \name{hb_metrics}
 \alias{hb_metrics}
-\title{Borrowing metrics}
+\title{Legacy function to calculate borrowing metrics}
 \usage{
 hb_metrics(borrow, pool, independent)
 }
 \arguments{
 \item{borrow}{A data frame returned by \code{\link[=hb_summary]{hb_summary()}}
-for a borrowing model,
-either the hierarchical model or the mixture model.}
+for the mixture or hierarchical model.}
 
 \item{pool}{A data frame returned by \code{\link[=hb_summary]{hb_summary()}}
 for the pooled model.}
@@ -21,9 +20,11 @@ for the independent model.}
 A data frame with borrowing metrics.
 }
 \description{
-Calculate historical borrowing metrics using
+Legacy function to calculate
+historical borrowing metrics using
 summary output from a fitted borrowing model and
 analogous summaries from the benchmark models.
+Please use \code{\link[=hb_ess]{hb_ess()}} instead of \code{\link[=hb_metrics]{hb_metrics()}}.
 }
 \examples{
 if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
@@ -59,8 +60,4 @@ hb_metrics(
 )
 }
 }
-\seealso{
-Other summary: 
-\code{\link{hb_summary}()}
-}
-\concept{summary}
+\keyword{internal}

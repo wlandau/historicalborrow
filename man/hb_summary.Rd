@@ -200,6 +200,6 @@ hb_summary(mcmc, data)
 }
 \seealso{
 Other summary: 
-\code{\link{hb_metrics}()}
+\code{\link{hb_ess}()}
 }
 \concept{summary}

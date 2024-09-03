@@ -28,7 +28,7 @@ reference:
 - title: Summary
   contents:
   - '`hb_summary`'
-  - '`hb_metrics`'
+  - '`hb_ess`'
 - title: Plot
   contents:
   - '`hb_plot_borrow`'

@@ -2,6 +2,7 @@
 
 export(hb_convergence)
 export(hb_data)
+export(hb_ess)
 export(hb_mcmc_hierarchical)
 export(hb_mcmc_independent)
 export(hb_mcmc_mixture)

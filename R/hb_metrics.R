@@ -1,17 +1,18 @@
-#' @title Borrowing metrics
+#' @title Legacy function to calculate borrowing metrics
 #' @export
-#' @family summary
-#' @description Calculate historical borrowing metrics using
+#' @keywords internal
+#' @description Legacy function to calculate
+#'   historical borrowing metrics using
 #'   summary output from a fitted borrowing model and
 #'   analogous summaries from the benchmark models.
+#'   Please use [hb_ess()] instead of [hb_metrics()].
 #' @return A data frame with borrowing metrics.
-#' @param borrow A data frame returned by [hb_summary()]
-#'   for a borrowing model,
-#'   either the hierarchical model or the mixture model.
 #' @param pool A data frame returned by [hb_summary()]
 #'   for the pooled model.
 #' @param independent A data frame returned by [hb_summary()]
 #'   for the independent model.
+#' @param borrow A data frame returned by [hb_summary()]
+#'   for the mixture or hierarchical model.
 #' @examples
 #' if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {
 #' data <- hb_sim_independent(n_continuous = 2)$data
@@ -67,8 +68,9 @@ hb_metrics <- function(borrow, pool, independent) {
   variance_shift_ratio <-
     (borrow$response_variance - independent$response_variance) /
     (pool$response_variance - independent$response_variance)
-  tibble::tibble(
+  out <- tibble::tibble(
     mean_shift_ratio = mean_shift_ratio,
     variance_shift_ratio = variance_shift_ratio
   )
+  out
 }

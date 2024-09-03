@@ -9,8 +9,7 @@ hb_plot_group(borrow, pool, independent, outcome = c("response", "diff"))
 }
 \arguments{
 \item{borrow}{A data frame returned by \code{\link[=hb_summary]{hb_summary()}}
-for a borrowing model,
-either the hierarchical model or the mixture model.}
+for the mixture or hierarchical model.}
 
 \item{pool}{A data frame returned by \code{\link[=hb_summary]{hb_summary()}}
 for the pooled model.}
