@@ -11,7 +11,6 @@ reference:
 - title: Data
   contents:
   - '`hb_data`'
-  - '`hb_s_tau`'
 - title: Simulate
   contents:
   - '`hb_sim_hierarchical`'

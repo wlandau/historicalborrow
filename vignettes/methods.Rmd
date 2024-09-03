@@ -193,29 +193,7 @@ $$
 
 # Borrowing metrics
 
-## Mean shift ratio
-
-Let $\theta_m$ be the posterior mean control group response estimated by model $m$. The mean shift ratio is:
-
-$$
-\begin{aligned}
-\frac{\theta_{m*} - \theta_{\text{independent}}}{\theta_{\text{pool}} - \theta_{\text{independent}}}
-\end{aligned}
-$$
-
-where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
-
-## Variance shift ratio
-
-Let $V_m$ be the estimated posterior variance of $\alpha_I$ (current study control group response mean) estimated by model $m$. The variance shift ratio is:
-
-$$
-\begin{aligned}
-\frac{V_{m*} - V_{\text{independent}}}{V_{\text{pool}} - V_{\text{independent}}}
-\end{aligned}
-$$
-
-where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
+The package supports the following metrics to quantify borrowing.
 
 ## Precision ratio (hierarchical model only)
 
@@ -229,32 +207,31 @@ $$
 
 The precision ratio comes from the conditional distribution of $\alpha_k$ in the hierarchical model given the other parameters and the data. More precisely, in this conditional distribution, the mean is a weighted average between the prior mean and data mean, and the precision ratio is the weight on the prior mean. This can be seen in a simpler case with a Bayesian model with a normal data model, a normal prior on the mean, and known constant variance. For details, see Chapter 2 of [Bayesian Data Analysis](http://www.stat.columbia.edu/~gelman/book/) 3rd Ed. by Gelman et al.
 
-## Adjusting hierarchical borrowing strength using the prior
+## Variance shift ratio
 
-It is almost always best to set a diffuse prior on $\tau$ so that hierarchical borrowing is fully dynamic. However, in extreme cases (e.g. few historical studies, combined with other issues), there may not be enough information to precisely estimate a variance among placebo means in the hierarchical model, the function `hb_s_tau()` suggests a value of $s_\tau$ that assigns a desired prior precision ratio. if $P$ is the desired prior precision ratio, then:
-
-$$
-\begin{aligned}
-P = \frac{\frac{1}{\tau^2}}{\frac{1}{\tau^2} + \frac{n}{\sigma^2}}
-\end{aligned}
-$$
-
-Solving for $\tau$:
+Let $V_m$ be the estimated posterior variance of $\alpha_I$ (current study control group response mean) estimated by model $m$. The variance shift ratio is:
 
 $$
 \begin{aligned}
-\tau = \sigma \sqrt{\frac{1}{n} \left (\frac{1}{P} - 1 \right )}
+\frac{V_{m*} - V_{\text{independent}}}{V_{\text{pool}} - V_{\text{independent}}}
 \end{aligned}
 $$
 
-If we expect the mean of $\tau$ to be as above, then our uniform upper bound is double:
+where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
+
+## Mean shift ratio
+
+The mean shift ratio is not recommended to measure the strength of borrowing. Rather, it is an informal ad hoc measure of the lack of commensurability between the current and historical data sources.
+
+To define the mean shift ratio, let $\theta_m$ be the posterior mean control group response estimated by model $m$. The mean shift ratio is:
 
 $$
 \begin{aligned}
-s_\tau = 2 \sigma \sqrt{\frac{1}{n} \left (\frac{1}{P} - 1 \right )}
+\frac{\theta_{m*} - \theta_{\text{independent}}}{\theta_{\text{pool}} - \theta_{\text{independent}}}
 \end{aligned}
 $$
 
+where $m*$ is a historical borrowing model like the mixture model or hierarchical model.
 
 ## Posterior mixture proportions (mixture model only)
 

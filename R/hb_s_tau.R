@@ -1,7 +1,8 @@
-#' @title Suggest s_tau
+#' @title Superseded suggest s_tau given a uniform prior on tau.
 #' @export
-#' @family data
-#' @description Suggest a value of the `s_tau` hyperparameter
+#' @keywords internal
+#' @description For the uniform prior on tau,
+#'   suggest a value of the `s_tau` hyperparameter
 #'   to achieve a given amount of borrowing in the hierarchical model.
 #'   Only use if a diffuse prior on `tau` is not feasible.
 #' @details See the hierarchical model section of the

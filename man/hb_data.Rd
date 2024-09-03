@@ -104,8 +104,4 @@ hb_data(
   covariates = c("cov1", "cov2")
 )
 }
-\seealso{
-Other data: 
-\code{\link{hb_s_tau}()}
-}
 \concept{data}
