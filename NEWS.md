@@ -1,6 +1,7 @@
-# historicalborrow 1.0.4.9001
+# historicalborrow 1.0.4.9002
 
 * Avoid `aes_string()`.
+* Default to half-Student-t priors for hierarchical model MCMC and simulation (#6).
 
 # historicalborrow 1.0.4
 
