@@ -28,8 +28,6 @@
 #'   <https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html>. # nolint
 #' @param s_mu Numeric of length 1,
 #'   prior standard deviation of `mu`.
-#' @param d_tau Positive numeric of length 1. Degrees of freedom of the
-#'   Student t prior of `tau` if `prior_tau` is `"half_t"`.
 #' @param s_tau Non-negative numeric of length 1.
 #'   If `prior_tau` is `"half_t"`, then `s_tau` is the scale parameter of
 #'   the Student t prior of `tau` and analogous to the `sigma` parameter of
@@ -37,6 +35,8 @@
 #'   <https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html>. # nolint
 #'   If `prior_tau` is `"uniform"`, then `s_tau` is the upper bound of `tau`.
 #'   Upper bound on `tau` if `prior_tau` is `"uniform"`.
+#' @param d_tau Positive numeric of length 1. Degrees of freedom of the
+#'   Student t prior of `tau` if `prior_tau` is `"half_t"`.
 #' @param mu Numeric of length 1,
 #'   mean of the control group means `alpha`.
 #' @param tau Numeric of length 1,
