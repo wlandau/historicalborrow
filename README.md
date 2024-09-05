@@ -34,8 +34,7 @@ remotes::install_github("wlandau/historicalborrow")
 Albert, [Faith Bian](https://github.com/faithbian-lilly), and [Saptarshi
 Chatterjee](https://github.com/schatterjee-lilly) contributed to the
 development of the methods prior to implementation. Phebe Kemmer,
-Heather Zhao, and Zhangchen Zhao also provided helpful feedback on the
-models and their application to clinical use-cases.
+Heather Zhao, and Zhangchen Zhao reviewed and provided helpful feedback.
 
 ## Code of Conduct
 
