@@ -27,7 +27,7 @@ set.seed(0)
 
 This tutorial shows how to fit historical control-group borrowing models using the `historicalborrow` package.
 
-## Data
+# Data
 
 `historicalborrow` expects data on multiple patients partitioned into studies and groups. Here is a simulated example. There are functions to simulate from the prior predictive distribution of each of the hierarchical, mixture, independent, and pooled models.
 
@@ -93,7 +93,7 @@ distinct(
   )
 ```
 
-## Models
+# Models
 
 The pooled and independent models are benchmarks used to quantify the borrowing strength of the hierarchical and mixture models. To run these benchmark models, run the functions below. Each function returns a data frame with one column per parameter and one row per posterior sample.
 
@@ -136,7 +136,6 @@ mcmc_independent <- hb_mcmc_independent(
   n_iterations = 4e3
 )
 ```
-
 
 The hierarchical model works best if the number of historical studies is large. For a small number of historical studies, it may be necessary to choose a value of `s_tau` to approximate the prior amount of borrowing given a desired precision ratio and supposed residual variance. See the function `hb_s_tau()` for an initial value to explore. It is not recommended to entirely rely on `hb_s_tau()`, but it does give a benchmark to aid in the thinking.
 
@@ -200,7 +199,7 @@ mcmc_mixture <- hb_mcmc_mixture(
 )
 ```
 
-## Convergence
+# Convergence
 
 It is important to check convergence diagnostics on each model. The `hb_convergence()` function returns data frame of summarized convergence diagnostics.
  `max_rhat` is the maximum univariate Gelman/Rubin potential scale
@@ -218,7 +217,7 @@ It is important to check convergence diagnostics on each model. The `hb_converge
 hb_convergence(mcmc_hierarchical)
 ```
 
-## Results
+# Results
 
 Each model can be summarized with the `hb_summary()` function. The output is a table with few rows and many columns.
 
@@ -323,7 +322,7 @@ call on one of the other models.
   Call `dplyr::distinct(hb_data(your_data), study, study_label)`
   to see which study labels correspond to these integer indexes.
 
-## Borrowing metrics
+# Borrowing metrics
 
 The `hb_ess()` metric computes the effective sample size metric described at <https://wlandau.github.io/historicalborrow/articles/methods.html#effective-sample-size-ess>.
 
@@ -341,7 +340,7 @@ hb_ess(
 )
 ```
 
-The `hb_metrics()` function shows legacy borrowing metrics like the mean shift ratio and variance shift ratio which require input from benchmark models. The mean shift ratio and variance shift ratio are defined in the methods vignette. Below, we compute these metrics on the hierarchical model.
+The `hb_metrics()` function shows legacy/superseded borrowing metrics like the mean shift ratio (no longer recommended as a borrowing metric) and variance shift ratio which require input from benchmark models. The mean shift ratio and variance shift ratio are defined in the methods vignette. Below, we compute these metrics on the hierarchical model.
 
 ```{r}
 summary_pool <- hb_summary(
@@ -397,7 +396,7 @@ hb_metrics(
 )
 ```
 
-## Plots
+# Plots
 
 The `hb_plot_borrow()` function visualizes the results from a borrowing model (either hierarchical or mixture) against the benchmark models (independent and pooled) to gain intuition about the overall effect of borrowing on estimation.
 
