@@ -487,12 +487,30 @@ see which study labels correspond to these integer indexes.</li>
 <div class="section level2">
 <h2 id="borrowing-metrics">Borrowing metrics<a class="anchor" aria-label="anchor" href="#borrowing-metrics"></a>
 </h2>
-<p>The <code><a href="../reference/hb_metrics.html">hb_metrics()</a></code> function shows borrowing metrics like
-the mean shift ratio and variance shift ratio which require input from
-benchmark models. The mean shift ratio and variance shift ratio are
+<p>The <code><a href="../reference/hb_ess.html">hb_ess()</a></code> metric computes the effective sample size
+metric described at <a href="https://wlandau.github.io/historicalborrow/articles/methods.html#effective-sample-size-ess" class="uri">https://wlandau.github.io/historicalborrow/articles/methods.html#effective-sample-size-ess</a>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_ess.html">hb_ess</a></span><span class="op">(</span></span>
+<span>  mcmc_pool <span class="op">=</span> <span class="va">mcmc_pool</span>,</span>
+<span>  mcmc_hierarchical <span class="op">=</span> <span class="va">mcmc_hierarchical</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">data</span>,</span>
+<span>  response <span class="op">=</span> <span class="st">"outcome"</span>,</span>
+<span>  study <span class="op">=</span> <span class="st">"trial"</span>,</span>
+<span>  study_reference <span class="op">=</span> <span class="st">"trial3"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"arm"</span>,</span>
+<span>  group_reference <span class="op">=</span> <span class="st">"arm1"</span>,</span>
+<span>  patient <span class="op">=</span> <span class="st">"subject"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 5</span></span></span>
+<span><span class="co">#&gt;     ess weight     n    v0 v_tau</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>  22.6  0.113   200 0.451  3.99</span></span></code></pre></div>
+<p>The <code><a href="../reference/hb_metrics.html">hb_metrics()</a></code> function shows legacy borrowing metrics
+like the mean shift ratio and variance shift ratio which require input
+from benchmark models. The mean shift ratio and variance shift ratio are
 defined in the methods vignette. Below, we compute these metrics on the
 hierarchical model.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary_pool</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_summary.html">hb_summary</a></span><span class="op">(</span></span>
 <span>  mcmc <span class="op">=</span> <span class="va">mcmc_pool</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
@@ -527,7 +545,7 @@ hierarchical model.</p>
 <span><span class="co">#&gt;              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>            0.477                0.418</span></span></code></pre></div>
 <p>Usage with the mixture model is the same.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary_mixture</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_summary.html">hb_summary</a></span><span class="op">(</span></span>
 <span>  mcmc <span class="op">=</span> <span class="va">mcmc_mixture</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">data_mixture</span>,</span>
@@ -557,14 +575,14 @@ hierarchical model.</p>
 from a borrowing model (either hierarchical or mixture) against the
 benchmark models (independent and pooled) to gain intuition about the
 overall effect of borrowing on estimation.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_plot_borrow.html">hb_plot_borrow</a></span><span class="op">(</span></span>
 <span>  borrow <span class="op">=</span> <span class="va">summary_hierarchical</span>,</span>
 <span>  pool <span class="op">=</span> <span class="va">summary_pool</span>,</span>
 <span>  independent <span class="op">=</span> <span class="va">summary_independent</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="usage_files/figure-html/borrow1-1.png" width="672"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_plot_borrow.html">hb_plot_borrow</a></span><span class="op">(</span></span>
 <span>  borrow <span class="op">=</span> <span class="va">summary_mixture</span>,</span>
 <span>  pool <span class="op">=</span> <span class="va">summary_pool</span>,</span>
@@ -573,7 +591,7 @@ overall effect of borrowing on estimation.</p>
 <p><img src="usage_files/figure-html/borrow2-1.png" width="672"></p>
 <p><code><a href="../reference/hb_plot_group.html">hb_plot_group()</a></code> shows the same information but grouped
 by the group designations in the data (e.g. treatment arm).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_plot_group.html">hb_plot_group</a></span><span class="op">(</span></span>
 <span>  borrow <span class="op">=</span> <span class="va">summary_mixture</span>,</span>
 <span>  pool <span class="op">=</span> <span class="va">summary_pool</span>,</span>
@@ -584,7 +602,7 @@ by the group designations in the data (e.g. treatment arm).</p>
 <code>tau</code> parameter. This should be compared with the prior in
 practice to understand the influence of prior and data on the
 posterior.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_plot_tau.html">hb_plot_tau</a></span><span class="op">(</span><span class="va">mcmc_hierarchical</span><span class="op">)</span></span></code></pre></div>
 <p><img src="usage_files/figure-html/tau-1.png" width="672"></p>
 </div>
