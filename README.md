@@ -2,7 +2,7 @@
 # historicalborrow
 
 [![check](https://github.com/wlandau/historicalborrow/workflows/check/badge.svg)](https://github.com/wlandau/historicalborrow/actions?query=workflow%3Acheck)
-[![cover](https://github.com/wlandau/historicalborrow/workflows/test-coverage/badge.svg)](https://github.com/wlandau/historicalborrow/actions?query=workflow%3Atest-coverage)
+[![cover](https://github.com/wlandau/historicalborrow/workflows/cover/badge.svg)](https://github.com/wlandau/historicalborrow/actions?query=workflow%3Acover)
 [![pkgdown](https://github.com/wlandau/historicalborrow/workflows/pkgdown/badge.svg)](https://github.com/wlandau/historicalborrow/actions?query=workflow%3Apkgdown)
 [![lint](https://github.com/wlandau/historicalborrow/workflows/pkgdown/badge.svg)](https://github.com/wlandau/historicalborrow/actions?query=workflow%3Alint)
 
@@ -22,11 +22,11 @@ remotes::install_github("wlandau/historicalborrow")
 
 ## Documentation
 
--   Functions: <https://wlandau.github.io/historicalborrow/reference/>
--   Methods:
-    <https://wlandau.github.io/historicalborrow/articles/methods.html>
--   Usage:
-    <https://wlandau.github.io/historicalborrow/articles/usage.html>
+- Functions: <https://wlandau.github.io/historicalborrow/reference/>
+- Methods:
+  <https://wlandau.github.io/historicalborrow/articles/methods.html>
+- Usage:
+  <https://wlandau.github.io/historicalborrow/articles/usage.html>
 
 ## Thanks
 
@@ -46,6 +46,6 @@ By contributing to this project, you agree to abide by its terms.
 
 ## References
 
--   Viele, Kert and Berry, Scott and Neuenschwander, Beat et al. “Use of
-    historical control data for assessing treatment effects in clinical
-    trials.” Pharmaceutical Statistics 1(13), 2013.
+- Viele, Kert and Berry, Scott and Neuenschwander, Beat et al. “Use of
+  historical control data for assessing treatment effects in clinical
+  trials.” Pharmaceutical Statistics 1(13), 2013.
