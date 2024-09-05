@@ -20,7 +20,7 @@
 #'   `s_tau = sd(data[[response]], na.rm = TRUE)` and
 #'   `d_tau = 1`  specify a weakly informative scaled half-Cauchy
 #'   distribution. This choice is only provisional.
-#'   The prior on `tau` is extemely important, especially for small
+#'   The prior on `tau` is extremely important, especially for small
 #'   numbers of historical studies, and the user should set a reasonable
 #'   value for the use case, ideally informed by the results of sensitivity
 #'   analyses and simulations.
@@ -31,7 +31,7 @@
 #'   `s_tau = sd(data[[response]], na.rm = TRUE)` and
 #'   `d_tau = 1`  specify a weakly informative scaled half-Cauchy
 #'   distribution. This choice is only provisional.
-#'   The prior on `tau` is extemely important, especially for small
+#'   The prior on `tau` is extremely important, especially for small
 #'   numbers of historical studies, and the user should set a reasonable
 #'   value for the use case, ideally informed by the results of sensitivity
 #'   analyses and simulations.

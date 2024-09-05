@@ -2,7 +2,7 @@
 % Please edit documentation in R/hb_ess.R
 \name{hb_ess}
 \alias{hb_ess}
-\title{Effective sample size (ESS)}
+\title{Prior effective sample size (ESS)}
 \usage{
 hb_ess(
   mcmc_pool,
@@ -56,25 +56,26 @@ name of the column in \code{data} with the patient ID.}
 \value{
 A data frame with one row and the following columns:
 \itemize{
-\item \code{v0}: predictive variance of the control group mean of the current
-study from historical data given the pooled model.
-Calculated as the mean over MCMC samples of \code{1 / sum(sigma_h ^ 2)},
-where each \code{sigma_h} is the residual standard deviation of
-historical study \code{h} estimated from the pooled model.
-\item \code{v_tau}: predictive variance of the control group mean of the current
-study under the hierarchical model. Calculated by averaging over
-predictive draws, where each predictive draw is from
+\item \code{v0}: posterior predictive variance of the control group mean of a
+hypothetical new study given the pooled model.
+Calculated as the mean over MCMC samples of \code{1 / sum(sigma_i ^ 2)},
+where each \code{sigma_i} is the residual standard deviation of
+study \code{i} estimated from the pooled model.
+\item \code{v_tau}: posterior predictive variance of a hypothetical
+new control group mean under the hierarchical model.
+Calculated by averaging over predictive draws,
+where each predictive draw is from
 \code{rnorm(n = 1, mean = mu_, sd = tau_)} and \code{mu_} and \code{tau_} are the
 \code{mu} and \code{tau} components of an MCMC sample.
-\item \code{n}: number of non-missing historical patients in control arms.
+\item \code{n}: number of non-missing historical control patients.
 \item \code{weight}: strength of borrowing as a ratio of variances: \code{v0 / v_tau}.
-\item \code{ess}: strength of borrowing as an effective sample size:
-\verb{n v0 / v_tau}, where \code{n} is the number of non-missing patients
-in historical control groups.
+\item \code{ess}: strength of borrowing as a prior effective sample size:
+\verb{n v0 / v_tau}, where \code{n} is the number of non-missing control
+patients.
 }
 }
 \description{
-Quantify borrowing with effective sample size (ESS)
+Quantify borrowing with prior effective sample size (ESS)
 as cited and explained in the methods vignette at
 \url{https://wlandau.github.io/historicalborrow/articles/methods.html}.
 }

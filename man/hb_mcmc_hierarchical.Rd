@@ -17,7 +17,7 @@ hb_mcmc_hierarchical(
   s_beta = 30,
   s_sigma = 30,
   s_mu = 30,
-  s_tau = 1,
+  s_tau = sd(data[[response]], na.rm = TRUE),
   d_tau = 1,
   prior_tau = "half_t",
   n_chains = 4,
@@ -93,10 +93,28 @@ the Student t prior of \code{tau} and analogous to the \code{sigma} parameter of
 the Student-t parameterization given at
 \url{https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html}. # nolint
 If \code{prior_tau} is \code{"uniform"}, then \code{s_tau} is the upper bound of \code{tau}.
-Upper bound on \code{tau} if \code{prior_tau} is \code{"uniform"}.}
+Upper bound on \code{tau} if \code{prior_tau} is \code{"uniform"}.
+
+In the case of \code{prior_tau} equal to \code{"half_t"}, the defaults
+\code{s_tau = sd(data[[response]], na.rm = TRUE)} and
+\code{d_tau = 1}  specify a weakly informative scaled half-Cauchy
+distribution. This choice is only provisional.
+The prior on \code{tau} is extremely important, especially for small
+numbers of historical studies, and the user should set a reasonable
+value for the use case, ideally informed by the results of sensitivity
+analyses and simulations.}
 
 \item{d_tau}{Positive numeric of length 1. Degrees of freedom of the
-Student t prior of \code{tau} if \code{prior_tau} is \code{"half_t"}.}
+Student t prior of \code{tau} if \code{prior_tau} is \code{"half_t"}.
+
+In the case of \code{prior_tau} equal to \code{"half_t"}, the defaults
+\code{s_tau = sd(data[[response]], na.rm = TRUE)} and
+\code{d_tau = 1}  specify a weakly informative scaled half-Cauchy
+distribution. This choice is only provisional.
+The prior on \code{tau} is extremely important, especially for small
+numbers of historical studies, and the user should set a reasonable
+value for the use case, ideally informed by the results of sensitivity
+analyses and simulations.}
 
 \item{prior_tau}{Character string, name of the prior of \code{tau}.
 If \code{prior_tau} equals \code{"uniform"}, then the prior on \code{tau} is

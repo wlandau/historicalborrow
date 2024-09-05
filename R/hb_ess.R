@@ -1,25 +1,26 @@
-#' @title Effective sample size (ESS)
+#' @title Prior effective sample size (ESS)
 #' @export
 #' @family summary
-#' @description Quantify borrowing with effective sample size (ESS)
+#' @description Quantify borrowing with prior effective sample size (ESS)
 #'   as cited and explained in the methods vignette at
 #'   <https://wlandau.github.io/historicalborrow/articles/methods.html>.
 #' @return A data frame with one row and the following columns:
-#'   * `v0`: predictive variance of the control group mean of the current
-#'     study from historical data given the pooled model.
-#'     Calculated as the mean over MCMC samples of `1 / sum(sigma_h ^ 2)`,
-#'     where each `sigma_h` is the residual standard deviation of
-#'     historical study `h` estimated from the pooled model.
-#'   * `v_tau`: predictive variance of the control group mean of the current
-#'     study under the hierarchical model. Calculated by averaging over
-#'     predictive draws, where each predictive draw is from
+#'   * `v0`: posterior predictive variance of the control group mean of a
+#'     hypothetical new study given the pooled model.
+#'     Calculated as the mean over MCMC samples of `1 / sum(sigma_i ^ 2)`,
+#'     where each `sigma_i` is the residual standard deviation of
+#'     study `i` estimated from the pooled model.
+#'   * `v_tau`: posterior predictive variance of a hypothetical
+#'     new control group mean under the hierarchical model.
+#'     Calculated by averaging over predictive draws,
+#'     where each predictive draw is from
 #'     `rnorm(n = 1, mean = mu_, sd = tau_)` and `mu_` and `tau_` are the
 #'     `mu` and `tau` components of an MCMC sample.
-#'   * `n`: number of non-missing historical patients in control arms.
+#'   * `n`: number of non-missing historical control patients.
 #'   * `weight`: strength of borrowing as a ratio of variances: `v0 / v_tau`.
-#'   * `ess`: strength of borrowing as an effective sample size:
-#'      `n v0 / v_tau`, where `n` is the number of non-missing patients
-#'      in historical control groups.
+#'   * `ess`: strength of borrowing as a prior effective sample size:
+#'      `n v0 / v_tau`, where `n` is the number of non-missing control
+#'      patients.
 #' @inheritParams hb_data
 #' @param mcmc_pool A fitted model from [hb_mcmc_pool()].
 #' @param mcmc_hierarchical A fitted model from [hb_mcmc_hierarchical()].
@@ -78,12 +79,19 @@ hb_ess <- function(
   v0 <- hb_ess_v0(data, mcmc_pool)
   v_tau <- hb_ess_v_tau(mcmc_hierarchical)
   weight <- v0 / v_tau
-  historical_control <- data$study != max(data$study) &
+  n <- sum(
     data$group == min(data$group) &
-    !is.na(data$response)
-  n <- nrow(data[historical_control, ])
+      data$study < max(data$study) &
+      !is.na(data$response)
+  )
   ess <- n * weight
-  tibble::tibble(ess = ess, weight = weight, n = n, v0 = v0, v_tau = v_tau)
+  tibble::tibble(
+    ess = ess,
+    weight = weight,
+    n = n,
+    v0 = v0,
+    v_tau = v_tau
+  )
 }
 
 hb_ess_v_tau <- function(mcmc_hierarchical) {
@@ -98,12 +106,6 @@ hb_ess_v_tau <- function(mcmc_hierarchical) {
 
 hb_ess_v0 <- function(data, mcmc_pool) {
   sigma <- dplyr::select(mcmc_pool, tidyselect::starts_with("sigma["))
-  index_sigma <- gsub("sigma[", "", colnames(sigma), fixed = TRUE)
-  index_sigma <- gsub("]", "", index_sigma, fixed = TRUE)
-  index_sigma <- as.integer(index_sigma)
-  sigma <- sigma[, index_sigma != max(index_sigma), drop = FALSE]
-  precision <- tibble::as_tibble(
-    as.data.frame(lapply(sigma, function(x) x ^ (-2)))
-  )
+  precision <- as.data.frame(lapply(sigma, function(x) x ^ (-2)))
   mean(1 / rowSums(precision))
 }

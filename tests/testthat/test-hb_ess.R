@@ -23,7 +23,13 @@ test_that("hb_ess()", {
     mcmc_hierarchical = hierarchical,
     data = data
   )
-  v0 <- mean(((pool$`sigma[1]` ^ (-2)) + (pool$`sigma[2]` ^ (-2))) ^ (-1))
+  v0 <- mean(
+    (
+      (pool$`sigma[1]` ^ (-2)) +
+        (pool$`sigma[2]` ^ (-2)) +
+        (pool$`sigma[3]` ^ (-2))
+    ) ^ (-1)
+  )
   expect_equal(out$v0, v0)
   exp <- mean(hierarchical$tau^2 + var(hierarchical$mu))
   expect_equal(object = out$v_tau, expected = exp, tolerance = 0.1)
