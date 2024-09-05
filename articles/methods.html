@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">historicalborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,8 @@
 
 
 
-<script src="methods_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Methods</h1>
@@ -67,7 +68,8 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wlandau.github.io/historicalborrow/">historicalborrow</a></span><span class="op">)</span></span></code></pre></div>
-<p>This vignette defines the models and historical borrowing metrics supported in the <code>historicalborrow</code> package.</p>
+<p>This vignette defines the models and historical borrowing metrics
+supported in the <code>historicalborrow</code> package.</p>
 <div class="section level2">
 <h2 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
 </h2>
@@ -76,61 +78,195 @@
 </h3>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>: vector of patient-specific clinical responses to a continuous outcome variable. Ideally, the outcome variable should be some form of change from baseline, not the response itself. If the outcome is the raw response, then the treatment effect will not be meaningful.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>:
+vector of patient-specific clinical responses to a continuous outcome
+variable. Ideally, the outcome variable should be some form of change
+from baseline, not the response itself. If the outcome is the raw
+response, then the treatment effect will not be meaningful.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>: the element of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> corresponding to study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> patient <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{ij}</annotation></semantics></math>:
+the element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+corresponding to study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+patient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>X</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">(X)_{ij}</annotation></semantics></math>: the row of matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> corresponding to study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> patient <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">(X)_{ij}</annotation></semantics></math>:
+the row of matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+corresponding to study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+patient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>: Vector of control group mean parameters, one for each study. The first elements are for the historical studies, and the last one is for the current study.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>:
+Vector of control group mean parameters, one for each study. The first
+elements are for the historical studies, and the last one is for the
+current study.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>: Vector of study-specific treatment mean parameters. There is one for each combination of study and non-control treatment group.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>:
+Vector of study-specific treatment mean parameters. There is one for
+each combination of study and non-control treatment group.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>: integer index for the elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>:
+integer index for the elements of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>: integer index for the elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>:
+integer index for the elements of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>: Vector of study-specific baseline covariate parameters.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>:
+Vector of study-specific baseline covariate parameters.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>: matrix for the control group mean parameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>. It has indicator columns to select the appropriate element of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> for each element of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>:
+matrix for the control group mean parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>.
+It has indicator columns to select the appropriate element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+for each element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">X_\delta</annotation></semantics></math>: matrix for the treatment mean parameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>. It has indicator columns to select the appropriate element of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> for each element of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">X_\delta</annotation></semantics></math>:
+matrix for the treatment mean parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>.
+It has indicator columns to select the appropriate element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>
+for each element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>: matrix for the baseline covariate fixed effect parameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>. It has indicator columns to select the appropriate element of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> for each element of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>:
+matrix for the baseline covariate fixed effect parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>.
+It has indicator columns to select the appropriate element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+for each element of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>: Vector of study-specific residual standard deviations.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>:
+Vector of study-specific residual standard deviations.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mo>⋅</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I(\cdot)</annotation></semantics></math>: indicator function.</li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo>⋅</mo><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">I(\cdot)</annotation></semantics></math>:
+indicator function.</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="model-matrices">Model matrices<a class="anchor" aria-label="anchor" href="#model-matrices"></a>
 </h3>
 <p>Each primary model is parameterized thus:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 E(y) = X_\alpha \alpha + X_\delta \delta + X_\beta \beta
 \end{aligned}
 </annotation></semantics></math></p>
-<p>Above, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">X_\delta</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math> are fixed matrices. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math> is a conventional model matrix for the baseline covariates <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>, and the details are explained in the “Baseline covariates” section below. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math> is a matrix of zeroes and ones. It is constructed such that each scalar component of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> is the mean response of the control group in a particular study. Likewise, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">X_\delta</annotation></semantics></math> is a matrix of zeroes and ones such that each scalar component of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> is the mean response of a non-control treatment group in a particular study.</p>
-<p>To illustrate, let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">y_{ijk}</annotation></semantics></math> be patient <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> in treatment group <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> (where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j = 1</annotation></semantics></math> is the control group) of study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>, and let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">\left ( X_\beta \beta \right )_{ijk}</annotation></semantics></math> be the corresponding scalar element of the vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi></mrow><annotation encoding="application/x-tex">X_\beta \beta</annotation></semantics></math>. Then,</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>E</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>α</mi><mi>k</mi></msub><mo>+</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>j</mi><mo>&gt;</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><msub><mi>δ</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub><mo>+</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>Above,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">X_\delta</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>
+are fixed matrices.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>
+is a conventional model matrix for the baseline covariates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>,
+and the details are explained in the “Baseline covariates” section
+below.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>
+is a matrix of zeroes and ones. It is constructed such that each scalar
+component of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+is the mean response of the control group in a particular study.
+Likewise,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>δ</mi></msub><annotation encoding="application/x-tex">X_\delta</annotation></semantics></math>
+is a matrix of zeroes and ones such that each scalar component of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>
+is the mean response of a non-control treatment group in a particular
+study.</p>
+<p>To illustrate, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">y_{ijk}</annotation></semantics></math>
+be patient
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+in treatment group
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+(where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">j = 1</annotation></semantics></math>
+is the control group) of study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">\left ( X_\beta \beta \right )_{ijk}</annotation></semantics></math>
+be the corresponding scalar element of the vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi></mrow><annotation encoding="application/x-tex">X_\beta \beta</annotation></semantics></math>.
+Then,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo>=</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>α</mi><mi>k</mi></msub><mo>+</mo><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>j</mi><mo>&gt;</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>δ</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub><mo>+</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 E(y_{ijk}) = I (j = 1) \alpha_{k} + I (j &gt; 1) \delta_{jk} + \left ( X_\beta \beta \right )_{ijk}
 \end{aligned}
 </annotation></semantics></math></p>
-<p>This parameterization is represented in the more compact expression <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi></mrow><annotation encoding="application/x-tex">X_\alpha \alpha + X_\delta \delta + X_\beta \beta</annotation></semantics></math> in the model definitions in this vignette.</p>
+<p>This parameterization is represented in the more compact expression
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi></mrow><annotation encoding="application/x-tex">X_\alpha \alpha + X_\delta \delta + X_\beta \beta</annotation></semantics></math>
+in the model definitions in this vignette.</p>
 </div>
 <div class="section level3">
 <h3 id="baseline-covariates">Baseline covariates<a class="anchor" aria-label="anchor" href="#baseline-covariates"></a>
 </h3>
-<p>The baseline covariates model matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math> adjusts for baseline covariates. It may contain a continuous column for baseline and binary indicator columns for the levels of user-defined covariates. All these columns are included if possible, but the method automatically drops baseline covariate columns to ensure that the combined model matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>i</mi><mo>*</mo></msubsup><mo>=</mo><msub><mrow><mo stretchy="true" form="prefix">[</mo><msup><msub><mi>X</mi><mi>α</mi></msub><mo>*</mo></msup><mspace width="1.0em"></mspace><msup><msub><mi>X</mi><mi>δ</mi></msub><mo>*</mo></msup><mspace width="1.0em"></mspace><msup><msub><mi>X</mi><mi>β</mi></msub><mo>*</mo></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">X_i^* = \left [ {X_\alpha}^* \quad {X_\delta}^* \quad {X_\beta}^* \right ]_i</annotation></semantics></math> is full rank. (Here, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>i</mi><mo>*</mo></msubsup><annotation encoding="application/x-tex">X_i^*</annotation></semantics></math> denotes the rows of matrix <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> corresponding to study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>, with additional rows dropped if the corresponding elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> are missing. The additional row-dropping based on the missingness of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> ensures identifiability even when the user supplies complicated many-leveled factors as covariates.) The choice of columns to drop from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><msub><mi>X</mi><mi>β</mi></msub><mi>i</mi></msub><annotation encoding="application/x-tex">{X_\beta}_i</annotation></semantics></math> is determined by the rank and pivoting strategy of the QR decomposition of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>i</mi></msub><annotation encoding="application/x-tex">X_i</annotation></semantics></math> using the Householder algorithm with pivoting (<code><a href="https://rdrr.io/r/base/qr.html" class="external-link">base::qr()</a></code>, LINPACK routine DQRDC).</p>
-<p>Separately within each study, each column of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math> is centered to have mean 0, and if possible, scaled to have variance 1. Scaling ensures that the priors on parameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> remain relatively diffuse relative to the input data. Study-level centering ensures that the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> parameters truly act as <em>unconditional</em> study-specific control group means (as opposed to conditional on the subset of patients at the reference level of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>), and it ensures that borrowing across <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> components fully presents as control group borrowing.</p>
+<p>The baseline covariates model matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>
+adjusts for baseline covariates. It may contain a continuous column for
+baseline and binary indicator columns for the levels of user-defined
+covariates. All these columns are included if possible, but the method
+automatically drops baseline covariate columns to ensure that the
+combined model matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>i</mi><mo>*</mo></msubsup><mo>=</mo><msub><mrow><mo stretchy="true" form="prefix">[</mo><msup><msub><mi>X</mi><mi>α</mi></msub><mo>*</mo></msup><mspace width="1.0em"></mspace><msup><msub><mi>X</mi><mi>δ</mi></msub><mo>*</mo></msup><mspace width="1.0em"></mspace><msup><msub><mi>X</mi><mi>β</mi></msub><mo>*</mo></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">X_i^* = \left [ {X_\alpha}^* \quad {X_\delta}^* \quad {X_\beta}^* \right ]_i</annotation></semantics></math>
+is full rank. (Here,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>i</mi><mo>*</mo></msubsup><annotation encoding="application/x-tex">X_i^*</annotation></semantics></math>
+denotes the rows of matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+corresponding to study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+with additional rows dropped if the corresponding elements of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+are missing. The additional row-dropping based on the missingness of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+ensures identifiability even when the user supplies complicated
+many-leveled factors as covariates.) The choice of columns to drop from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><msub><mi>X</mi><mi>β</mi></msub><mi>i</mi></msub><annotation encoding="application/x-tex">{X_\beta}_i</annotation></semantics></math>
+is determined by the rank and pivoting strategy of the QR decomposition
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>i</mi></msub><annotation encoding="application/x-tex">X_i</annotation></semantics></math>
+using the Householder algorithm with pivoting (<code><a href="https://rdrr.io/r/base/qr.html" class="external-link">base::qr()</a></code>,
+LINPACK routine DQRDC).</p>
+<p>Separately within each study, each column of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>
+is centered to have mean 0, and if possible, scaled to have variance 1.
+Scaling ensures that the priors on parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+remain relatively diffuse relative to the input data. Study-level
+centering ensures that the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+parameters truly act as <em>unconditional</em> study-specific control
+group means (as opposed to conditional on the subset of patients at the
+reference level of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>),
+and it ensures that borrowing across
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+components fully presents as control group borrowing.</p>
 </div>
 <div class="section level3">
 <h3 id="post-processing">Post-processing<a class="anchor" aria-label="anchor" href="#post-processing"></a>
 </h3>
-<p>The <code><a href="../reference/hb_summary.html">hb_summary()</a></code> function post-processes the results from the model. It accepts MCMC samples of parameters and returns interpretable group-level posterior summaries such as change from baseline response and treatment effect. To arrive at these summaries, <code><a href="../reference/hb_summary.html">hb_summary()</a></code> computes marginal posteriors of transformed parameters. The transformations derive patient-level fitted values from model parameters, then derive group-level responses as averages of fitted values. We refer to this style of estimation as “unconditional estimation”, as opposed to “conditional estimation”, which takes each group mean to be the appropriate linear combination of the relevant <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> parameters, without using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> components or going through fitted values. If the baseline covariates are balanced across studies, unconditional and conditional estimation should produce similar estimates of control and treatment effects. This approach to post-processing is explained in section III.C of the FDA guidance on adjusting for covariates: <code>https://www.fda.gov/media/148910/download</code>.</p>
+<p>The <code><a href="../reference/hb_summary.html">hb_summary()</a></code> function post-processes the results
+from the model. It accepts MCMC samples of parameters and returns
+estimated marginal means of the response and treatment effect. To
+estimate marginal means of the response, <code><a href="../reference/hb_summary.html">hb_summary()</a></code> takes
+group-level averages of posterior samples of fitted values while
+dropping covariate adjustment terms from the model
+(i.e. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi></mrow><annotation encoding="application/x-tex">X_\alpha \alpha + X_\delta \delta</annotation></semantics></math>).
+Because the columns of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>β</mi></msub><annotation encoding="application/x-tex">X_\beta</annotation></semantics></math>
+are centered at their means, this choice is mathematically equivalent to
+<code>emmeans::emmeans()</code> with the
+<code>weights = "proportional"</code> (<span class="citation">Lenth
+(2016)</span>).</p>
 </div>
 <div class="section level3">
 <h3 id="mixture-model">Mixture model<a class="anchor" aria-label="anchor" href="#mixture-model"></a>
@@ -140,9 +276,58 @@ E(y_{ijk}) = I (j = 1) \alpha_{k} + I (j &gt; 1) \delta_{jk} + \left ( X_\beta \
 <li><code><a href="../reference/hb_sim_mixture.html">hb_sim_mixture()</a></code></li>
 <li><code><a href="../reference/hb_mcmc_mixture.html">hb_mcmc_mixture()</a></code></li>
 </ul>
-<p>The mixture model analyzes only the data from the current study, so we use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">mixture</mtext></msubsup><annotation encoding="application/x-tex">X_\alpha^{\text{mixture}}</annotation></semantics></math> instead of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">mixture</mtext></msubsup><annotation encoding="application/x-tex">X_\alpha^{\text{mixture}}</annotation></semantics></math> is a one-column matrix to indicate which elements of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> are part of the control group of the current study.</p>
-<p>The historical studies contribute to the model through hyperparameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>. If study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> is a historical study, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math> are the posterior mean and posterior standard deviation, respectively, of the mean control group response estimated from the simple model described later. If study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> is the current study, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math> are chosen so the mixture component Normal(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>) of study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> is diffuse and non-informative. Variable <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\omega_i</annotation></semantics></math> of study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> is the latent variable of mixture component <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>, and the index variable <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> chooses which <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\omega_i</annotation></semantics></math> to use for the current study control group mean <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>. Hyperparameter <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>ω</mi></msub><annotation encoding="application/x-tex">p_\omega</annotation></semantics></math> is a constant vector of prior mixture proportions of each study. The posterior histogram of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math> gives the posterior mixture proportions.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">mixture</mtext></msubsup><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mi>α</mi><mo>=</mo><msub><mi>ω</mi><mi>π</mi></msub></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><msub><mi>ω</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub><mo>,</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><msubsup><mo stretchy="false" form="postfix">)</mo><mi>i</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><mi>π</mi><mo>∼</mo><mtext mathvariant="normal">Categorical</mtext><mo stretchy="false" form="prefix">(</mo><msub><mi>p</mi><mi>ω</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mi>σ</mi><mo>∼</mo><mtext mathvariant="normal">Uniform</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The mixture model analyzes only the data from the current study, so
+we use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">mixture</mtext></msubsup><annotation encoding="application/x-tex">X_\alpha^{\text{mixture}}</annotation></semantics></math>
+instead of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">mixture</mtext></msubsup><annotation encoding="application/x-tex">X_\alpha^{\text{mixture}}</annotation></semantics></math>
+is a one-column matrix to indicate which elements of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>
+are part of the control group of the current study.</p>
+<p>The historical studies contribute to the model through
+hyperparameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>.
+If study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+is a historical study,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>
+are the posterior mean and posterior standard deviation, respectively,
+of the mean control group response estimated from the simple model
+described later. If study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+is the current study,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>
+are chosen so the mixture component
+Normal(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">({m_\omega})_i</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>)
+of study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+is diffuse and non-informative. Variable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\omega_i</annotation></semantics></math>
+of study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+is the latent variable of mixture component
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+and the index variable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>
+chooses which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\omega_i</annotation></semantics></math>
+to use for the current study control group mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>.
+Hyperparameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>ω</mi></msub><annotation encoding="application/x-tex">p_\omega</annotation></semantics></math>
+is a constant vector of prior mixture proportions of each study. The
+posterior histogram of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>
+gives the posterior mixture proportions.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">mixture</mtext></msubsup><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mi>α</mi><mo>=</mo><msub><mi>ω</mi><mi>π</mi></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><msub><mi>ω</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><mo>,</mo><msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><mi>π</mi><mo>∼</mo><mtext mathvariant="normal">Categorical</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>p</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mi>σ</mi><mo>∼</mo><mtext mathvariant="normal">Uniform</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 &amp; y_{ij}  \stackrel{\text{ind}}{\sim} \text{N} \left ( \left (X_\alpha^{\text{mixture}} \alpha + X_\delta \delta + X_\beta \beta \right )_{ij}, \ \sigma^2 \right) \\
 &amp; \qquad \alpha = \omega_{\pi} \\
@@ -163,8 +348,15 @@ E(y_{ijk}) = I (j = 1) \alpha_{k} + I (j &gt; 1) \delta_{jk} + \left ( X_\beta \
 <li><code><a href="../reference/hb_mcmc_hierarchical.html">hb_mcmc_hierarchical()</a></code></li>
 <li><code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code></li>
 </ul>
-<p>The hierarchical model analyzes the data from all studies and shrinks the control group means <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\alpha_i</annotation></semantics></math> towards a common normal distribution with mean <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> and variance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>τ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\tau^2</annotation></semantics></math>.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∼</mo><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msubsup><mi>σ</mi><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>α</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo>,</mo><msup><mi>τ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><mi>μ</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>μ</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><mi>τ</mi><mo>∼</mo><msub><mi>f</mi><mi>τ</mi></msub></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Uniform</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The hierarchical model is equivalent to the meta-analytic combined
+(MAC) approach analyzes the data from all studies and shrinks the
+control group means
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\alpha_i</annotation></semantics></math>
+towards a common normal distribution with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and variance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>τ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\tau^2</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∼</mo><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msubsup><mi>σ</mi><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>α</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>μ</mi><mo>,</mo><msup><mi>τ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><mi>μ</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>μ</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mspace width="2.0em"></mspace><mi>τ</mi><mo>∼</mo><msub><mi>f</mi><mi>τ</mi></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Uniform</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 &amp; y_{ij} \sim \text{N} \left( \left (X_\alpha \alpha + X_\delta \delta + X_\beta \beta \right )_{ij} , \ \sigma_i^2 \right )\\
 &amp; \qquad \alpha_i \stackrel{\text{ind}}{\sim} \text{Normal}(\mu, \tau^2) \\
@@ -175,18 +367,39 @@ E(y_{ijk}) = I (j = 1) \alpha_{k} + I (j &gt; 1) \delta_{jk} + \left ( X_\beta \
 &amp; \qquad \sigma_i \stackrel{\text{ind}}{\sim} \text{Uniform}(0, s_\sigma)
 \end{aligned} 
 </annotation></semantics></math></p>
-<p>The prior <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">f_\tau</annotation></semantics></math> on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> is critically important because:</p>
+<p>The prior
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">f_\tau</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>
+is critically important because:</p>
 <ol style="list-style-type: decimal">
 <li>It controls the prior amount of borrowing, and</li>
-<li>The prior has a large influence if there are few historical studies in the data.</li>
+<li>The prior has a large influence if there are few historical studies
+in the data.</li>
 </ol>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">f_\tau</annotation></semantics></math> can either be a flexible half-Student-t distribution with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">d_\tau</annotation></semantics></math> degrees of freedom and scale parameter <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">s_\tau</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>τ</mi></msub><mo>=</mo><mtext mathvariant="normal">Student-t</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>τ</mi></msub><mo>,</mo><msub><mi>d</mi><mi>τ</mi></msub><msup><mo stretchy="false" form="postfix">)</mo><mo>+</mo></msup></mrow><annotation encoding="application/x-tex">
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">f_\tau</annotation></semantics></math>
+can either be a flexible half-Student-t distribution with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">d_\tau</annotation></semantics></math>
+degrees of freedom and scale parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">s_\tau</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>τ</mi></msub><mo>=</mo><mtext mathvariant="normal">Student-t</mtext><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>τ</mi></msub><mo>,</mo><msub><mi>d</mi><mi>τ</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo></msup></mrow><annotation encoding="application/x-tex">
 f_\tau = \text{Student-t}(0, s_\tau, d_\tau)^+
-</annotation></semantics></math> or a uniform distribution with lower bound 0 and upper bound <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">s_\tau</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>τ</mi></msub><mo>=</mo><mtext mathvariant="normal">Uniform</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>τ</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math> or a uniform distribution with lower
+bound 0 and upper bound
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">s_\tau</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>τ</mi></msub><mo>=</mo><mtext mathvariant="normal">Uniform</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>τ</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
 f_\tau = \text{Uniform}(0, s_\tau)
-</annotation></semantics></math> The uniform prior is not recommended in most cases. For the half-Student-t distribution, the role of the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">s_\tau</annotation></semantics></math> parameter is equivalent to the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> parameter from the <a href="https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html#student-t-distribution" class="external-link">Student-t parameterization in the Stan user manual</a>.</p>
+</annotation></semantics></math></p>
+<p>Following the recommendation of <span class="citation">Gelman
+(2006)</span>, please use half-Student-t if the number of historical
+studies is small and consider uniform for large numbers of historical
+studies.</p>
+<p>For the half-Student-t distribution, the role of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">s_\tau</annotation></semantics></math>
+parameter is equivalent to the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>
+parameter from the <a href="https://mc-stan.org/docs/functions-reference/unbounded_continuous_distributions.html#student-t-distribution" class="external-link">Student-t
+parameterization in the Stan user manual</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="independent-model">Independent model<a class="anchor" aria-label="anchor" href="#independent-model"></a>
@@ -196,8 +409,12 @@ f_\tau = \text{Uniform}(0, s_\tau)
 <li><code><a href="../reference/hb_sim_independent.html">hb_sim_independent()</a></code></li>
 <li><code><a href="../reference/hb_mcmc_independent.html">hb_mcmc_independent()</a></code></li>
 </ul>
-<p>The independent model is the same as the hierarchical model, but with independent control group parameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>. We use it as a no-borrowing benchmark to quantify the borrowing strength of the hierarchical model and the mixture model.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∼</mo><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msubsup><mi>σ</mi><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>α</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>α</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Uniform</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The independent model is the same as the hierarchical model, but with
+independent control group parameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>.
+We use it as a no-borrowing benchmark to quantify the borrowing strength
+of the hierarchical model and the mixture model.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∼</mo><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>X</mi><mi>α</mi></msub><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msubsup><mi>σ</mi><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>α</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>α</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Uniform</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 &amp; y_{ij} \sim \text{N} \left( \left (X_\alpha \alpha + X_\delta \delta + X_\beta \beta \right )_{ij} , \ \sigma_i^2 \right )\\
 &amp; \qquad \alpha_i \stackrel{\text{ind}}{\sim} \text{Normal}(0, s_\alpha^2) \\
@@ -215,8 +432,20 @@ f_\tau = \text{Uniform}(0, s_\tau)
 <li><code><a href="../reference/hb_sim_pool.html">hb_sim_pool()</a></code></li>
 <li><code><a href="../reference/hb_mcmc_pool.html">hb_mcmc_pool()</a></code></li>
 </ul>
-<p>Like the independent model, the pooled model is a benchmark to quantify the borrowing strength of the hierarchical model and the mixture model. But instead of the no-borrowing independent model, the pooled model represents maximum borrowing. Instead of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>, below, we use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">pool</mtext></msubsup><annotation encoding="application/x-tex">X_\alpha^{\text{pool}}</annotation></semantics></math>, which has only one column to indicate which observations belong to any control group. In other words, the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> parameters are pooled, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> itself is a scalar.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∼</mo><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">pool</mtext></msubsup><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msubsup><mi>σ</mi><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mi>α</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>α</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Uniform</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>Like the independent model, the pooled model is a benchmark to
+quantify the borrowing strength of the hierarchical model and the
+mixture model. But instead of the no-borrowing independent model, the
+pooled model represents maximum borrowing. Instead of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>X</mi><mi>α</mi></msub><annotation encoding="application/x-tex">X_\alpha</annotation></semantics></math>,
+below, we use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">pool</mtext></msubsup><annotation encoding="application/x-tex">X_\alpha^{\text{pool}}</annotation></semantics></math>,
+which has only one column to indicate which observations belong to any
+control group. In other words, the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+parameters are pooled, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+itself is a scalar.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><msub><mi>y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∼</mo><mtext mathvariant="normal">N</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>X</mi><mi>α</mi><mtext mathvariant="normal">pool</mtext></msubsup><mi>α</mi><mo>+</mo><msub><mi>X</mi><mi>δ</mi></msub><mi>δ</mi><mo>+</mo><msub><mi>X</mi><mi>β</mi></msub><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="0.222em"></mspace><msubsup><mi>σ</mi><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mi>α</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>α</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>δ</mi><mi>d</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>δ</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>b</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>β</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><msub><mi>σ</mi><mi>i</mi></msub><mover><mo>∼</mo><mtext mathvariant="normal">ind</mtext></mover><mtext mathvariant="normal">Uniform</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 &amp; y_{ij} \sim \text{N} \left( \left ( X_\alpha^{\text{pool}} \alpha + X_\delta \delta + X_\beta \beta \right )_{ij} , \ \sigma_i^2 \right )\\
 &amp; \qquad \alpha \sim \text{Normal}(0, s_\alpha^2) \\
@@ -233,8 +462,23 @@ f_\tau = \text{Uniform}(0, s_\tau)
 <ul>
 <li><code><a href="../reference/hb_mcmc_mixture_hyperparameters.html">hb_mcmc_mixture_hyperparameters()</a></code></li>
 </ul>
-<p>The mixture model hyperparameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(m_\omega)_i</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math> of study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> are obtained by analyzing the control group data of study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> with the simple model below. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(m_\omega)_i</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><msub><mo stretchy="false" form="postfix">)</mo><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math> are taken to be the estimated posterior mean and posterior standard deviation, respectively, of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> from this model.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mi>y</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo>,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mi>μ</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>μ</mi><mn>2</mn></msubsup><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mspace width="2.0em"></mspace><mi>σ</mi><mo>∼</mo><mtext mathvariant="normal">Uniform</mtext><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The mixture model hyperparameters
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(m_\omega)_i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>
+of study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+are obtained by analyzing the control group data of study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+with the simple model below.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(m_\omega)_i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>s</mi><mi>ω</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>i</mi></msub><annotation encoding="application/x-tex">(s_\omega)_i</annotation></semantics></math>
+are taken to be the estimated posterior mean and posterior standard
+deviation, respectively, of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+from this model.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mi>y</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>μ</mi><mo>,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mi>μ</mi><mo>∼</mo><mtext mathvariant="normal">Normal</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msubsup><mi>s</mi><mi>μ</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="2.0em"></mspace><mi>σ</mi><mo>∼</mo><mtext mathvariant="normal">Uniform</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msub><mi>s</mi><mi>σ</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 &amp;y \sim \text{Normal}(\mu, \sigma^2) \\
 &amp; \qquad \mu \sim \text{Normal}(0, s_\mu^2) \\
@@ -248,43 +492,201 @@ f_\tau = \text{Uniform}(0, s_\tau)
 </h2>
 <p>The package supports the following metrics to quantify borrowing.</p>
 <div class="section level3">
+<h3 id="effective-sample-size-ess">Effective sample size (ESS)<a class="anchor" aria-label="anchor" href="#effective-sample-size-ess"></a>
+</h3>
+<p>See the <code><a href="../reference/hb_ess.html">hb_ess()</a></code> function for an implementation.</p>
+<p><span class="citation">Neuenschwander et al. (2006)</span> posited a
+prior effective sample size metric for meta-analytic predictive (MAP)
+priors. In the original paper, the underlying hierarchical model only
+uses historical controls, and the hypothetical new study is the current
+study of interest. In <code>historicalborrow</code>, we adapt this
+metric to a hierarchical model which also includes both control and
+treatment data from the current study. We can still interpretation this
+modified ESS on the scale of the number of historical control
+patients.</p>
+<p>For the pooled model, define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mn>0</mn></msub><annotation encoding="application/x-tex">V_0</annotation></semantics></math>
+to be the posterior predictive variance of the control mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>α</mi><mo>*</mo></msup><annotation encoding="application/x-tex">\alpha^*</annotation></semantics></math>
+of a hypothetical new unobserved study. According to <span class="citation">Neuenschwander et al. (2006)</span>, it can be derived
+as an average of study-specific variances. In practice, we estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mn>0</mn></msub><annotation encoding="application/x-tex">V_0</annotation></semantics></math>
+using the average of MCMC samples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mn>1</mn><mrow><mo>∑</mo><msubsup><mi>σ</mi><mi>i</mi><mrow><mo>−</mo><mn>2</mn></mrow></msubsup></mrow></mfrac><annotation encoding="application/x-tex">\frac{1}{\sum \sigma_i^{-2}}</annotation></semantics></math>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>0</mn></msub><mo>:=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo>,</mo><mi>τ</mi><mo>=</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mrow><mo>∑</mo><msubsup><mi>σ</mi><mi>i</mi><mrow><mo>−</mo><mn>2</mn></mrow></msubsup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+V_0 := \text{Var}(\alpha^* | y, \tau = 0) = \frac{1}{\sum \sigma_i^{-2}}
+</annotation></semantics></math> For the hierarchical model, we define
+the analogous posterior predictive variance
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">V_\tau</annotation></semantics></math>
+using the prior distribution</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>τ</mi></msub><mo>:=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>∫</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo>−</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="true" form="postfix">|</mo></mrow><mi>y</mi><mo stretchy="true" form="postfix">]</mo></mrow><mo>⋅</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">|</mo><mi>μ</mi><mo>,</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>μ</mi><mo>,</mo><mi>τ</mi><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>d</mi><mi>μ</mi><mi>d</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">
+V_\tau := \text{Var}(\alpha^* | y) = \int E[(\alpha^* - E(\alpha^*|y))^2 | y] \cdot p(\alpha^* | \mu, \tau) \cdot p(\mu, \tau | y) d\mu d\tau
+</annotation></semantics></math> This integral implies a straightforward
+method of estimation using MCMC samples:</p>
+<ol style="list-style-type: decimal">
+<li>For each MCMC sample
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">m = 1, \ldots, M</annotation></semantics></math>
+from the hierarchical model, identify samples
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mu^{(m)}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>τ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\tau^{(m)}</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>,
+respectively.</li>
+<li>Draw
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>m</mi></msup><annotation encoding="application/x-tex">(\alpha^*)^{m}</annotation></semantics></math>
+from a
+Normal(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mu^{(m)}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>τ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><annotation encoding="application/x-tex">(\tau^{(m)})^2</annotation></semantics></math>)
+distribution.</li>
+<li>Estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">V_\tau</annotation></semantics></math>
+as the variance of the collection
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mn>1</mn></msup><mo>,</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>,</mo><mi>…</mi><mo>,</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>M</mi></msup></mrow><annotation encoding="application/x-tex">(\alpha^*)^{1}, (\alpha^*)^{2}, \ldots, (\alpha^*)^{M}</annotation></semantics></math>
+from (2).</li>
+</ol>
+<p>Next, define
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+as the number of non-missing control patients from the historical
+studies only. Given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mn>0</mn></msub><annotation encoding="application/x-tex">V_0</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">V_\tau</annotation></semantics></math>,
+define the effective sample size as:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">ESS</mtext><mo>:=</mo><mi>N</mi><mfrac><msub><mi>V</mi><mn>0</mn></msub><msub><mi>V</mi><mi>τ</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">
+\text{ESS} := N \frac{V_0}{V_\tau}
+</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><msub><mi>V</mi><mn>0</mn></msub><msub><mi>V</mi><mi>τ</mi></msub></mfrac><annotation encoding="application/x-tex">\frac{V_0}{V_\tau}</annotation></semantics></math>
+is a weight which quantifies the fraction of historical information that
+the hierarchical model leverages for borrowing. Notably, the weight
+should be 1 if the hierarchical and pooled model exhibit the same
+strength of borrowing. Multiplied by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+the quantity becomes a heuristic for the strength of borrowing of the
+hierarchical model, measured in terms of the number of historical
+patients.</p>
+</div>
+<div class="section level3">
 <h3 id="precision-ratio-hierarchical-model-only">Precision ratio (hierarchical model only)<a class="anchor" aria-label="anchor" href="#precision-ratio-hierarchical-model-only"></a>
 </h3>
-<p>The precision ratio compares the prior precision of a control mean response (an <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> component, numerator) to the analogous precision of the full conditional distribution (denominator). The former is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><annotation encoding="application/x-tex">\frac{1}{\tau^2}</annotation></semantics></math>, and the latter is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><mi>n</mi><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{\tau^2} + \frac{n}{\sigma^2}</annotation></semantics></math>. Here, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> is the number of non-missing patients in the current study, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>σ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\sigma^2</annotation></semantics></math> is the residual variance, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>τ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\tau^2</annotation></semantics></math> is the variance of study-specific control means (components of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>). The full precision ratio is:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mfrac><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><mrow><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><mi>n</mi><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mrow></mfrac></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The precision ratio is an experimental ad hoc metric and should be
+used with caution. It is implemented in the <code><a href="../reference/hb_summary.html">hb_summary()</a></code>
+function for the hierarchical model.</p>
+<p>The precision ratio compares the prior precision of a control mean
+response (an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+component, numerator) to the analogous precision of the full conditional
+distribution (denominator). The former is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><annotation encoding="application/x-tex">\frac{1}{\tau^2}</annotation></semantics></math>,
+and the latter is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><mi>n</mi><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{\tau^2} + \frac{n}{\sigma^2}</annotation></semantics></math>.
+Here,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is the number of non-missing patients in the current study,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>σ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\sigma^2</annotation></semantics></math>
+is the residual variance, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>τ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\tau^2</annotation></semantics></math>
+is the variance of study-specific control means (components of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>).
+The full precision ratio is:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><mrow><mfrac><mn>1</mn><msup><mi>τ</mi><mn>2</mn></msup></mfrac><mo>+</mo><mfrac><mi>n</mi><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mrow></mfrac></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 \frac{\frac{1}{\tau^2}}{\frac{1}{\tau^2} + \frac{n}{\sigma^2}}
 \end{aligned}
 </annotation></semantics></math></p>
-<p>The precision ratio comes from the conditional distribution of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\alpha_k</annotation></semantics></math> in the hierarchical model given the other parameters and the data. More precisely, in this conditional distribution, the mean is a weighted average between the prior mean and data mean, and the precision ratio is the weight on the prior mean. This can be seen in a simpler case with a Bayesian model with a normal data model, a normal prior on the mean, and known constant variance. For details, see Chapter 2 of <a href="http://www.stat.columbia.edu/~gelman/book/" class="external-link">Bayesian Data Analysis</a> 3rd Ed. by Gelman et al.</p>
+<p>The precision ratio comes from the conditional distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\alpha_k</annotation></semantics></math>
+in the hierarchical model given the other parameters and the data. More
+precisely, in this conditional distribution, the mean is a weighted
+average between the prior mean and data mean, and the precision ratio is
+the weight on the prior mean. This can be seen in a simpler case with a
+Bayesian model with a normal data model, a normal prior on the mean, and
+known constant variance. For details, see Chapter 2 of <span class="citation">Gelman et al. (2020)</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="variance-shift-ratio">Variance shift ratio<a class="anchor" aria-label="anchor" href="#variance-shift-ratio"></a>
 </h3>
-<p>Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>m</mi></msub><annotation encoding="application/x-tex">V_m</annotation></semantics></math> be the estimated posterior variance of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>I</mi></msub><annotation encoding="application/x-tex">\alpha_I</annotation></semantics></math> (current study control group response mean) estimated by model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>. The variance shift ratio is:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mfrac><mrow><msub><mi>V</mi><mrow><mi>m</mi><mo>*</mo></mrow></msub><mo>−</mo><msub><mi>V</mi><mtext mathvariant="normal">independent</mtext></msub></mrow><mrow><msub><mi>V</mi><mtext mathvariant="normal">pool</mtext></msub><mo>−</mo><msub><mi>V</mi><mtext mathvariant="normal">independent</mtext></msub></mrow></mfrac></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The variance shift ratio is an experimental ad hoc metric and should
+be used with caution. It is implemented in the legacy
+<code><a href="../reference/hb_metrics.html">hb_metrics()</a></code> function.</p>
+<p>Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>m</mi></msub><annotation encoding="application/x-tex">V_m</annotation></semantics></math>
+be the estimated posterior variance of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>I</mi></msub><annotation encoding="application/x-tex">\alpha_I</annotation></semantics></math>
+(current study control group response mean) estimated by model
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.
+The variance shift ratio is:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mrow><msub><mi>V</mi><mrow><mi>m</mi><mo>*</mo></mrow></msub><mo>−</mo><msub><mi>V</mi><mtext mathvariant="normal">independent</mtext></msub></mrow><mrow><msub><mi>V</mi><mtext mathvariant="normal">pool</mtext></msub><mo>−</mo><msub><mi>V</mi><mtext mathvariant="normal">independent</mtext></msub></mrow></mfrac></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 \frac{V_{m*} - V_{\text{independent}}}{V_{\text{pool}} - V_{\text{independent}}}
 \end{aligned}
 </annotation></semantics></math></p>
-<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>*</mo></mrow><annotation encoding="application/x-tex">m*</annotation></semantics></math> is a historical borrowing model like the mixture model or hierarchical model.</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>*</mo></mrow><annotation encoding="application/x-tex">m*</annotation></semantics></math>
+is a historical borrowing model like the mixture model or hierarchical
+model.</p>
 </div>
 <div class="section level3">
-<h3 id="mean-shift-ratio">Mean shift ratio<a class="anchor" aria-label="anchor" href="#mean-shift-ratio"></a>
+<h3 id="mean-shift-ratio-legacy">Mean shift ratio (legacy)<a class="anchor" aria-label="anchor" href="#mean-shift-ratio-legacy"></a>
 </h3>
-<p>The mean shift ratio is not recommended to measure the strength of borrowing. Rather, it is an informal ad hoc measure of the lack of commensurability between the current and historical data sources.</p>
-<p>To define the mean shift ratio, let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\theta_m</annotation></semantics></math> be the posterior mean control group response estimated by model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>. The mean shift ratio is:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mfrac><mrow><msub><mi>θ</mi><mrow><mi>m</mi><mo>*</mo></mrow></msub><mo>−</mo><msub><mi>θ</mi><mtext mathvariant="normal">independent</mtext></msub></mrow><mrow><msub><mi>θ</mi><mtext mathvariant="normal">pool</mtext></msub><mo>−</mo><msub><mi>θ</mi><mtext mathvariant="normal">independent</mtext></msub></mrow></mfrac></mtd></mtr></mtable><annotation encoding="application/x-tex">
+<p>The mean shift ratio is not recommended to measure the strength of
+borrowing. Rather, it is an informal ad hoc measure of the lack of
+commensurability between the current and historical data sources. It is
+implemented in the legacy <code><a href="../reference/hb_metrics.html">hb_metrics()</a></code> function.</p>
+<p>To define the mean shift ratio, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\theta_m</annotation></semantics></math>
+be the posterior mean control group response estimated by model
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.
+The mean shift ratio is:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mrow><msub><mi>θ</mi><mrow><mi>m</mi><mo>*</mo></mrow></msub><mo>−</mo><msub><mi>θ</mi><mtext mathvariant="normal">independent</mtext></msub></mrow><mrow><msub><mi>θ</mi><mtext mathvariant="normal">pool</mtext></msub><mo>−</mo><msub><mi>θ</mi><mtext mathvariant="normal">independent</mtext></msub></mrow></mfrac></mtd></mtr></mtable><annotation encoding="application/x-tex">
 \begin{aligned}
 \frac{\theta_{m*} - \theta_{\text{independent}}}{\theta_{\text{pool}} - \theta_{\text{independent}}}
 \end{aligned}
 </annotation></semantics></math></p>
-<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>*</mo></mrow><annotation encoding="application/x-tex">m*</annotation></semantics></math> is a historical borrowing model like the mixture model or hierarchical model.</p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>*</mo></mrow><annotation encoding="application/x-tex">m*</annotation></semantics></math>
+is a historical borrowing model like the mixture model or hierarchical
+model.</p>
 </div>
 <div class="section level3">
 <h3 id="posterior-mixture-proportions-mixture-model-only">Posterior mixture proportions (mixture model only)<a class="anchor" aria-label="anchor" href="#posterior-mixture-proportions-mixture-model-only"></a>
 </h3>
-<p>The posterior mixture proportion of study <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>π</mi><mo>=</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(\pi = i)</annotation></semantics></math>, and it is obtained by averaging posterior samples of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>.</p>
+<p>The posterior mixture proportion of study
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>π</mi><mo>=</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">P(\pi = i)</annotation></semantics></math>,
+and it is obtained by averaging posterior samples of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-gelman2006" class="csl-entry">
+Gelman, A. 2006. <span>“Prior Distributions for Variance Parameters in
+Hierarchical Models.”</span> <em><span>B</span>ayesian
+<span>A</span>nalysis</em> 1 (3): 515–43. <a href="https://doi.org/10.1214/06-BA117A" class="external-link">https://doi.org/10.1214/06-BA117A</a>.
+</div>
+<div id="ref-bda3" class="csl-entry">
+Gelman, A., J. B. Carlin, H. S. Stern, D. B. Dunson, A. Vehtari, and D.
+B. Rubin. 2020. <em><span>B</span>ayesian <span>D</span>ata
+<span>A</span>nalysis</em>. 3rd ed. <span>CRC</span> <span>P</span>ress.
+</div>
+<div id="ref-lenth2016" class="csl-entry">
+Lenth, Russell V. 2016. <span>“Least-Squares Means: The r Package
+Lsmeans.”</span> <em>Journal of Statistical Software</em> 69 (1): 1–33.
+<a href="https://doi.org/10.18637/jss.v069.i01" class="external-link">https://doi.org/10.18637/jss.v069.i01</a>.
+</div>
+<div id="ref-neuenschwander2010" class="csl-entry">
+Neuenschwander, B., G. Capkun-Niggli, M. Branson, and D. J.
+Spiegelhalter. 2006. <span>“Summarizing Historical Information on
+Controls in Clinical Trials.”</span> <em><span>B</span>ayesian
+<span>A</span>nalysis</em> 1 (3): 515–43. <a href="https://doi.org/10.1214/06-BA117A" class="external-link">https://doi.org/10.1214/06-BA117A</a>.
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

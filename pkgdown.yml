@@ -1,10 +1,10 @@
-pandoc: 2.9.2.1
+pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   methods: methods.html
   usage: usage.html
-last_built: 2024-09-04T20:25Z
+last_built: 2024-09-05T17:34Z
 urls:
   reference: https://wlandau.github.io/historicalborrow/reference
   article: https://wlandau.github.io/historicalborrow/articles

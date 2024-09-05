@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">historicalborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -231,20 +231,8 @@ to see which study labels correspond to these integer indexes.</p></li>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The <code>hb_summary()</code> function post-processes the results from
-the model. It accepts MCMC samples of parameters and returns
-interpretable group-level posterior summaries such as change
-from baseline response and treatment effect. To arrive at these
-summaries, <code>hb_summary()</code> computes marginal posteriors of
-transformed parameters. The transformations derive patient-level
-fitted values from model parameters, then derive group-level
-responses as averages of fitted values. We refer to this style
-of estimation as "unconditional estimation", as opposed to
-"conditional estimation", which takes each group mean to be the
-appropriate linear combination of the relevant <code>alpha</code> and <code>delta</code>
-parameters, without using <code>beta</code> components or going through fitted
-values. If the baseline covariates are balanced across studies,
-unconditional and conditional estimation should produce similar
-estimates of placebo and treatment effects.</p>
+the model. It estimates marginal means of the response,
+treatment effect, and other quantities of interest.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

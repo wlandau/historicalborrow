@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">historicalborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,8 @@
 
 
 
-<script src="usage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Usage</h1>
@@ -65,11 +66,15 @@
 
     
     
-<p>This tutorial shows how to fit historical control-group borrowing models using the <code>historicalborrow</code> package.</p>
+<p>This tutorial shows how to fit historical control-group borrowing
+models using the <code>historicalborrow</code> package.</p>
 <div class="section level2">
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
-<p><code>historicalborrow</code> expects data on multiple patients partitioned into studies and groups. Here is a simulated example. There are functions to simulate from the prior predictive distribution of each of the hierarchical, mixture, independent, and pooled models.</p>
+<p><code>historicalborrow</code> expects data on multiple patients
+partitioned into studies and groups. Here is a simulated example. There
+are functions to simulate from the prior predictive distribution of each
+of the hierarchical, mixture, independent, and pooled models.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wlandau.github.io/historicalborrow/">historicalborrow</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -111,7 +116,13 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> trial1 arm1  subject9  -<span style="color: #BB0000;">0.799</span>         0                            0 -<span style="color: #BB0000;">0.011</span><span style="color: #BB0000; text-decoration: underline;">7</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> trial1 arm1  subject10 -<span style="color: #BB0000;">1.15</span>          0                            0  0.261 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 390 more rows</span></span></span></code></pre></div>
-<p>You as the user will choose a reference level of the <code>study</code> column to indicate which study is the current one (the other are historical). Likewise, you will choose a level of the <code>group</code> column to indicate which group is the control group. To see how <code>historicalborrow</code> assigns numeric indexes to the study and group levels, use <code><a href="../reference/hb_data.html">hb_data()</a></code>. Viewing this output may assist with interpreting the results later on.</p>
+<p>You as the user will choose a reference level of the
+<code>study</code> column to indicate which study is the current one
+(the other are historical). Likewise, you will choose a level of the
+<code>group</code> column to indicate which group is the control group.
+To see how <code>historicalborrow</code> assigns numeric indexes to the
+study and group levels, use <code><a href="../reference/hb_data.html">hb_data()</a></code>. Viewing this output
+may assist with interpreting the results later on.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="va">standardized_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_data.html">hb_data</a></span><span class="op">(</span></span>
@@ -165,7 +176,11 @@
 <div class="section level2">
 <h2 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a>
 </h2>
-<p>The pooled and independent models are benchmarks used to quantify the borrowing strength of the hierarchical and mixture models. To run these benchmark models, run the functions below. Each function returns a data frame with one column per parameter and one row per posterior sample.</p>
+<p>The pooled and independent models are benchmarks used to quantify the
+borrowing strength of the hierarchical and mixture models. To run these
+benchmark models, run the functions below. Each function returns a data
+frame with one column per parameter and one row per posterior
+sample.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mcmc_pool</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_mcmc_pool.html">hb_mcmc_pool</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
@@ -217,7 +232,14 @@
 <span>  n_warmup <span class="op">=</span> <span class="fl">2e3</span>,</span>
 <span>  n_iterations <span class="op">=</span> <span class="fl">4e3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The hierarchical model works best if the number of historical studies is large. For a small number of historical studies, it may be necessary to choose a value of <code>s_tau</code> to approximate the prior amount of borrowing given a desired precision ratio and supposed residual variance. See the function <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code> for an initial value to explore. It is not recommended to entirely rely on <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code>, but it does give a benchmark to aid in the thinking.</p>
+<p>The hierarchical model works best if the number of historical studies
+is large. For a small number of historical studies, it may be necessary
+to choose a value of <code>s_tau</code> to approximate the prior amount
+of borrowing given a desired precision ratio and supposed residual
+variance. See the function <code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code> for an initial value
+to explore. It is not recommended to entirely rely on
+<code><a href="../reference/hb_s_tau.html">hb_s_tau()</a></code>, but it does give a benchmark to aid in the
+thinking.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mcmc_hierarchical</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_mcmc_hierarchical.html">hb_mcmc_hierarchical</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
@@ -235,7 +257,8 @@
 <span>  n_warmup <span class="op">=</span> <span class="fl">2e3</span>,</span>
 <span>  n_iterations <span class="op">=</span> <span class="fl">4e3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>For the mixture model, it is first necessary to use the simple model to get prior mixture components.</p>
+<p>For the mixture model, it is first necessary to use the simple model
+to get prior mixture components.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hyperparameters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_mcmc_mixture_hyperparameters.html">hb_mcmc_mixture_hyperparameters</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
@@ -253,7 +276,8 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> trial1           1   0.982  0.177 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> trial2           2   0.892  0.097<span style="text-decoration: underline;">5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> trial3           3   0     30</span></span></code></pre></div>
-<p>Then, using just the data from the current study, run the mixture model with the hyperparameters above.</p>
+<p>Then, using just the data from the current study, run the mixture
+model with the hyperparameters above.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_mixture</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">trial</span> <span class="op">==</span> <span class="st">"trial3"</span><span class="op">)</span></span>
 <span><span class="va">mcmc_mixture</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_mcmc_mixture.html">hb_mcmc_mixture</a></span><span class="op">(</span></span>
@@ -280,7 +304,18 @@
 <div class="section level2">
 <h2 id="convergence">Convergence<a class="anchor" aria-label="anchor" href="#convergence"></a>
 </h2>
-<p>It is important to check convergence diagnostics on each model. The <code><a href="../reference/hb_convergence.html">hb_convergence()</a></code> function returns data frame of summarized convergence diagnostics. <code>max_rhat</code> is the maximum univariate Gelman/Rubin potential scale reduction factor over all the parameters of the model, <code>min_ess_bulk</code> is the minimum bulk effective sample size over the parameters, and <code>min_ess_tail</code> is the minimum tail effective sample size. <code>max_rhat</code> should be below 1.01, and the ESS metrics should both be above 100 times the number of MCMC chains. If any of these conditions are not true, the MCMC did not converge, and it is recommended to try running the model for more saved iterations (and if <code>max_rhat</code> is high, possibly more warmup iterations).</p>
+<p>It is important to check convergence diagnostics on each model. The
+<code><a href="../reference/hb_convergence.html">hb_convergence()</a></code> function returns data frame of summarized
+convergence diagnostics. <code>max_rhat</code> is the maximum univariate
+Gelman/Rubin potential scale reduction factor over all the parameters of
+the model, <code>min_ess_bulk</code> is the minimum bulk effective
+sample size over the parameters, and <code>min_ess_tail</code> is the
+minimum tail effective sample size. <code>max_rhat</code> should be
+below 1.01, and the ESS metrics should both be above 100 times the
+number of MCMC chains. If any of these conditions are not true, the MCMC
+did not converge, and it is recommended to try running the model for
+more saved iterations (and if <code>max_rhat</code> is high, possibly
+more warmup iterations).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_convergence.html">hb_convergence</a></span><span class="op">(</span><span class="va">mcmc_hierarchical</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
@@ -291,7 +326,8 @@
 <div class="section level2">
 <h2 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
 </h2>
-<p>Each model can be summarized with the <code><a href="../reference/hb_summary.html">hb_summary()</a></code> function. The output is a table with few rows and many columns.</p>
+<p>Each model can be summarized with the <code><a href="../reference/hb_summary.html">hb_summary()</a></code>
+function. The output is a table with few rows and many columns.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary_hierarchical</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_summary.html">hb_summary</a></span><span class="op">(</span></span>
 <span>  mcmc <span class="op">=</span> <span class="va">mcmc_hierarchical</span>,</span>
@@ -319,78 +355,143 @@
 <span><span class="co">#&gt; <span style="color: #949494;">#   response_mean_mcse &lt;dbl&gt;, response_sd_mcse &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   response_lower_mcse &lt;dbl&gt;, response_upper_mcse &lt;dbl&gt;, diff_mean &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   diff_lower &lt;dbl&gt;, diff_upper &lt;dbl&gt;, diff_mean_mcse &lt;dbl&gt;, …</span></span></span></code></pre></div>
-<p><code><a href="../reference/hb_summary.html">hb_summary()</a></code> returns a tidy data frame with one row per group (e.g. treatment arm) and the columns in the following list. Unless otherwise specified, the quantities are calculated at the group level. Some are calculated for the current (non-historical) study only, while others pertain to the combined dataset which includes all historical studies. The mixture model is an exception because the <code>data</code> argument only includes the current study, so other quantities that include historical information will need to borrow from an <code><a href="../reference/hb_summary.html">hb_summary()</a></code> call on one of the other models.</p>
+<p><code><a href="../reference/hb_summary.html">hb_summary()</a></code> returns a tidy data frame with one row per
+group (e.g. treatment arm) and the columns in the following list. Unless
+otherwise specified, the quantities are calculated at the group level.
+Some are calculated for the current (non-historical) study only, while
+others pertain to the combined dataset which includes all historical
+studies. The mixture model is an exception because the <code>data</code>
+argument only includes the current study, so other quantities that
+include historical information will need to borrow from an
+<code><a href="../reference/hb_summary.html">hb_summary()</a></code> call on one of the other models.</p>
 <ul>
 <li>
 <code>group</code>: group label.</li>
 <li>
-<code>data_mean</code>: observed mean response specific to the current study.</li>
+<code>data_mean</code>: observed mean response specific to the
+current study.</li>
 <li>
-<code>data_sd</code>: observed standard deviation of the response specific to the current study.</li>
+<code>data_sd</code>: observed standard deviation of the response
+specific to the current study.</li>
 <li>
-<code>data_lower</code>: lower bound of a simple frequentist 95% confidence interval of the observed mean specific to the current study.</li>
+<code>data_lower</code>: lower bound of a simple frequentist 95%
+confidence interval of the observed mean specific to the current
+study.</li>
 <li>
-<code>data_upper</code>: upper bound of a simple frequentist 95% confidence interval of the observed mean specific to the current study.</li>
+<code>data_upper</code>: upper bound of a simple frequentist 95%
+confidence interval of the observed mean specific to the current
+study.</li>
 <li>
-<code>data_n</code>: number of non-missing observations in the combined dataset with all studies.</li>
+<code>data_n</code>: number of non-missing observations in the
+combined dataset with all studies.</li>
 <li>
-<code>data_N</code>: total number of observations (missing and non-missing) in the combined dataset with all studies.</li>
+<code>data_N</code>: total number of observations (missing and
+non-missing) in the combined dataset with all studies.</li>
 <li>
-<code>data_n_study_*</code>: number of non-missing observations separately for each study. The suffixes of these column names are integer study indexes. Call <code>dplyr::distinct(hb_data(your_data), study, study_label)</code> to see which study labels correspond to these integer indexes. Note: the combined dataset for the mixture model is just the current study. If all the <code>data_n_study_*</code> results across all studies are desired, then call <code><a href="../reference/hb_summary.html">hb_summary()</a></code> on a different model (e.g. pooled).</li>
+<code>data_n_study_*</code>: number of non-missing observations
+separately for each study. The suffixes of these column names are
+integer study indexes. Call
+<code>dplyr::distinct(hb_data(your_data), study, study_label)</code> to
+see which study labels correspond to these integer indexes. Note: the
+combined dataset for the mixture model is just the current study. If all
+the <code>data_n_study_*</code> results across all studies are desired,
+then call <code><a href="../reference/hb_summary.html">hb_summary()</a></code> on a different model
+(e.g. pooled).</li>
 <li>
-<code>data_N_study_*</code>: same as <code>data_n_study_*</code> except both missing and non-missing observations are counted (total number of observations).</li>
+<code>data_N_study_*</code>: same as <code>data_n_study_*</code>
+except both missing and non-missing observations are counted (total
+number of observations).</li>
 <li>
-<code>response_mean</code>: Estimated posterior mean of the response from the model specific to the current study. Typically, the raw response is change from baseline, in which case <code>response_mean</code> is estimating change from baseline.</li>
+<code>response_mean</code>: Estimated posterior mean of the response
+from the model specific to the current study. Typically, the raw
+response is change from baseline, in which case
+<code>response_mean</code> is estimating change from baseline.</li>
 <li>
-<code>response_sd</code>: Estimated posterior standard deviation of the mean response from the model specific to the current study.</li>
+<code>response_sd</code>: Estimated posterior standard deviation of
+the mean response from the model specific to the current study.</li>
 <li>
-<code>response_variance</code>: Estimated posterior variance of the mean response from the model specific to the current study.</li>
+<code>response_variance</code>: Estimated posterior variance of the
+mean response from the model specific to the current study.</li>
 <li>
-<code>response_lower</code>: Lower bound of a 95% posterior interval on the mean response from the model specific to the current study.</li>
+<code>response_lower</code>: Lower bound of a 95% posterior interval
+on the mean response from the model specific to the current study.</li>
 <li>
-<code>response_upper</code>: Upper bound of a 95% posterior interval on the mean response from the model specific to the current study.</li>
+<code>response_upper</code>: Upper bound of a 95% posterior interval
+on the mean response from the model specific to the current study.</li>
 <li>
-<code>response_mean_mcse</code>: Monte Carlo standard error of <code>response_mean</code>.</li>
+<code>response_mean_mcse</code>: Monte Carlo standard error of
+<code>response_mean</code>.</li>
 <li>
-<code>response_sd_mcse</code>: Monte Carlo standard error of <code>response_sd</code>.</li>
+<code>response_sd_mcse</code>: Monte Carlo standard error of
+<code>response_sd</code>.</li>
 <li>
-<code>response_lower_mcse</code>: Monte Carlo standard error of <code>response_lower</code>.</li>
+<code>response_lower_mcse</code>: Monte Carlo standard error of
+<code>response_lower</code>.</li>
 <li>
-<code>response_upper_mcse</code>: Monte Carlo standard error of <code>response_upper</code>.</li>
+<code>response_upper_mcse</code>: Monte Carlo standard error of
+<code>response_upper</code>.</li>
 <li>
-<code>diff_mean</code>: Estimated treatment effect from the model specific to the current study.</li>
+<code>diff_mean</code>: Estimated treatment effect from the model
+specific to the current study.</li>
 <li>
-<code>diff_lower</code>: Lower bound of a 95% posterior interval on the treatment effect from the model specific to the current study.</li>
+<code>diff_lower</code>: Lower bound of a 95% posterior interval on
+the treatment effect from the model specific to the current study.</li>
 <li>
-<code>diff_upper</code>: Upper bound of a 95% posterior interval on the treatment effect from the model specific to the current study..</li>
+<code>diff_upper</code>: Upper bound of a 95% posterior interval on
+the treatment effect from the model specific to the current study..</li>
 <li>
-<code>diff_mean_mcse</code>: Monte Carlo standard error of <code>diff_mean</code>.</li>
+<code>diff_mean_mcse</code>: Monte Carlo standard error of
+<code>diff_mean</code>.</li>
 <li>
-<code>diff_lower_mcse</code>: Monte Carlo standard error of <code>diff_lower</code>.</li>
+<code>diff_lower_mcse</code>: Monte Carlo standard error of
+<code>diff_lower</code>.</li>
 <li>
-<code>diff_upper_mcse</code>: Monte Carlo standard error of <code>diff_upper</code>.</li>
+<code>diff_upper_mcse</code>: Monte Carlo standard error of
+<code>diff_upper</code>.</li>
 <li>
-<code>P(diff &gt; EOI)</code>, <code>P(diff &lt; EOI)</code>: CSF probabilities on the treatment effect specified with the <code>eoi</code> and <code>direction</code> arguments. Specific to the current study.</li>
+<code>P(diff &gt; EOI)</code>, <code>P(diff &lt; EOI)</code>: CSF
+probabilities on the treatment effect specified with the
+<code>eoi</code> and <code>direction</code> arguments. Specific to the
+current study.</li>
 <li>
-<code>effect_mean</code>: Estimated posterior mean of effect size (treatment difference divided by residual standard deviation). Specific to the current study.</li>
+<code>effect_mean</code>: Estimated posterior mean of effect size
+(treatment difference divided by residual standard deviation). Specific
+to the current study.</li>
 <li>
-<code>effect_lower</code>: Lower bound of a 95% posterior interval of effect size from the model. Specific to the current study.</li>
+<code>effect_lower</code>: Lower bound of a 95% posterior interval
+of effect size from the model. Specific to the current study.</li>
 <li>
-<code>effect_upper</code>: Upper bound of a 95% posterior interval of effect size from the model. Specific to the current study.</li>
+<code>effect_upper</code>: Upper bound of a 95% posterior interval
+of effect size from the model. Specific to the current study.</li>
 <li>
-<code>precision_ratio</code>: For the hierarchical model only, a model-based mean of the precision ratio. Specific to the current study.</li>
+<code>precision_ratio</code>: For the hierarchical model only, a
+model-based mean of the precision ratio. Specific to the current
+study.</li>
 <li>
-<code>precision_ratio_lower</code>: For the hierarchical model only, lower bound of a model-based 95% posterior interval of the precision ratio. Specific to the current study.</li>
+<code>precision_ratio_lower</code>: For the hierarchical model only,
+lower bound of a model-based 95% posterior interval of the precision
+ratio. Specific to the current study.</li>
 <li>
-<code>precision_ratio_upper</code>: For the hierarchical model only, upper bound of a model-based 95% posterior interval of the precision ratio. Specific to the current study.</li>
+<code>precision_ratio_upper</code>: For the hierarchical model only,
+upper bound of a model-based 95% posterior interval of the precision
+ratio. Specific to the current study.</li>
 <li>
-<code>mix_prop_*</code>: For the mixture model only, posterior mixture proportions of each of the mixture components. The last one is for the current study and the first ones are for the historical studies. The suffixes of these column names are the integer study indexes. Call <code>dplyr::distinct(hb_data(your_data), study, study_label)</code> to see which study labels correspond to these integer indexes.</li>
+<code>mix_prop_*</code>: For the mixture model only, posterior
+mixture proportions of each of the mixture components. The last one is
+for the current study and the first ones are for the historical studies.
+The suffixes of these column names are the integer study indexes. Call
+<code>dplyr::distinct(hb_data(your_data), study, study_label)</code> to
+see which study labels correspond to these integer indexes.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="borrowing-metrics">Borrowing metrics<a class="anchor" aria-label="anchor" href="#borrowing-metrics"></a>
 </h2>
-<p>The <code><a href="../reference/hb_metrics.html">hb_metrics()</a></code> function shows borrowing metrics like the mean shift ratio and variance shift ratio which require input from benchmark models. The mean shift ratio and variance shift ratio are defined in the methods vignette. Below, we compute these metrics on the hierarchical model.</p>
+<p>The <code><a href="../reference/hb_metrics.html">hb_metrics()</a></code> function shows borrowing metrics like
+the mean shift ratio and variance shift ratio which require input from
+benchmark models. The mean shift ratio and variance shift ratio are
+defined in the methods vignette. Below, we compute these metrics on the
+hierarchical model.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary_pool</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hb_summary.html">hb_summary</a></span><span class="op">(</span></span>
 <span>  mcmc <span class="op">=</span> <span class="va">mcmc_pool</span>,</span>
@@ -452,7 +553,10 @@
 <div class="section level2">
 <h2 id="plots">Plots<a class="anchor" aria-label="anchor" href="#plots"></a>
 </h2>
-<p>The <code><a href="../reference/hb_plot_borrow.html">hb_plot_borrow()</a></code> function visualizes the results from a borrowing model (either hierarchical or mixture) against the benchmark models (independent and pooled) to gain intuition about the overall effect of borrowing on estimation.</p>
+<p>The <code><a href="../reference/hb_plot_borrow.html">hb_plot_borrow()</a></code> function visualizes the results
+from a borrowing model (either hierarchical or mixture) against the
+benchmark models (independent and pooled) to gain intuition about the
+overall effect of borrowing on estimation.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_plot_borrow.html">hb_plot_borrow</a></span><span class="op">(</span></span>
 <span>  borrow <span class="op">=</span> <span class="va">summary_hierarchical</span>,</span>
@@ -467,7 +571,8 @@
 <span>  independent <span class="op">=</span> <span class="va">summary_independent</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="usage_files/figure-html/borrow2-1.png" width="672"></p>
-<p><code><a href="../reference/hb_plot_group.html">hb_plot_group()</a></code> shows the same information but grouped by the group designations in the data (e.g. treatment arm).</p>
+<p><code><a href="../reference/hb_plot_group.html">hb_plot_group()</a></code> shows the same information but grouped
+by the group designations in the data (e.g. treatment arm).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_plot_group.html">hb_plot_group</a></span><span class="op">(</span></span>
 <span>  borrow <span class="op">=</span> <span class="va">summary_mixture</span>,</span>
@@ -475,7 +580,10 @@
 <span>  independent <span class="op">=</span> <span class="va">summary_independent</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="usage_files/figure-html/group-1.png" width="672"></p>
-<p>For the hierarchical model, we can plot the marginal posterior of the <code>tau</code> parameter. This should be compared with the prior in practice to understand the influence of prior and data on the posterior.</p>
+<p>For the hierarchical model, we can plot the marginal posterior of the
+<code>tau</code> parameter. This should be compared with the prior in
+practice to understand the influence of prior and data on the
+posterior.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/hb_plot_tau.html">hb_plot_tau</a></span><span class="op">(</span><span class="va">mcmc_hierarchical</span><span class="op">)</span></span></code></pre></div>
 <p><img src="usage_files/figure-html/tau-1.png" width="672"></p>
