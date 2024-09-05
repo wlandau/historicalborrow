@@ -325,7 +325,23 @@ call on one of the other models.
 
 ## Borrowing metrics
 
-The `hb_metrics()` function shows borrowing metrics like the mean shift ratio and variance shift ratio which require input from benchmark models. The mean shift ratio and variance shift ratio are defined in the methods vignette. Below, we compute these metrics on the hierarchical model.
+The `hb_ess()` metric computes the effective sample size metric described at <https://wlandau.github.io/historicalborrow/articles/methods.html#effective-sample-size-ess>.
+
+```{r}
+hb_ess(
+  mcmc_pool = mcmc_pool,
+  mcmc_hierarchical = mcmc_hierarchical,
+  data = data,
+  response = "outcome",
+  study = "trial",
+  study_reference = "trial3",
+  group = "arm",
+  group_reference = "arm1",
+  patient = "subject"
+)
+```
+
+The `hb_metrics()` function shows legacy borrowing metrics like the mean shift ratio and variance shift ratio which require input from benchmark models. The mean shift ratio and variance shift ratio are defined in the methods vignette. Below, we compute these metrics on the hierarchical model.
 
 ```{r}
 summary_pool <- hb_summary(
