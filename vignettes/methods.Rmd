@@ -201,7 +201,7 @@ The package supports the following metrics to quantify borrowing.
 
 See the `hb_ess()` function for an implementation.
 
-@neuenschwander2010 posit a prior effective sample size metric for meta-analytic predictive (MAP) priors. In the original paper, the underlying hierarchical model only uses historical controls, and the hypothetical new study is the current study of interest. In `historicalborrow`, we adapt this metric to a hierarchical model which also includes both control and treatment data from the current study. We still define $N$ below to be the number of (non-missing) historical control patients so we can still interpret ESS on the same scale.
+@neuenschwander2010 posit a prior effective sample size metric for meta-analytic predictive (MAP) priors. In the original paper, the underlying hierarchical model only uses historical controls, and the hypothetical new study is the current study of interest. In `historicalborrow`, we adapt this metric to a hierarchical model which also includes both control and treatment data from the current study. We still define $N$ below to be the number of (non-missing) historical control patients so we can still interpret ESS on the same scale as in the paper.
 
 For the pooled model, define $V_0$ to be the posterior predictive variance of the control mean $\alpha^*$ of a hypothetical new unobserved study. According to @neuenschwander2010, it can be derived as an average of study-specific variances. In practice, we estimate $V_0$ using the average of MCMC samples of $\frac{1}{\sum \sigma_i^{-2}}$.
 
