@@ -116,7 +116,7 @@ numbers of historical studies, and the user should set a reasonable
 value for the use case, ideally informed by the results of sensitivity
 analyses and simulations.}
 
-\item{prior_tau}{Character string, name of the prior of \code{tau}.
+\item{prior_tau}{Character string, family of the prior of \code{tau}.
 If \code{prior_tau} equals \code{"uniform"}, then the prior on \code{tau} is
 a uniform prior with lower bound 0 and upper bound \code{s_tau}.
 If \code{prior_tau} equals \code{"half_t"}, then the prior on \code{tau} is a

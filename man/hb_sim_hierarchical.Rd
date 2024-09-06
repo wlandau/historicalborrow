@@ -61,7 +61,7 @@ Upper bound on \code{tau} if \code{prior_tau} is \code{"uniform"}.}
 \item{d_tau}{Positive numeric of length 1. Degrees of freedom of the
 Student t prior of \code{tau} if \code{prior_tau} is \code{"half_t"}.}
 
-\item{prior_tau}{Character string, name of the prior of \code{tau}.
+\item{prior_tau}{Character string, family of the prior of \code{tau}.
 If \code{prior_tau} equals \code{"uniform"}, then the prior on \code{tau} is
 a uniform prior with lower bound 0 and upper bound \code{s_tau}.
 If \code{prior_tau} equals \code{"half_t"}, then the prior on \code{tau} is a
