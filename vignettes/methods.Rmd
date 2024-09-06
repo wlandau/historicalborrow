@@ -208,12 +208,14 @@ For the pooled model, define $V_0$ to be the posterior predictive variance of th
 $$
 V_0 := \text{Var}(\alpha^* | y, \tau = 0) = \frac{1}{\sum \sigma_i^{-2}}
 $$
-For the hierarchical model, we define the analogous posterior predictive variance $V_\tau$ using the prior distribution 
+
+For the hierarchical model, we define the analogous posterior predictive variance $V_\tau$ using the prior distribution.
 
 $$
 V_\tau := \text{Var}(\alpha^* | y) = \int E[(\alpha^* - E(\alpha^*|y))^2 | y] \cdot p(\alpha^* | \mu, \tau) \cdot p(\mu, \tau | y) d\mu d\tau
 $$
-This integral implies a straightforward method of estimation using MCMC samples:
+
+The above integral implies a straightforward method of estimating $V_\tau$ using MCMC samples:
 
 1. For each MCMC sample $m = 1, \ldots, M$ from the hierarchical model, identify samples $\mu^{(m)}$ and $\tau^{(m)}$ of $\mu$ and $\tau$, respectively.
 2. Draw $(\alpha^*)^{m}$ from a Normal($\mu^{(m)}$, $(\tau^{(m)})^2$) distribution.
