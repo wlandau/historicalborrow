@@ -1,7 +1,7 @@
-#' @title Prior effective sample size (ESS)
+#' @title Effective sample size (ESS)
 #' @export
 #' @family summary
-#' @description Quantify borrowing with prior effective sample size (ESS)
+#' @description Quantify borrowing with effective sample size (ESS)
 #'   as cited and explained in the methods vignette at
 #'   <https://wlandau.github.io/historicalborrow/articles/methods.html>.
 #' @return A data frame with one row and the following columns:
@@ -18,9 +18,9 @@
 #'     `mu` and `tau` components of an MCMC sample.
 #'   * `n`: number of non-missing historical control patients.
 #'   * `weight`: strength of borrowing as a ratio of variances: `v0 / v_tau`.
-#'   * `ess`: strength of borrowing as a prior effective sample size:
-#'      `n v0 / v_tau`, where `n` is the number of non-missing control
-#'      patients.
+#'   * `ess`: strength of borrowing as an effective sample size:
+#'      `n v0 / v_tau`, where `n` is the number of non-missing historical
+#'      control patients.
 #' @inheritParams hb_data
 #' @param mcmc_pool A fitted model from [hb_mcmc_pool()].
 #' @param mcmc_hierarchical A fitted model from [hb_mcmc_hierarchical()].

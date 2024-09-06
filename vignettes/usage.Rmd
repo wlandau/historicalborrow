@@ -340,7 +340,7 @@ hb_ess(
 )
 ```
 
-The `hb_metrics()` function shows legacy/superseded borrowing metrics like the mean shift ratio (no longer recommended as a borrowing metric) and variance shift ratio which require input from benchmark models. The mean shift ratio and variance shift ratio are defined in the methods vignette. Below, we compute these metrics on the hierarchical model.
+The `hb_metrics()` function shows legacy/superseded borrowing metrics like the mean shift ratio and variance shift ratio which require input from benchmark models. The metrics in `hb_ess()` are preferred over those in `hb_metrics()`, but here is a demonstration of `hb_metrics()` below:
 
 ```{r}
 summary_pool <- hb_summary(

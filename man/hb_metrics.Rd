@@ -24,7 +24,8 @@ Legacy function to calculate
 historical borrowing metrics using
 summary output from a fitted borrowing model and
 analogous summaries from the benchmark models.
-Please use \code{\link[=hb_ess]{hb_ess()}} instead of \code{\link[=hb_metrics]{hb_metrics()}}.
+We recommend \code{\link[=hb_ess]{hb_ess()}} instead of \code{\link[=hb_metrics]{hb_metrics()}}.
+See the methods vignette in the package for details.
 }
 \examples{
 if (!identical(Sys.getenv("HB_TEST", unset = ""), "")) {

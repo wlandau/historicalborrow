@@ -5,7 +5,8 @@
 #'   historical borrowing metrics using
 #'   summary output from a fitted borrowing model and
 #'   analogous summaries from the benchmark models.
-#'   Please use [hb_ess()] instead of [hb_metrics()].
+#'   We recommend [hb_ess()] instead of [hb_metrics()].
+#'   See the methods vignette in the package for details.
 #' @return A data frame with borrowing metrics.
 #' @param pool A data frame returned by [hb_summary()]
 #'   for the pooled model.

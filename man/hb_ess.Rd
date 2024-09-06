@@ -2,7 +2,7 @@
 % Please edit documentation in R/hb_ess.R
 \name{hb_ess}
 \alias{hb_ess}
-\title{Prior effective sample size (ESS)}
+\title{Effective sample size (ESS)}
 \usage{
 hb_ess(
   mcmc_pool,
@@ -69,13 +69,13 @@ where each predictive draw is from
 \code{mu} and \code{tau} components of an MCMC sample.
 \item \code{n}: number of non-missing historical control patients.
 \item \code{weight}: strength of borrowing as a ratio of variances: \code{v0 / v_tau}.
-\item \code{ess}: strength of borrowing as a prior effective sample size:
-\verb{n v0 / v_tau}, where \code{n} is the number of non-missing control
-patients.
+\item \code{ess}: strength of borrowing as an effective sample size:
+\verb{n v0 / v_tau}, where \code{n} is the number of non-missing historical
+control patients.
 }
 }
 \description{
-Quantify borrowing with prior effective sample size (ESS)
+Quantify borrowing with effective sample size (ESS)
 as cited and explained in the methods vignette at
 \url{https://wlandau.github.io/historicalborrow/articles/methods.html}.
 }
