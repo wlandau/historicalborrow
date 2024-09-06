@@ -516,14 +516,17 @@ using the average of MCMC samples of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mn>1</mn><mrow><mo>∑</mo><msubsup><mi>σ</mi><mi>i</mi><mrow><mo>−</mo><mn>2</mn></mrow></msubsup></mrow></mfrac><annotation encoding="application/x-tex">\frac{1}{\sum \sigma_i^{-2}}</annotation></semantics></math>.</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mn>0</mn></msub><mo>:=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo>,</mo><mi>τ</mi><mo>=</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mrow><mo>∑</mo><msubsup><mi>σ</mi><mi>i</mi><mrow><mo>−</mo><mn>2</mn></mrow></msubsup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 V_0 := \text{Var}(\alpha^* | y, \tau = 0) = \frac{1}{\sum \sigma_i^{-2}}
-</annotation></semantics></math> For the hierarchical model, we define
-the analogous posterior predictive variance
+</annotation></semantics></math></p>
+<p>For the hierarchical model, we define the analogous posterior
+predictive variance
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">V_\tau</annotation></semantics></math>
-using the prior distribution</p>
+using the prior distribution.</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>τ</mi></msub><mo>:=</mo><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>∫</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo>−</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo stretchy="true" form="postfix">|</mo></mrow><mi>y</mi><mo stretchy="true" form="postfix">]</mo></mrow><mo>⋅</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>α</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">|</mo><mi>μ</mi><mo>,</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>μ</mi><mo>,</mo><mi>τ</mi><mo stretchy="false" form="prefix">|</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>d</mi><mi>μ</mi><mi>d</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">
 V_\tau := \text{Var}(\alpha^* | y) = \int E[(\alpha^* - E(\alpha^*|y))^2 | y] \cdot p(\alpha^* | \mu, \tau) \cdot p(\mu, \tau | y) d\mu d\tau
-</annotation></semantics></math> This integral implies a straightforward
-method of estimation using MCMC samples:</p>
+</annotation></semantics></math></p>
+<p>The above integral implies a straightforward method of estimating
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mi>τ</mi></msub><annotation encoding="application/x-tex">V_\tau</annotation></semantics></math>
+using MCMC samples:</p>
 <ol style="list-style-type: decimal">
 <li>For each MCMC sample
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">m = 1, \ldots, M</annotation></semantics></math>
