@@ -17,7 +17,7 @@
 #'   * `matrices`: A named list of model matrices.
 #'     See the model specification vignette for details.
 #' @inheritParams hb_sim_pool
-#' @param prior_tau Character string, name of the prior of `tau`.
+#' @param prior_tau Character string, family of the prior of `tau`.
 #'   If `prior_tau` equals `"uniform"`, then the prior on `tau` is
 #'   a uniform prior with lower bound 0 and upper bound `s_tau`.
 #'   If `prior_tau` equals `"half_t"`, then the prior on `tau` is a
@@ -99,7 +99,7 @@ hb_sim_hierarchical <- function(
     }
   }
   true(tau, is.numeric(.), is.finite(.), length(.) == 1, . > 0)
-  alpha <- if (is.null(alpha)) {
+  if (is.null(alpha)) {
     alpha <- stats::rnorm(n = n_study, mean = mu, sd = tau)
   }
   true(alpha, is.finite(.), length(.) == n_study)
