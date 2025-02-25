@@ -8,8 +8,8 @@
 <title>Methods • historicalborrow</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Methods">
 </head>
 <body>
@@ -495,7 +495,7 @@ from this model.</p>
 <h3 id="effective-sample-size-ess">Effective sample size (ESS)<a class="anchor" aria-label="anchor" href="#effective-sample-size-ess"></a>
 </h3>
 <p>See the <code><a href="../reference/hb_ess.html">hb_ess()</a></code> function for an implementation.</p>
-<p><span class="citation">Neuenschwander et al. (2006)</span> posit a
+<p><span class="citation">Neuenschwander et al. (2010)</span> posit a
 prior effective sample size metric for meta-analytic predictive (MAP)
 priors. In the original paper, the underlying hierarchical model only
 uses historical controls, and the hypothetical new study is the current
@@ -509,7 +509,7 @@ we can still interpret ESS on the same scale as in the paper.</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mn>0</mn></msub><annotation encoding="application/x-tex">V_0</annotation></semantics></math>
 to be the posterior predictive variance of the control mean
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>α</mi><mo>*</mo></msup><annotation encoding="application/x-tex">\alpha^*</annotation></semantics></math>
-of a hypothetical new unobserved study. According to <span class="citation">Neuenschwander et al. (2006)</span>, it can be derived
+of a hypothetical new unobserved study. According to <span class="citation">Neuenschwander et al. (2010)</span>, it can be derived
 as an average of study-specific variances. In practice, we estimate
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mn>0</mn></msub><annotation encoding="application/x-tex">V_0</annotation></semantics></math>
 using the average of MCMC samples of
@@ -687,9 +687,9 @@ Lsmeans.”</span> <em>Journal of Statistical Software</em> 69 (1): 1–33.
 </div>
 <div id="ref-neuenschwander2010" class="csl-entry">
 Neuenschwander, B., G. Capkun-Niggli, M. Branson, and D. J.
-Spiegelhalter. 2006. <span>“Summarizing Historical Information on
-Controls in Clinical Trials.”</span> <em><span>B</span>ayesian
-<span>A</span>nalysis</em> 1 (3): 515–43. <a href="https://doi.org/10.1214/06-BA117A" class="external-link">https://doi.org/10.1214/06-BA117A</a>.
+Spiegelhalter. 2010. <span>“Summarizing Historical Information on
+Controls in Clinical Trials.”</span> <em><span>C</span>linical
+<span>T</span>rials</em> 7 (1): 5–18. <a href="https://doi.org/10.1177/1740774509356002" class="external-link">https://doi.org/10.1177/1740774509356002</a>.
 </div>
 </div>
 </div>
@@ -704,7 +704,7 @@ Controls in Clinical Trials.”</span> <em><span>B</span>ayesian
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
