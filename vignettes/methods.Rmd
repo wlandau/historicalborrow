@@ -54,11 +54,11 @@ $$
 
 Above, $X_\alpha$, $X_\delta$, and $X_\beta$ are fixed matrices. $X_\beta$ is a conventional model matrix for the baseline covariates $\beta$, and the details are explained in the "Baseline covariates" section below. $X_\alpha$ is a matrix of zeroes and ones. It is constructed such that each scalar component of $\alpha$ is the mean response of the control group in a particular study. Likewise, $X_\delta$ is a matrix of zeroes and ones such that each scalar component of $\delta$ is the mean response of a non-control treatment group in a particular study.
 
-To illustrate, let $y_{ijk}$ be patient $i$ in treatment group $j$ (where $j = 1$ is the control group) of study $k$, and let $\left ( X_\beta \beta \right )_{ijk}$ be the corresponding scalar element of the vector $X_\beta \beta$. Then,
+To illustrate, let $y_{ijk}$ be the response of patient $k$ in study $i$ in treatment group $j$ (where $j = 1$ is the control group), and let $\left ( X_\beta \beta \right )_{ijk}$ be the corresponding scalar element of the vector $X_\beta \beta$. Then,
 
 $$
 \begin{aligned}
-E(y_{ijk}) = I (j = 1) \alpha_{k} + I (j > 1) \delta_{jk} + \left ( X_\beta \beta \right )_{ijk}
+E(y_{ijk}) = I (j = 1) \alpha_{i} + I (j > 1) \delta_{ij} + \left ( X_\beta \beta \right )_{ijk}
 \end{aligned}
 $$
 
