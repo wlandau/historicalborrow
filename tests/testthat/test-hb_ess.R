@@ -7,16 +7,16 @@ test_that("hb_ess()", {
   pool <- hb_mcmc_pool(
     data,
     n_chains = 1,
-    n_adapt = 100,
-    n_warmup = 50,
-    n_iterations = 50
+    n_adapt = 1000,
+    n_warmup = 500,
+    n_iterations = 1000
   )
   hierarchical <- hb_mcmc_hierarchical(
     data,
     n_chains = 1,
-    n_adapt = 100,
-    n_warmup = 50,
-    n_iterations = 50
+    n_adapt = 1000,
+    n_warmup = 500,
+    n_iterations = 1000
   )
   out <- hb_ess(
     mcmc_pool = pool,
