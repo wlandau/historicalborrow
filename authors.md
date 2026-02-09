@@ -15,13 +15,13 @@ Source:
 [`DESCRIPTION`](https://github.com/wlandau/historicalborrow/blob/main/DESCRIPTION)
 
 Landau WM (2026). *historicalborrow: Non-Longitudinal Bayesian
-Historical Borrowing Models*. R package version 1.1.0.9000,
+Historical Borrowing Models*. R package version 1.1.1,
 <https://wlandau.github.io/historicalborrow/>.
 
     @Manual{,
       title = {historicalborrow: Non-Longitudinal Bayesian Historical Borrowing Models},
       author = {William Michael Landau},
       year = {2026},
-      note = {R package version 1.1.0.9000},
+      note = {R package version 1.1.1},
       url = {https://wlandau.github.io/historicalborrow/},
     }

@@ -1,6 +1,12 @@
 # Changelog
 
-## historicalborrow 1.1.0.9000 (development)
+## historicalborrow 1.1.1
+
+- Run
+  [`hb_ess()`](https://wlandau.github.io/historicalborrow/reference/hb_ess.md)
+  tests longer in preparation for JAGS 5.0.0
+  ([\#11](https://github.com/wlandau/historicalborrow/issues/11),
+  [@martynplummer](https://github.com/martynplummer)).
 
 ## historicalborrow 1.1.0
 
