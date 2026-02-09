@@ -12,7 +12,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/wlandau/historicalborrow/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/wlandau/historicalborrow/blob/1.1.1/DESCRIPTION)
 
 Landau WM (2026). *historicalborrow: Non-Longitudinal Bayesian
 Historical Borrowing Models*. R package version 1.1.1,
