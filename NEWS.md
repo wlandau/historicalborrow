@@ -1,6 +1,6 @@
-# historicalborrow 1.1.0.9000 (development)
+# historicalborrow 1.1.1
 
-
+* Run `hb_ess()` tests longer in preparation for JAGS 5.0.0 (#11, @martynplummer).
 
 # historicalborrow 1.1.0
 
